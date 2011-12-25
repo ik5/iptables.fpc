@@ -431,15 +431,33 @@ function iptc_check_entry(chain     : ipt_chainlabel;
 function iptc_delete_entry(chain     : ipt_chainlabel;
                            matchmask : PChar;
                            handle    : piptc_handle)    : cint;
-  cdecl; external IPTC_LIBRARY;
-
+ cdecl; external IPTC_LIBRARY;
 
 {
-/* Delete the rule in position `rulenum' in `chain'. */
-int iptc_delete_num_entry(const ipt_chainlabel chain,
-			  unsigned int rulenum,
-			  struct iptc_handle *handle);
+* Usage:
+   Delete a rule in a chain.
 
+* Description:
+   This function delete the entry rule in chain chain positioned at rulenum. Rule numbers start at 1 for the first rule.
+
+* Parameters:
+   - chain is a char pointer to the name of the chain to be modified;
+   - rulenum is an integer value defined the position in the chain of rules where the rule will be deleted.
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   - Returns integer value 1 (true) if successful;
+   - returns integer value 0 (false) if fails. In this case errno is set to the error number generated.
+
+   Use iptc_strerror to get a meaningful information about the problem.
+   If errno = 0, it means there was a version error (ie. upgrade libiptc).
+}
+function iptc_delete_num_entry(chain   : ipt_chainlabel;
+                               rulenum : cuint;
+                               handle  : piptc_handle)   : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
 /* Check the packet `e' on chain `chain'.  Returns the verdict, or
    NULL and sets errno. */
 const char *iptc_check_packet(const ipt_chainlabel chain,

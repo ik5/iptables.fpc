@@ -25,6 +25,23 @@ const
   IPTC_LABEL_RETURN = 'RETURN';
 
 {
+* Usage:
+   Check if a chain exists.
+
+* Description:
+   This function checks to see if the chain described in the parameter chain exists in the table.
+
+* Parameters:
+   - chain is a char pointer containing the name of the chain we want to check to.
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   integer value 1 (true) if the chain exists; integer value 0 (false) if the chain does not exist.
+}
+function iptc_is_chain(chain : PChar; handle : piptc_handle) : cint;
+  cdecl; external IPTC_LIBRARY;
+
+{
 /* Does this chain exist? */
 int iptc_is_chain(const char *chain, struct iptc_handle *const handle);
 

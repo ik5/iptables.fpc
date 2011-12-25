@@ -114,7 +114,8 @@ const
    - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
 
 * Returns:
-   integer value 1 (true) if the chain exists; integer value 0 (false) if the chain does not exist.
+   - integer value 1 (true) if the chain exists;
+   - integer value 0 (false) if the chain does not exist.
 }
 function iptc_is_chain(chain : PChar; handle : piptc_handle) : cint;
  cdecl; external IPTC_LIBRARY;
@@ -132,7 +133,7 @@ function iptc_is_chain(chain : PChar; handle : piptc_handle) : cint;
 * Returns:
    Pointer to a structure of type iptc_handle_t that must be used as main parameter for the rest of functions we will call from libiptc.
    iptc_init returns the pointer to the structure or NULL if it fails.
-   If this happens you can invoke iptc_strerror to get information about the error. See below.
+   If this happens you can invoke iptc_strerror to get information about the error.
 }
 function iptc_init(tablename : PChar) : piptc_handle;
  cdecl; external IPTC_LIBRARY;
@@ -194,7 +195,7 @@ function iptc_next_chain(handle : piptc_handle) : PChar;
    - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
 
 * Returns:
-   Returns a pointer to an ipt_entry structure containing information about the first rule of the chain. See below for an explanation of this structure.
+   Returns a pointer to an ipt_entry structure containing information about the first rule of the chain.
 }
 function iptc_first_rule(chain : PChar; handle : piptc_handle) : pipt_entry;
  cdecl; external IPTC_LIBRARY;
@@ -213,7 +214,7 @@ function iptc_first_rule(chain : PChar; handle : piptc_handle) : pipt_entry;
    - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
 
 * Returns:
-   Returns a pointer to an ipt_entry structure containing information about the next rule of the chain. See below for an explanation of this structure.
+   Returns a pointer to an ipt_entry structure containing information about the next rule of the chain.
 }
 function iptc_next_rule (prev : pipt_entry; handle : piptc_handle) : pipt_entry;
  cdecl; external IPTC_LIBRARY;
@@ -232,16 +233,31 @@ function iptc_next_rule (prev : pipt_entry; handle : piptc_handle) : pipt_entry;
 * Parameters:
    - e is a pointer to a structure of type ipt_entry that must be obtained first by a previous call to the function iptc_first_rule or the function iptc_next_rule. handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
 
-Returns: Returns a char pointer to the target name. See Description above for more information.
+* Returns:
+   Returns a char pointer to the target name. See Description above for more information.
 }
 function iptc_get_target(e : pipt_entry; handle : piptc_handle) : PChar;
  cdecl; external IPTC_LIBRARY;
 
 {
+* Usage:
+   Is this a built-in chain?
 
-/* Is this a built-in chain? */
-int iptc_builtin(const char *chain, struct iptc_handle *const handle);
+* Description:
+    This function is used to check if a given chain name is a built-in chain or not.
 
+* Parameters:
+   - chain is a char pointer containing the name of the chain we want to check to.
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   - Returns integer value 1 (true) if the given chain name is the name of a builtin chain;
+   - returns integer value 0 (false) is not.
+}
+function iptc_builtin(chain : PChar; handle : piptc_handle) : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
 /* Get the policy of a given built-in chain */
 const char *iptc_get_policy(const char *chain,
 			    struct ipt_counters *counter,

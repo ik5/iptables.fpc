@@ -522,19 +522,71 @@ function iptc_zero_entries(chain : ipt_chainlabel; handle : piptc_handle) : cint
  cdecl; external IPTC_LIBRARY;
 
 {
-/* Creates a new chain. */
-int iptc_create_chain(const ipt_chainlabel chain,
-		      struct iptc_handle *handle);
+* Usage:
+   Create a new chain.
 
-/* Deletes a chain. */
-int iptc_delete_chain(const ipt_chainlabel chain,
-		      struct iptc_handle *handle);
+* Description:
+   This function create a new chain in the table.
 
-/* Renames a chain. */
-int iptc_rename_chain(const ipt_chainlabel oldname,
-		      const ipt_chainlabel newname,
-		      struct iptc_handle *handle);
+* Parameters:
+   - chain is a char pointer to the name of the chain to be created;
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
 
+* Returns:
+   - Returns integer value 1 (true) if successful;
+   - returns integer value 0 (false) if fails. In this case errno is set to the error number generated.
+
+   Use iptc_strerror to get a meaningful information about the problem.
+   If errno = 0, it means there was a version error (ie. upgrade libiptc).
+}
+function iptc_create_chain(chain : ipt_chainlabel; handle : piptc_handle) : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
+* Usage:
+   Delete a chain.
+
+* Description:
+   This function delete the chain identified by the char pointer chain in the table.
+
+* Parameters:
+   - chain is a char pointer to the name of the chain to be deleted;
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   - Returns integer value 1 (true) if successful;
+   - returns integer value 0 (false) if fails. In this case errno is set to the error number generated.
+
+   Use iptc_strerror to get a meaningful information about the problem.
+   If errno = 0, it means there was a version error (ie. upgrade libiptc)
+}
+function iptc_delete_chain(chain : ipt_chainlabel; handle : piptc_handle) : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
+* Usage:
+   Rename a chain.
+
+* Description:
+   This function rename the chain identified by the char pointer oldname to a new name newname in the table.
+
+* Parameters:
+   - oldname is a char pointer to the name of the chain to be renamed
+   - newname is the new name;
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   - Returns integer value 1 (true) if successful;
+   - returns integer value 0 (false) if fails. In this case errno is set to the error number generated.
+
+   Use iptc_strerror to get a meaningful information about the problem.
+   If errno = 0, it means there was a version error (ie. upgrade libiptc).
+}
+function iptc_rename_chain(oldname, newname : ipt_chainlabel;
+                           handle           : piptc_handle);  : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
 /* Sets the policy on a built-in chain. */
 int iptc_set_policy(const ipt_chainlabel chain,
 		    const ipt_chainlabel policy,

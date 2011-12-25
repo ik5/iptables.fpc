@@ -2,6 +2,9 @@
 
 Documentation arrived from the following web-site:
   http://opalsoft.net/qos/libiptc/qfunction.html
+
+IP_TABLES - symbole is to use the header instead of inline code ...
+X_TABLES  - symboles for some netfilter headers ...
 }
 
 unit lipip4tc;
@@ -11,7 +14,16 @@ unit lipip4tc;
 interface
 
 uses
-  ctypes;
+  ctypes
+  {$IFDEF IP_TABLES}
+    , ip_tables
+  {$ELSE}
+    , Sockets
+  {$ENDIF}
+  {$IFDEF X_TABLES}
+    , x_tables
+  {$ENDIF}
+  ;
 
 const
   IPTC_LIBRARY = 'libip4tc';
@@ -23,6 +35,38 @@ type
 
   ipt_chainlabel  = array[0..31] of char;
   tipt_chainlabel = ipt_chainlabel;
+
+{$IFNDEF X_TABLES}
+type
+
+{$ENDIF}
+
+{$IFNDEF IP_TABLES}
+const
+  IFNAMSIZ = 16;
+
+type
+  pipt_ip = ^ipt_ip;
+  ipt_ip  = record
+    // Source and Destition IP addr
+    src,   dst    : in_addr;
+    // Mask for src and dest IP addr
+    smask, dmask  : in_addr;
+    iniface,
+    outiface      : array[0..IFNAMSIZ-1] of Char;
+    iniface_mask,
+    outiface_mask : array[0..IFNAMSIZ-1] of Byte;
+	  // Protocol, 0 = ANY
+    proto         : cuint16;
+	  // Flags word
+    flags         : cuint8;
+    // Inverse flags
+    invflags      : cuint8;
+  end;
+  tipt_ip = ipt_ip;
+
+
+{$ENDIF}
 
 const
   IPTC_LABEL_ACCEPT = 'ACCEPT';

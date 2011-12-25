@@ -6,3 +6,4 @@ packages/libnotify_pkg.pas
 */*.lpi
 */*.ico
 */*.res
+*/*.lps

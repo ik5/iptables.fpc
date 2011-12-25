@@ -71,6 +71,29 @@ type
   pipt_counters = ^ipt_counters;
   ipt_counters  = xt_counters;
   tipt_counters = ipt_counters;
+
+{ This structure defines each of the firewall rules.  Consists of 3
+  parts which are 1) general IP header stuff 2) match specific
+  stuff 3) the target to perform if the rule matches }
+
+  pipt_entry = ^ipt_entry;
+  ipt_entry  = record
+    ip            : ipt_ip;
+    // Mark with fields that we care about.
+    nfcache       : cuint;
+    // Size of ipt_entry + matches
+    target_offset : cuint16;
+    // Size of ipt_entry + matches + target
+    next_offset   : cuint16;
+    // Back pointer
+    comefrom      : cuint;
+    // Packet and byte counters.
+    counters      : xt_counters;
+    // The matches (if any), then the target.
+    elems         : array[0..0] of Char;
+  end;
+  tipt_entry = ipt_entry;
+
 {$ENDIF}
 
 const

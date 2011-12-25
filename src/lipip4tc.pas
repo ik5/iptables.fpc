@@ -335,12 +335,35 @@ function iptc_insert_entry(chain   : ipt_chainlabel;
  cdecl; external IPTC_LIBRARY;
 
 {
-/* Atomically replace rule `rulenum' in `chain' with `e'. */
-int iptc_replace_entry(const ipt_chainlabel chain,
-		       const struct ipt_entry *e,
-		       unsigned int rulenum,
-		       struct iptc_handle *handle);
+* Usage:
+   Replace an old rule in a chain with a new one.
 
+* Description:
+   This function replace the entry rule in chain chain positioned at rulenum with the rule defined in structure type ipt_entry.
+   Rule numbers start at 1 for the first rule.
+
+* Parameters:
+   - chain is a char pointer to the name of the chain to be modified;
+   - e is a pointer to a structure of type ipt_entry that contains information about the rule to be inserted.
+     The programmer must fill the fields of this structure with values required to define his or her rule before
+     passing the pointer as parameter to the function.
+   - rulenum is an integer value defined the position in the chain of rules where the old rule will be replaced by the new one.
+     Rule numbers start at 1 for the first rule.
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   - Returns integer value 1 (true) if successful;
+   - returns integer value 0 (false) if fails. In this case errno is set to the error number generated.
+
+   Use iptc_strerror to get a meaningful information about the problem.
+   If errno = 0, it means there was a version error (ie. upgrade libiptc).
+}
+function iptc_replace_entry(chain   : ipt_chainlabel;
+                            e       : pipt_entry;
+                            rulenum : cuint;
+                            handle  : piptc_handle)  : cint;
+
+{
 /* Append entry `e' to chain `chain'.  Equivalent to insert with
    rulenum = length of chain. */
 int iptc_append_entry(const ipt_chainlabel chain,

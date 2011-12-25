@@ -7,16 +7,24 @@ interface
 uses
   ctypes;
 
+const
+  IPTC_LIBRARY = 'libip4tc';
+
+type
+  piptc_handle = ^iptc_handle;
+  iptc_handle  = record end;
+  tiptc_handle = iptc_handle;
+
+  ipt_chainlabel  = array[0..31] of char;
+  tipt_chainlabel = ipt_chainlabel;
+
+const
+  IPTC_LABEL_ACCEPT = 'ACCEPT';
+  IPTC_LABEL_DROP   = 'DROP';
+  IPTC_LABEL_QUEUE  = 'QUEUE';
+  IPTC_LABEL_RETURN = 'RETURN';
+
 {
-struct iptc_handle;
-
-typedef char ipt_chainlabel[32];
-
-#define IPTC_LABEL_ACCEPT  "ACCEPT"
-#define IPTC_LABEL_DROP    "DROP"
-#define IPTC_LABEL_QUEUE   "QUEUE"
-#define IPTC_LABEL_RETURN  "RETURN"
-
 /* Does this chain exist? */
 int iptc_is_chain(const char *chain, struct iptc_handle *const handle);
 

@@ -1,3 +1,9 @@
+{
+
+Documentation arrived from the following web-site:
+  http://opalsoft.net/qos/libiptc/qfunction.html
+}
+
 unit lipip4tc;
 
 {$mode fpc}{$packrecords c}
@@ -42,12 +48,24 @@ function iptc_is_chain(chain : PChar; handle : piptc_handle) : cint;
   cdecl; external IPTC_LIBRARY;
 
 {
-/* Does this chain exist? */
-int iptc_is_chain(const char *chain, struct iptc_handle *const handle);
+* Usage:
+   Takes a snapshot of the rules.
 
-/* Take a snapshot of the rules.  Returns NULL on error. */
-struct iptc_handle *iptc_init(const char *tablename);
+* Description:
+   This function must be called as initiator before any other function can be called.
 
+* Parameters:
+   - tablename is the name of the table we need to query and/or modify; this could be filter, mangle, nat, etc.
+
+* Returns:
+   Pointer to a structure of type iptc_handle_t that must be used as main parameter for the rest of functions we will call from libiptc.
+   iptc_init returns the pointer to the structure or NULL if it fails.
+   If this happens you can invoke iptc_strerror to get information about the error. See below.
+}
+function iptc_init(tablename : PChar) : piptc_handle;
+  cdecl; external IPTC_LIBRARY;
+
+{
 /* Cleanup after iptc_init(). */
 void iptc_free(struct iptc_handle *h);
 

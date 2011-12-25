@@ -45,7 +45,7 @@ const
    integer value 1 (true) if the chain exists; integer value 0 (false) if the chain does not exist.
 }
 function iptc_is_chain(chain : PChar; handle : piptc_handle) : cint;
-  cdecl; external IPTC_LIBRARY;
+ cdecl; external IPTC_LIBRARY;
 
 {
 * Usage:
@@ -63,12 +63,22 @@ function iptc_is_chain(chain : PChar; handle : piptc_handle) : cint;
    If this happens you can invoke iptc_strerror to get information about the error. See below.
 }
 function iptc_init(tablename : PChar) : piptc_handle;
-  cdecl; external IPTC_LIBRARY;
+ cdecl; external IPTC_LIBRARY;
 
 {
-/* Cleanup after iptc_init(). */
-void iptc_free(struct iptc_handle *h);
+* Usage:
+   Free snapshot that was taken by iptc_init
 
+* Description:
+   This procedure must be called to free a snapshot that was initialized by iptc_init, when the usage is completed.
+
+* Parameters:
+   - h is the pointer for the given snapshot.
+}
+procedure iptc_free(h : piptc_handle);
+ cdecl; external IPTC_LIBRARY;
+
+{
 /* Iterator functions to run through the chains.  Returns NULL at end. */
 const char *iptc_first_chain(struct iptc_handle *handle);
 const char *iptc_next_chain(struct iptc_handle *handle);

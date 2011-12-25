@@ -458,12 +458,28 @@ function iptc_delete_num_entry(chain   : ipt_chainlabel;
  cdecl; external IPTC_LIBRARY;
 
 {
-/* Check the packet `e' on chain `chain'.  Returns the verdict, or
-   NULL and sets errno. */
-const char *iptc_check_packet(const ipt_chainlabel chain,
-			      struct ipt_entry *entry,
-			      struct iptc_handle *handle);
+* Usage:
+   Check the packet `e' on chain `chain'.  Returns the verdict, or NULL and sets errno.
 
+* Description:
+   Check the packet `e' on chain `chain'.  Returns the verdict, or NULL and sets errno.
+
+* Parameters:
+   - chain is a char pointer to the name of the chain to be checked.
+   - entry is a pointer to a structure of type ipt_entry that contains information about the rule to be chcked
+     The programmer must fill the fields of this structure with values required to define his or her rule before
+     passing the pointer as parameter to the function.
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   Return the verdict of the check or null with errno set.
+}
+function iptc_check_packet(chain  : ipt_chainlabel;
+                           entry  : pipt_entry;
+                           handle : piptc_handle)   : PChar;
+ cdecl; external IPTC_LIBRARY;
+
+{
 /* Flushes the entries in the given chain (ie. empties chain). */
 int iptc_flush_entries(const ipt_chainlabel chain,
 		       struct iptc_handle *handle);

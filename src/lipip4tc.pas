@@ -362,6 +362,7 @@ function iptc_replace_entry(chain   : ipt_chainlabel;
                             e       : pipt_entry;
                             rulenum : cuint;
                             handle  : piptc_handle)  : cint;
+ cdecl; external IPTC_LIBRARY;
 
 {
 /* Append entry `e' to chain `chain'.  Equivalent to insert with

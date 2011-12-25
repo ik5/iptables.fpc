@@ -613,39 +613,142 @@ function iptc_set_policy(chain, policy : ipt_chainlabel;
                          counters      : pipt_counters;
                          handle        : piptc_handle)  : cint;
  cdecl; external IPTC_LIBRARY;
+
 {
-/* Get the number of references to this chain */
-int iptc_get_references(unsigned int *ref,
-			const ipt_chainlabel chain,
-			struct iptc_handle *handle);
-
-/* read packet and byte counters for a specific rule */
-struct ipt_counters *iptc_read_counter(const ipt_chainlabel chain,
-				       unsigned int rulenum,
-				       struct iptc_handle *handle);
-
-/* zero packet and byte counters for a specific rule */
-int iptc_zero_counter(const ipt_chainlabel chain,
-		      unsigned int rulenum,
-		      struct iptc_handle *handle);
-
-/* set packet and byte counters for a specific rule */
-int iptc_set_counter(const ipt_chainlabel chain,
-		     unsigned int rulenum,
-		     struct ipt_counters *counters,
-		     struct iptc_handle *handle);
-
-/* Makes the actual changes. */
-int iptc_commit(struct iptc_handle *handle);
-
-/* Get raw socket. */
-int iptc_get_raw_socket(void);
-
-/* Translates errno numbers into more human-readable form than strerror. */
-const char *iptc_strerror(int err);
-
-extern void dump_entries(struct iptc_handle *const);
+  Get the number of refrences to this chain
 }
+function iptc_get_references(ref    : pcuint;
+                             chain  : ipt_chainlabel;
+                             handle : piptc_handle)    : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
+* Usage:
+   Read counters of a rule in a chain.
+
+* Description:
+   This function read and returns packet and byte counters of the entry rule in chain chain positioned at rulenum.
+   Counters are returned in a pointer to a type structure ipt_counters. Rule numbers start at 1 for the first rule.
+
+* Parameters:
+   - chain is a char pointer to the name of the chain to be readed;
+   - rulenum is an integer value defined the position in the chain of rules of the rule which counters will be read.
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   Returns a pointer to an ipt_counters structure containing the byte and packet counters readed.
+}
+function iptc_read_counter(chain   : ipt_chainlabel;
+                           rulenum : cuint;
+                           handle  : piptc_handle)    : pipt_counters;
+ cdecl; external IPTC_LIBRARY;
+
+{
+* Usage:
+   Zero counters of a rule in a chain.
+
+* Description:
+   This function zero packet and byte counters of the entry rule in chain chain positioned at rulenum.
+   Rule numbers start at 1 for the first rule.
+
+* Parameters:
+   - chain is a char pointer to the name of the chain to be modified;
+   - rulenum is an integer value defined the position in the chain of rules of the rule which counters will be zero.
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   - Returns integer value 1 (true) if successful;
+   - returns integer value 0 (false) if fails. In this case errno is set to the error number generated.
+
+   Use iptc_strerror to get a meaningful information about the problem.
+   If errno = 0, it means there was a version error (ie. upgrade libiptc).
+}
+function iptc_zero_counter(chain   : ipt_chainlabel;
+                           rulenum : cuint;
+                           handle  : piptc_handle)   : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
+* Usage:
+   Set counters of a rule in a chain.
+
+* Description:
+   This function set packet and byte counters of the entry rule in chain chain positioned at rulenum with
+   values passed in a type structure ipt_counters. Rule numbers start at 1 for the first rule.
+
+* Parameters:
+   - chain is a char pointer to the name of the chain to be modified;
+   - rulenum is an integer value defined the position in the chain of rules of the rule which counters will be set.
+   - counters is a pointer to an ipt_counters structure to be used to set the counters of the rule;
+     the programmer must fill the fields of this structure with values to be set.
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   - Returns integer value 1 (true) if successful;
+   - returns integer value 0 (false) if fails. In this case errno is set to the error number generated.
+
+   Use iptc_strerror to get a meaningful information about the problem.
+   If errno = 0, it means there was a version error (ie. upgrade libiptc).
+}
+function iptc_set_counter(chain    : ipt_chainlabel;
+                          rulenum  : cuint;
+                          counters : pipt_counters;
+                          handle   : piptc_handle)   : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
+* Usage:
+   Makes the actual changes.
+
+* Description:
+   The tables that you change are not written back until the iptc_commit() function is called.
+   This means it is possible for two library users operating on the same chain to race each other;
+   locking would be required to prevent this, and it is not currently done.
+   There is no race with counters, however; counters are added back in to the kernel in such a way that counter
+   increments between the reading and writing of the table still show up in the new table.
+   To protect the status of the system you must commit your changes.
+
+* Parameters:
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   - Returns integer value 1 (true) if successful;
+   - returns integer value 0 (false) if fails. In this case errno is set to the error number generated.
+
+   Use iptc_strerror to get a meaningful information about the problem.
+   If errno = 0, it means there was a version error (ie. upgrade libiptc).
+}
+function iptc_commit(handle : piptc_handle) : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
+ Get raw socket.
+}
+function iptc_get_raw_socket : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
+* Usage:
+   Translates error numbers into more human-readable form.
+
+* Description:
+   This function returns a more meaningful explanation of a failure code in the iptc library.
+   If a function fails, it will always set errno. This value can be passed to iptc_strerror() to yield an error message.
+
+* Parameters:
+   - err is an integer indicating the error number.
+
+* Returns:
+   Char pointer containing the error description.
+}
+function iptc_strerror(err : cint) : PChar;
+ cdecl; external IPTC_LIBRARY;
+
+{
+  print connection information on screen
+}
+procedure dump_entries(handle : piptc_handle);
+ cdecl; external IPTC_LIBRARY;
 
 implementation
 

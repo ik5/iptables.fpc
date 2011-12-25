@@ -480,14 +480,48 @@ function iptc_check_packet(chain  : ipt_chainlabel;
  cdecl; external IPTC_LIBRARY;
 
 {
-/* Flushes the entries in the given chain (ie. empties chain). */
-int iptc_flush_entries(const ipt_chainlabel chain,
-		       struct iptc_handle *handle);
+* Usage:
+   Empty a chain.
 
-/* Zeroes the counters in a chain. */
-int iptc_zero_entries(const ipt_chainlabel chain,
-		      struct iptc_handle *handle);
+* Description:
+   This function flushes the rule entries in the given chain (ie. empties chain).
 
+* Parameters:
+   - chain is a char pointer to the name of the chain to be flushed;
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   - Returns integer value 1 (true) if successful;
+   - returns integer value 0 (false) if fails. In this case errno is set to the error number generated.
+
+   Use iptc_strerror to get a meaningful information about the problem.
+   If errno = 0, it means there was a version error (ie. upgrade libiptc).
+}
+function iptc_flush_entries(chain : ipt_chainlabel; handle : piptc_handle) : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
+* Usage:
+   Zeroes the chain counters.
+
+* Description:
+   This function zeroes the counters in the given chain.
+
+* Parameters:
+   - chain is a char pointer to the name of the chain which counters will be zero;
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   - Returns integer value 1 (true) if successful;
+   - returns integer value 0 (false) if fails. In this case errno is set to the error number generated.
+
+   Use iptc_strerror to get a meaningful information about the problem.
+   If errno = 0, it means there was a version error (ie. upgrade libiptc).
+}
+function iptc_zero_entries(chain : ipt_chainlabel; handle : piptc_handle) : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
 /* Creates a new chain. */
 int iptc_create_chain(const ipt_chainlabel chain,
 		      struct iptc_handle *handle);

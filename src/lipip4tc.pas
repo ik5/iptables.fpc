@@ -79,10 +79,38 @@ procedure iptc_free(h : piptc_handle);
  cdecl; external IPTC_LIBRARY;
 
 {
-/* Iterator functions to run through the chains.  Returns NULL at end. */
-const char *iptc_first_chain(struct iptc_handle *handle);
-const char *iptc_next_chain(struct iptc_handle *handle);
+* Usage:
+   Iterator functions to run through the chains.
 
+* Description:
+   This function returns the first chain name in the table.
+
+* Parameters:
+   - Pointer to a structure of type iptc_handle that was obtained by a previous call to iptc_init.
+
+* Returns:
+   Char pointer to the name of the chain.
+}
+function iptc_first_chain(handle : piptc_handle) : PChar;
+ cdecl; external IPTC_LIBRARY;
+
+{
+* Usage:
+   Iterator functions to run through the chains.
+
+* Description:
+   This function returns the next chain name in the table; NULL means no more chains.
+
+* Parameters:
+   - Pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   Char pointer to the name of the chain.
+}
+function iptc_next_chain(handle : piptc_handle) : PChar;
+ cdecl; external IPTC_LIBRARY;
+
+{
 /* Get first rule in the given chain: NULL for empty chain. */
 const struct ipt_entry *iptc_first_rule(const char *chain,
 					struct iptc_handle *handle);

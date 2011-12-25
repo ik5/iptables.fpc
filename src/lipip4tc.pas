@@ -80,7 +80,7 @@ type
     iniface,
     outiface      : array[0..IFNAMSIZ-1] of Char;
     iniface_mask,
-    outiface_mask : array[0..IFNAMSIZ-1] of Byte;
+    outiface_mask : array[0..IFNAMSIZ-1] of Char;
 	  // Protocol, 0 = ANY
     proto         : cuint16;
 	  // Flags word
@@ -391,19 +391,50 @@ function iptc_append_entry(chain  : ipt_chainlabel;
  cdecl; external IPTC_LIBRARY;
 
 {
-/* Check whether a mathching rule exists */
-int iptc_check_entry(const ipt_chainlabel chain,
-		      const struct ipt_entry *origfw,
-		      unsigned char *matchmask,
-		      struct iptc_handle *handle);
+* Usage:
+   Check whether a matching rule exists
 
-/* Delete the first rule in `chain' which matches `e', subject to
-   matchmask (array of length == origfw) */
-int iptc_delete_entry(const ipt_chainlabel chain,
-		      const struct ipt_entry *origfw,
-		      unsigned char *matchmask,
-		      struct iptc_handle *handle);
+* Description:
+   This function check whether a matching rule based on pointer to ipt_entry exists in the chain.
 
+* Parameters:
+   - chain is a char pointer to the name of the chain to be compared to;
+   - origfw is a pointer for ipt_entry
+   - matchmask is a char pointer
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   - Returns integer value
+}
+function iptc_check_entry(chain     : ipt_chainlabel;
+                          origfw    : pipt_entry;
+                          matchmask : PChar;
+                          handle    : piptc_handle)   : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
+* Usage:
+   Delete the first rule in `chain' which matches `e', subject to matchmask (array of length == origfw)
+
+* Description:
+   Delete the first rule in `chain' which matches `e', subject to matchmask (array of length == origfw)
+
+* Parameters:
+   - chain is a char pointer to the name of the chain to be compared to;
+   - origfw is a pointer for ipt_entry
+   - matchmask is a char pointer
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   - Returns integer value
+}
+function iptc_delete_entry(chain     : ipt_chainlabel;
+                           matchmask : PChar;
+                           handle    : piptc_handle)    : cint;
+  cdecl; external IPTC_LIBRARY;
+
+
+{
 /* Delete the rule in position `rulenum' in `chain'. */
 int iptc_delete_num_entry(const ipt_chainlabel chain,
 			  unsigned int rulenum,

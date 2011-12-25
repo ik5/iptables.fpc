@@ -1,4 +1,4 @@
-program libiptc_test;
+program test_libip4tc;
 
 {$mode objfpc}{$H+}
 

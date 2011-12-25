@@ -191,7 +191,7 @@ function iptc_next_chain(handle : piptc_handle) : PChar;
 
 * Parameters:
    - chain is a char pointer containing the name of the chain we want to get the rules to.
-     handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
 
 * Returns:
    Returns a pointer to an ipt_entry structure containing information about the first rule of the chain. See below for an explanation of this structure.
@@ -209,7 +209,8 @@ function iptc_first_rule(chain : PChar; handle : piptc_handle) : pipt_entry;
 * Parameters:
    - prev is a pointer to a structure of type ipt_entry that must be obtained first by a previous call to the function iptc_first_rule.
      In order to get the second and subsequent rules you have to pass a pointer to the structure containing the information about the previous
-     rule of the chain. handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+     rule of the chain.
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
 
 * Returns:
    Returns a pointer to an ipt_entry structure containing information about the next rule of the chain. See below for an explanation of this structure.
@@ -218,9 +219,25 @@ function iptc_next_rule (prev : pipt_entry; handle : piptc_handle) : pipt_entry;
  cdecl; external IPTC_LIBRARY;
 
 {
-/* Returns a pointer to the target name of this entry. */
-const char *iptc_get_target(const struct ipt_entry *e,
-			    struct iptc_handle *handle);
+* Usage:
+   Get a pointer to the target name of this entry.
+
+* Description:
+   This function gets the target of the given rule. If it is an extended target, the name of that target is returned.
+   If it is a jump to another chain, the name of that chain is returned. If it is a verdict (eg. DROP), that name is returned.
+   If it has no target (an accounting-style rule), then the empty string is returned.
+   Note that this function should be used instead of using the value of the verdict field of the ipt_entry structure directly,
+   as it offers the above further interpretations of the standard verdict.
+
+* Parameters:
+   - e is a pointer to a structure of type ipt_entry that must be obtained first by a previous call to the function iptc_first_rule or the function iptc_next_rule. handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+Returns: Returns a char pointer to the target name. See Description above for more information.
+}
+function iptc_get_target(e : pipt_entry; handle : piptc_handle) : PChar;
+ cdecl; external IPTC_LIBRARY;
+
+{
 
 /* Is this a built-in chain? */
 int iptc_builtin(const char *chain, struct iptc_handle *const handle);

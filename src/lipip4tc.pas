@@ -38,7 +38,10 @@ type
 
 {$IFNDEF X_TABLES}
 type
-
+  xt_counters = record
+    // Packet and byte counters
+    pcnt, bcnt : cuint64;
+  end;
 {$ENDIF}
 
 {$IFNDEF IP_TABLES}
@@ -65,7 +68,9 @@ type
   end;
   tipt_ip = ipt_ip;
 
-
+  pipt_counters = ^ipt_counters;
+  ipt_counters  = xt_counters;
+  tipt_counters = ipt_counters;
 {$ENDIF}
 
 const

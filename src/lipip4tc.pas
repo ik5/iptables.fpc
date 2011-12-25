@@ -183,14 +183,41 @@ function iptc_next_chain(handle : piptc_handle) : PChar;
  cdecl; external IPTC_LIBRARY;
 
 {
-/* Get first rule in the given chain: NULL for empty chain. */
-const struct ipt_entry *iptc_first_rule(const char *chain,
-					struct iptc_handle *handle);
+* Usage:
+   Get first rule in the given chain.
 
-/* Returns NULL when rules run out. */
-const struct ipt_entry *iptc_next_rule(const struct ipt_entry *prev,
-				       struct iptc_handle *handle);
+* Description:
+   This function returns a pointer to the first rule in the given chain name; NULL for an empty chain.
 
+* Parameters:
+   - chain is a char pointer containing the name of the chain we want to get the rules to.
+     handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   Returns a pointer to an ipt_entry structure containing information about the first rule of the chain. See below for an explanation of this structure.
+}
+function iptc_first_rule(chain : PChar; handle : piptc_handle) : pipt_entry;
+ cdecl; external IPTC_LIBRARY;
+
+{
+* Usage:
+   Get the next rule in the given chain.
+
+* Description:
+   This function returns a pointer to the next rule in the given chain name; NULL means the end of the chain.
+
+* Parameters:
+   - prev is a pointer to a structure of type ipt_entry that must be obtained first by a previous call to the function iptc_first_rule.
+     In order to get the second and subsequent rules you have to pass a pointer to the structure containing the information about the previous
+     rule of the chain. handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   Returns a pointer to an ipt_entry structure containing information about the next rule of the chain. See below for an explanation of this structure.
+}
+function iptc_next_rule (prev : pipt_entry; handle : piptc_handle) : pipt_entry;
+ cdecl; external IPTC_LIBRARY;
+
+{
 /* Returns a pointer to the target name of this entry. */
 const char *iptc_get_target(const struct ipt_entry *e,
 			    struct iptc_handle *handle);

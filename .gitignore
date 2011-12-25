@@ -1,0 +1,5 @@
+src/backup/*
+src/lib/*
+src/*bak
+packages/lib/*
+packages/libnotify_pkg.pas

@@ -3,3 +3,6 @@ src/lib/*
 src/*bak
 packages/lib/*
 packages/libnotify_pkg.pas
+*/*.lpi
+*/*.ico
+*/*.res

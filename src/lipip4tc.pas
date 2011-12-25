@@ -302,18 +302,39 @@ function iptc_get_policy(chain   : PChar;
                          handle : piptc_handle)   : PChar;
  cdecl; external IPTC_LIBRARY;
 
+////////////////////////////////////////////////////////////////////////////////
+
 {
+* Usage:
+   Insert a new rule in a chain.
 
-/* These functions return TRUE for OK or 0 and set errno.  If errno ==
-   0, it means there was a version error (ie. upgrade libiptc). */
-/* Rule numbers start at 1 for the first rule. */
+* Description:
+   This function insert a rule defined in structure type ipt_entry in chain chain into position defined by integer value rulenum.
+   Rule numbers start at 1 for the first rule.
 
-/* Insert the entry `e' in chain `chain' into position `rulenum'. */
-int iptc_insert_entry(const ipt_chainlabel chain,
-		      const struct ipt_entry *e,
-		      unsigned int rulenum,
-		      struct iptc_handle *handle);
+* Parameters:
+   - chain is a char pointer to the name of the chain to be modified;
+   - e is a pointer to a structure of type ipt_entry that contains information about the rule to be inserted.
+     The programmer must fill the fields of this structure with values required to define his or her rule before
+     passing the pointer as parameter to the function.
+   - rulenum is an integer value defined the position in the chain of rules where the new rule will be inserted.
+     Rule numbers start at 1 for the first rule.
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
 
+* Returns:
+   - Returns integer value 1 (true) if successful;
+   - returns integer value 0 (false) if fails. In this case errno is set to the error number generated.
+
+   Use iptc_strerror to get a meaningful information about the problem.
+   If errno = 0, it means there was a version error (ie. upgrade libiptc).
+}
+function iptc_insert_entry(chain   : ipt_chainlabel;
+                           e       : pipt_entry;
+                           rulenum : cuint;
+                           handle  : piptc_handle)    : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
 /* Atomically replace rule `rulenum' in `chain' with `e'. */
 int iptc_replace_entry(const ipt_chainlabel chain,
 		       const struct ipt_entry *e,

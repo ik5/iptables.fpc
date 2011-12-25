@@ -583,16 +583,37 @@ function iptc_delete_chain(chain : ipt_chainlabel; handle : piptc_handle) : cint
    If errno = 0, it means there was a version error (ie. upgrade libiptc).
 }
 function iptc_rename_chain(oldname, newname : ipt_chainlabel;
-                           handle           : piptc_handle);  : cint;
+                           handle           : piptc_handle)  : cint;
  cdecl; external IPTC_LIBRARY;
 
 {
-/* Sets the policy on a built-in chain. */
-int iptc_set_policy(const ipt_chainlabel chain,
-		    const ipt_chainlabel policy,
-		    struct ipt_counters *counters,
-		    struct iptc_handle *handle);
+* Usage:
+   Set the policy in a built-in chain.
 
+* Description:
+   This function set the policy in chain chain to the value represented by the char pointer policy.
+   If you want to set at the same time the counters of the chain, fill those values in a structure of
+   type ipt_counters and pass a pointer to it as parameter counters.
+   Be careful: the chain must be a built-in chain.
+
+* Parameters:
+   - chain is a char pointer to the name of the chain to be modified;
+   - policy is a char pointer to the name of the policy to be set.
+   - counters is a pointer to an ipt_counters structure to be used to set the counters of the chain.
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+
+* Returns:
+   - Returns integer value 1 (true) if successful;
+   - returns integer value 0 (false) if fails. In this case errno is set to the error number generated.
+
+   Use iptc_strerror to get a meaningful information about the problem.
+   If errno = 0, it means there was a version error (ie. upgrade libiptc).
+}
+function iptc_set_policy(chain, policy : ipt_chainlabel;
+                         counters      : pipt_counters;
+                         handle        : piptc_handle)  : cint;
+ cdecl; external IPTC_LIBRARY;
+{
 /* Get the number of references to this chain */
 int iptc_get_references(unsigned int *ref,
 			const ipt_chainlabel chain,

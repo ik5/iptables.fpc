@@ -231,7 +231,9 @@ function iptc_next_rule (prev : pipt_entry; handle : piptc_handle) : pipt_entry;
    as it offers the above further interpretations of the standard verdict.
 
 * Parameters:
-   - e is a pointer to a structure of type ipt_entry that must be obtained first by a previous call to the function iptc_first_rule or the function iptc_next_rule. handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
+   - e is a pointer to a structure of type ipt_entry that must be obtained first by a previous call to the function iptc_first_rule
+     or the function iptc_next_rule.
+   - handle is a pointer to a structure of type iptc_handle_t that was obtained by a previous call to iptc_init.
 
 * Returns:
    Returns a char pointer to the target name. See Description above for more information.
@@ -255,6 +257,27 @@ function iptc_get_target(e : pipt_entry; handle : piptc_handle) : PChar;
    - returns integer value 0 (false) is not.
 }
 function iptc_builtin(chain : PChar; handle : piptc_handle) : cint;
+ cdecl; external IPTC_LIBRARY;
+
+{
+* Usage:
+   Get the policy of a given built-in chain.
+
+* Description:
+   This function gets the policy of a built-in chain, and fills in the counters argument with the hit statistics on that policy.
+
+* Parameters:
+   - chain is the built-in chain you want to get the policy to.
+   - counter is a pointer to an ipt_counters structure to be filled by the function
+   - handle is a pointer to a structure of type iptc_handle_t structure identifying the table we are working to that was obtained
+     by a previous call to iptc_init.
+
+* Returns:
+   Returns a char pointer to the policy name.
+}
+function iptc_get_policy(chain   : PChar;
+                         counter : pipt_counters;
+                         handle : piptc_handle)   : PChar;
  cdecl; external IPTC_LIBRARY;
 
 {

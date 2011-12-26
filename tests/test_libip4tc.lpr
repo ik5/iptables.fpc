@@ -7,7 +7,7 @@ program test_libip4tc;
 {$mode fpc}{$H+}
 
 uses
-  BaseUnix, SysUtils, libip4tc, sockets
+  BaseUnix, SysUtils, strutils, libip4tc, sockets
   { you can add units after this };
 
 type
@@ -18,13 +18,16 @@ type
  * /etc/protocols.
  *)
   Txtables_pprot = record
-    name : PChar;
+    name : String;
     num  : Byte;
   end;
+
+  TProtos = array of Txtables_pprot;
 
 var
   handle : piptc_handle;
   chain  : PChar;
+  protos : TProtos;
 
 procedure print_iface(letter : char; iface : PChar; mask : PChar; invert : ByteBool);
 var
@@ -54,9 +57,60 @@ begin
   write(' ');
 end;
 
-
+// Quick and dirty and not very efficient /etc/protocols parser
+procedure get_protos(var protos_arr : TProtos);
+var
+  f                      : TextFile;
+  line,tmpl, proto, snum : AnsiString;
+  i                      : integer;
 
 begin
+  Assign(f, '/etc/protocols');
+  reset(f);
+  SetLength(protos_arr, 0);
+  FillChar(protos_arr, sizeof(Protos_arr), 0);
+  while not EOF(f) do
+   begin
+     readln(f, line);
+     tmpl := trim(line);
+     if (tmpl = '') or (Copy(tmpl, 1,1) = '#') then
+       continue;
+
+     SetLength(protos_arr, Length(protos) +1);
+     i := Pos(#32, tmpl);
+     if i = 0 then i := Pos(#9, tmpl);
+
+     proto := Copy(tmpl, 1, i-1);
+     snum  := TrimLeft(Copy(tmpl, i, Length(tmpl) -i));
+     i := Pos(#32, snum);
+     if i = 0 then
+       i := Pos(#9, snum);
+     snum  := Copy(snum, 1, i-1);
+     i := Length(protos);
+     protos_arr[i-1].name := proto;
+     protos_arr[i-1].num  := StrToInt(snum);
+   end;
+  Close(f);
+end;
+
+procedure print_proto(proto : byte; invert : ByteBool);
+const
+  invchar : array[Boolean] of string = ('', '!');
+begin
+  for i := low(protos) to high(protos) do
+   begin
+     if protos[i].num = proto then
+       begin
+         write('-p ', invchar[invert], protos[i].name);
+         exit;
+       end;
+   end;
+
+  write('-p ', invchar[invert], proto);
+end;
+
+begin
+  get_protos(protos);
   handle := iptc_init('filter');
   if handle = nil then
     begin

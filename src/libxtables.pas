@@ -8,7 +8,7 @@ unit libxtables;
 interface
 
 uses
-  ctypes, sockets;
+  ctypes, sockets, x_tables;
 
 const
   XTABLES_LIB = 'libxtables';
@@ -128,8 +128,9 @@ type
            dbl : cdouble;
          );
      5 : (
-           haddr, hmask : nf
+           //haddr, hmask : nf
          );
+     (*
 		struct {
 			union nf_inet_addr haddr, hmask;
 			uint8_t hlen;
@@ -142,7 +143,7 @@ type
 		};
 		uint8_t ethermac[6];
 	} val;
-    end;
+    end; *)
   end;
 
 (*
@@ -522,7 +523,7 @@ extern const char *xtables_lmap_id2name(const struct xtables_lmap *, int);
 extern void _init(void);
 
 *)
-
+  *)
 implementation
 
 end.

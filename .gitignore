@@ -5,4 +5,4 @@
 */*ico
 */*res
 */*lps
-tests/libiptc_test
+tests/test_libip4tc

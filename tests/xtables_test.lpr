@@ -3,10 +3,8 @@ program xtables_test;
 {$mode objfpc}{$H+}
 
 uses
-  Classes
+  Classes, libxtables
   { you can add units after this };
-
-{$R *.res}
 
 begin
 end.

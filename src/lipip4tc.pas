@@ -28,7 +28,9 @@ Documentation arrived from the following web-site:
 IP_TABLES - symbole is to use the header instead of inline code ...
 X_TABLES  - symboles for some netfilter headers ...
 }
-
+{$IFNDEF LINUX}
+  {$ERROR This unit can work only with Linux - It requires iptables that are part of the Linux kernel}
+{$ENDIF}
 unit lipip4tc;
 
 {$mode fpc}{$packrecords c}

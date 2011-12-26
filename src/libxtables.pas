@@ -103,7 +103,46 @@ type
     xflags   : cuint;
     invert   : cbool;
     nvals    : cuint8;
-
+    case val : Integer of
+     0 : (
+            u8           : cuint8;
+            u8_range     : array[Boolean] of cuint;
+            syslog_level : cuint;
+            protocol     : cuint;
+         );
+     1 : (
+           u16        : cuint16;
+           u16_range  : array[Boolean] of cuint16;
+           port       : cuint16;
+           port_range : array[Boolean] of cuint16;
+         );
+     2 : (
+           u32       : cuint32;
+           u32_range : array[Boolean] of cuint32;
+         );
+     3 : (
+           u64       : cuint64;
+           u64_range : array[Boolean] of cuint64;
+         );
+     4 : (
+           dbl : cdouble;
+         );
+     5 : (
+           haddr, hmask : nf
+         );
+		struct {
+			union nf_inet_addr haddr, hmask;
+			uint8_t hlen;
+		};
+		struct {
+			uint8_t tos_value, tos_mask;
+		};
+		struct {
+			uint32_t mark, mask;
+		};
+		uint8_t ethermac[6];
+	} val;
+    end;
   end;
 
 (*

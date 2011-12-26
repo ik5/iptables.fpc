@@ -7,3 +7,5 @@
 */*lps
 tests/test_libip4tc
 tests/xtables_test
+reference/iptables/*
+reference/*tar*

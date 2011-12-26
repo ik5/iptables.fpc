@@ -1,0 +1,3000 @@
+# 1 "xtables.c"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "xtables.c"
+# 1 "/usr/include/xtables.h" 1 3 4
+# 9 "/usr/include/xtables.h" 3 4
+# 1 "/usr/include/sys/socket.h" 1 3 4
+# 24 "/usr/include/sys/socket.h" 3 4
+# 1 "/usr/include/features.h" 1 3 4
+# 358 "/usr/include/features.h" 3 4
+# 1 "/usr/include/sys/cdefs.h" 1 3 4
+# 353 "/usr/include/sys/cdefs.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 354 "/usr/include/sys/cdefs.h" 2 3 4
+# 359 "/usr/include/features.h" 2 3 4
+# 382 "/usr/include/features.h" 3 4
+# 1 "/usr/include/gnu/stubs.h" 1 3 4
+
+
+
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 5 "/usr/include/gnu/stubs.h" 2 3 4
+
+
+
+
+# 1 "/usr/include/gnu/stubs-64.h" 1 3 4
+# 10 "/usr/include/gnu/stubs.h" 2 3 4
+# 383 "/usr/include/features.h" 2 3 4
+# 25 "/usr/include/sys/socket.h" 2 3 4
+
+
+
+# 1 "/usr/include/sys/uio.h" 1 3 4
+# 24 "/usr/include/sys/uio.h" 3 4
+# 1 "/usr/include/sys/types.h" 1 3 4
+# 28 "/usr/include/sys/types.h" 3 4
+
+
+# 1 "/usr/include/bits/types.h" 1 3 4
+# 28 "/usr/include/bits/types.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 29 "/usr/include/bits/types.h" 2 3 4
+
+
+typedef unsigned char __u_char;
+typedef unsigned short int __u_short;
+typedef unsigned int __u_int;
+typedef unsigned long int __u_long;
+
+
+typedef signed char __int8_t;
+typedef unsigned char __uint8_t;
+typedef signed short int __int16_t;
+typedef unsigned short int __uint16_t;
+typedef signed int __int32_t;
+typedef unsigned int __uint32_t;
+
+typedef signed long int __int64_t;
+typedef unsigned long int __uint64_t;
+
+
+
+
+
+
+
+typedef long int __quad_t;
+typedef unsigned long int __u_quad_t;
+# 131 "/usr/include/bits/types.h" 3 4
+# 1 "/usr/include/bits/typesizes.h" 1 3 4
+# 132 "/usr/include/bits/types.h" 2 3 4
+
+
+typedef unsigned long int __dev_t;
+typedef unsigned int __uid_t;
+typedef unsigned int __gid_t;
+typedef unsigned long int __ino_t;
+typedef unsigned long int __ino64_t;
+typedef unsigned int __mode_t;
+typedef unsigned long int __nlink_t;
+typedef long int __off_t;
+typedef long int __off64_t;
+typedef int __pid_t;
+typedef struct { int __val[2]; } __fsid_t;
+typedef long int __clock_t;
+typedef unsigned long int __rlim_t;
+typedef unsigned long int __rlim64_t;
+typedef unsigned int __id_t;
+typedef long int __time_t;
+typedef unsigned int __useconds_t;
+typedef long int __suseconds_t;
+
+typedef int __daddr_t;
+typedef long int __swblk_t;
+typedef int __key_t;
+
+
+typedef int __clockid_t;
+
+
+typedef void * __timer_t;
+
+
+typedef long int __blksize_t;
+
+
+
+
+typedef long int __blkcnt_t;
+typedef long int __blkcnt64_t;
+
+
+typedef unsigned long int __fsblkcnt_t;
+typedef unsigned long int __fsblkcnt64_t;
+
+
+typedef unsigned long int __fsfilcnt_t;
+typedef unsigned long int __fsfilcnt64_t;
+
+typedef long int __ssize_t;
+
+
+
+typedef __off64_t __loff_t;
+typedef __quad_t *__qaddr_t;
+typedef char *__caddr_t;
+
+
+typedef long int __intptr_t;
+
+
+typedef unsigned int __socklen_t;
+# 31 "/usr/include/sys/types.h" 2 3 4
+
+
+
+typedef __u_char u_char;
+typedef __u_short u_short;
+typedef __u_int u_int;
+typedef __u_long u_long;
+typedef __quad_t quad_t;
+typedef __u_quad_t u_quad_t;
+typedef __fsid_t fsid_t;
+
+
+
+
+typedef __loff_t loff_t;
+
+
+
+typedef __ino_t ino_t;
+# 61 "/usr/include/sys/types.h" 3 4
+typedef __dev_t dev_t;
+
+
+
+
+typedef __gid_t gid_t;
+
+
+
+
+typedef __mode_t mode_t;
+
+
+
+
+typedef __nlink_t nlink_t;
+
+
+
+
+typedef __uid_t uid_t;
+
+
+
+
+
+typedef __off_t off_t;
+# 99 "/usr/include/sys/types.h" 3 4
+typedef __pid_t pid_t;
+
+
+
+
+
+typedef __id_t id_t;
+
+
+
+
+typedef __ssize_t ssize_t;
+
+
+
+
+
+typedef __daddr_t daddr_t;
+typedef __caddr_t caddr_t;
+
+
+
+
+
+typedef __key_t key_t;
+# 133 "/usr/include/sys/types.h" 3 4
+# 1 "/usr/include/time.h" 1 3 4
+# 58 "/usr/include/time.h" 3 4
+
+
+typedef __clock_t clock_t;
+
+
+
+# 74 "/usr/include/time.h" 3 4
+
+
+typedef __time_t time_t;
+
+
+
+# 92 "/usr/include/time.h" 3 4
+typedef __clockid_t clockid_t;
+# 104 "/usr/include/time.h" 3 4
+typedef __timer_t timer_t;
+# 134 "/usr/include/sys/types.h" 2 3 4
+# 147 "/usr/include/sys/types.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include/stddef.h" 1 3 4
+# 212 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include/stddef.h" 3 4
+typedef long unsigned int size_t;
+# 148 "/usr/include/sys/types.h" 2 3 4
+
+
+
+typedef unsigned long int ulong;
+typedef unsigned short int ushort;
+typedef unsigned int uint;
+# 195 "/usr/include/sys/types.h" 3 4
+typedef int int8_t __attribute__ ((__mode__ (__QI__)));
+typedef int int16_t __attribute__ ((__mode__ (__HI__)));
+typedef int int32_t __attribute__ ((__mode__ (__SI__)));
+typedef int int64_t __attribute__ ((__mode__ (__DI__)));
+
+
+typedef unsigned int u_int8_t __attribute__ ((__mode__ (__QI__)));
+typedef unsigned int u_int16_t __attribute__ ((__mode__ (__HI__)));
+typedef unsigned int u_int32_t __attribute__ ((__mode__ (__SI__)));
+typedef unsigned int u_int64_t __attribute__ ((__mode__ (__DI__)));
+
+typedef int register_t __attribute__ ((__mode__ (__word__)));
+# 217 "/usr/include/sys/types.h" 3 4
+# 1 "/usr/include/endian.h" 1 3 4
+# 37 "/usr/include/endian.h" 3 4
+# 1 "/usr/include/bits/endian.h" 1 3 4
+# 38 "/usr/include/endian.h" 2 3 4
+# 61 "/usr/include/endian.h" 3 4
+# 1 "/usr/include/bits/byteswap.h" 1 3 4
+# 28 "/usr/include/bits/byteswap.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 29 "/usr/include/bits/byteswap.h" 2 3 4
+# 62 "/usr/include/endian.h" 2 3 4
+# 218 "/usr/include/sys/types.h" 2 3 4
+
+
+# 1 "/usr/include/sys/select.h" 1 3 4
+# 31 "/usr/include/sys/select.h" 3 4
+# 1 "/usr/include/bits/select.h" 1 3 4
+# 23 "/usr/include/bits/select.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 24 "/usr/include/bits/select.h" 2 3 4
+# 32 "/usr/include/sys/select.h" 2 3 4
+
+
+# 1 "/usr/include/bits/sigset.h" 1 3 4
+# 24 "/usr/include/bits/sigset.h" 3 4
+typedef int __sig_atomic_t;
+
+
+
+
+typedef struct
+  {
+    unsigned long int __val[(1024 / (8 * sizeof (unsigned long int)))];
+  } __sigset_t;
+# 35 "/usr/include/sys/select.h" 2 3 4
+
+
+
+typedef __sigset_t sigset_t;
+
+
+
+
+
+# 1 "/usr/include/time.h" 1 3 4
+# 120 "/usr/include/time.h" 3 4
+struct timespec
+  {
+    __time_t tv_sec;
+    long int tv_nsec;
+  };
+# 45 "/usr/include/sys/select.h" 2 3 4
+
+# 1 "/usr/include/bits/time.h" 1 3 4
+# 31 "/usr/include/bits/time.h" 3 4
+struct timeval
+  {
+    __time_t tv_sec;
+    __suseconds_t tv_usec;
+  };
+# 47 "/usr/include/sys/select.h" 2 3 4
+
+
+typedef __suseconds_t suseconds_t;
+
+
+
+
+
+typedef long int __fd_mask;
+# 67 "/usr/include/sys/select.h" 3 4
+typedef struct
+  {
+
+
+
+
+
+
+    __fd_mask __fds_bits[1024 / (8 * (int) sizeof (__fd_mask))];
+
+
+  } fd_set;
+
+
+
+
+
+
+typedef __fd_mask fd_mask;
+# 99 "/usr/include/sys/select.h" 3 4
+
+# 109 "/usr/include/sys/select.h" 3 4
+extern int select (int __nfds, fd_set *__restrict __readfds,
+     fd_set *__restrict __writefds,
+     fd_set *__restrict __exceptfds,
+     struct timeval *__restrict __timeout);
+# 121 "/usr/include/sys/select.h" 3 4
+extern int pselect (int __nfds, fd_set *__restrict __readfds,
+      fd_set *__restrict __writefds,
+      fd_set *__restrict __exceptfds,
+      const struct timespec *__restrict __timeout,
+      const __sigset_t *__restrict __sigmask);
+
+
+
+# 221 "/usr/include/sys/types.h" 2 3 4
+
+
+# 1 "/usr/include/sys/sysmacros.h" 1 3 4
+# 30 "/usr/include/sys/sysmacros.h" 3 4
+
+
+__extension__
+extern unsigned int gnu_dev_major (unsigned long long int __dev)
+     __attribute__ ((__nothrow__));
+__extension__
+extern unsigned int gnu_dev_minor (unsigned long long int __dev)
+     __attribute__ ((__nothrow__));
+__extension__
+extern unsigned long long int gnu_dev_makedev (unsigned int __major,
+            unsigned int __minor)
+     __attribute__ ((__nothrow__));
+# 64 "/usr/include/sys/sysmacros.h" 3 4
+
+# 224 "/usr/include/sys/types.h" 2 3 4
+
+
+
+
+
+typedef __blksize_t blksize_t;
+
+
+
+
+
+
+typedef __blkcnt_t blkcnt_t;
+
+
+
+typedef __fsblkcnt_t fsblkcnt_t;
+
+
+
+typedef __fsfilcnt_t fsfilcnt_t;
+# 271 "/usr/include/sys/types.h" 3 4
+# 1 "/usr/include/bits/pthreadtypes.h" 1 3 4
+# 23 "/usr/include/bits/pthreadtypes.h" 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 24 "/usr/include/bits/pthreadtypes.h" 2 3 4
+# 50 "/usr/include/bits/pthreadtypes.h" 3 4
+typedef unsigned long int pthread_t;
+
+
+typedef union
+{
+  char __size[56];
+  long int __align;
+} pthread_attr_t;
+
+
+
+typedef struct __pthread_internal_list
+{
+  struct __pthread_internal_list *__prev;
+  struct __pthread_internal_list *__next;
+} __pthread_list_t;
+# 76 "/usr/include/bits/pthreadtypes.h" 3 4
+typedef union
+{
+  struct __pthread_mutex_s
+  {
+    int __lock;
+    unsigned int __count;
+    int __owner;
+
+    unsigned int __nusers;
+
+
+
+    int __kind;
+
+    int __spins;
+    __pthread_list_t __list;
+# 101 "/usr/include/bits/pthreadtypes.h" 3 4
+  } __data;
+  char __size[40];
+  long int __align;
+} pthread_mutex_t;
+
+typedef union
+{
+  char __size[4];
+  int __align;
+} pthread_mutexattr_t;
+
+
+
+
+typedef union
+{
+  struct
+  {
+    int __lock;
+    unsigned int __futex;
+    __extension__ unsigned long long int __total_seq;
+    __extension__ unsigned long long int __wakeup_seq;
+    __extension__ unsigned long long int __woken_seq;
+    void *__mutex;
+    unsigned int __nwaiters;
+    unsigned int __broadcast_seq;
+  } __data;
+  char __size[48];
+  __extension__ long long int __align;
+} pthread_cond_t;
+
+typedef union
+{
+  char __size[4];
+  int __align;
+} pthread_condattr_t;
+
+
+
+typedef unsigned int pthread_key_t;
+
+
+
+typedef int pthread_once_t;
+
+
+
+
+
+typedef union
+{
+
+  struct
+  {
+    int __lock;
+    unsigned int __nr_readers;
+    unsigned int __readers_wakeup;
+    unsigned int __writer_wakeup;
+    unsigned int __nr_readers_queued;
+    unsigned int __nr_writers_queued;
+    int __writer;
+    int __shared;
+    unsigned long int __pad1;
+    unsigned long int __pad2;
+
+
+    unsigned int __flags;
+  } __data;
+# 187 "/usr/include/bits/pthreadtypes.h" 3 4
+  char __size[56];
+  long int __align;
+} pthread_rwlock_t;
+
+typedef union
+{
+  char __size[8];
+  long int __align;
+} pthread_rwlockattr_t;
+
+
+
+
+
+typedef volatile int pthread_spinlock_t;
+
+
+
+
+typedef union
+{
+  char __size[32];
+  long int __align;
+} pthread_barrier_t;
+
+typedef union
+{
+  char __size[4];
+  int __align;
+} pthread_barrierattr_t;
+# 272 "/usr/include/sys/types.h" 2 3 4
+
+
+
+# 25 "/usr/include/sys/uio.h" 2 3 4
+
+
+
+
+# 1 "/usr/include/bits/uio.h" 1 3 4
+# 44 "/usr/include/bits/uio.h" 3 4
+struct iovec
+  {
+    void *iov_base;
+    size_t iov_len;
+  };
+# 30 "/usr/include/sys/uio.h" 2 3 4
+# 40 "/usr/include/sys/uio.h" 3 4
+extern ssize_t readv (int __fd, __const struct iovec *__iovec, int __count)
+  ;
+# 51 "/usr/include/sys/uio.h" 3 4
+extern ssize_t writev (int __fd, __const struct iovec *__iovec, int __count)
+  ;
+# 66 "/usr/include/sys/uio.h" 3 4
+extern ssize_t preadv (int __fd, __const struct iovec *__iovec, int __count,
+         __off_t __offset) ;
+# 78 "/usr/include/sys/uio.h" 3 4
+extern ssize_t pwritev (int __fd, __const struct iovec *__iovec, int __count,
+   __off_t __offset) ;
+# 121 "/usr/include/sys/uio.h" 3 4
+
+# 29 "/usr/include/sys/socket.h" 2 3 4
+
+# 1 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include/stddef.h" 1 3 4
+# 31 "/usr/include/sys/socket.h" 2 3 4
+# 40 "/usr/include/sys/socket.h" 3 4
+# 1 "/usr/include/bits/socket.h" 1 3 4
+# 29 "/usr/include/bits/socket.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include/stddef.h" 1 3 4
+# 30 "/usr/include/bits/socket.h" 2 3 4
+
+
+
+
+
+typedef __socklen_t socklen_t;
+
+
+
+
+enum __socket_type
+{
+  SOCK_STREAM = 1,
+
+
+  SOCK_DGRAM = 2,
+
+
+  SOCK_RAW = 3,
+
+  SOCK_RDM = 4,
+
+  SOCK_SEQPACKET = 5,
+
+
+  SOCK_DCCP = 6,
+
+  SOCK_PACKET = 10,
+
+
+
+
+
+
+
+  SOCK_CLOEXEC = 02000000,
+
+
+  SOCK_NONBLOCK = 04000
+
+
+};
+# 175 "/usr/include/bits/socket.h" 3 4
+# 1 "/usr/include/bits/sockaddr.h" 1 3 4
+# 29 "/usr/include/bits/sockaddr.h" 3 4
+typedef unsigned short int sa_family_t;
+# 176 "/usr/include/bits/socket.h" 2 3 4
+
+
+struct sockaddr
+  {
+    sa_family_t sa_family;
+    char sa_data[14];
+  };
+# 191 "/usr/include/bits/socket.h" 3 4
+struct sockaddr_storage
+  {
+    sa_family_t ss_family;
+    unsigned long int __ss_align;
+    char __ss_padding[(128 - (2 * sizeof (unsigned long int)))];
+  };
+
+
+
+enum
+  {
+    MSG_OOB = 0x01,
+
+    MSG_PEEK = 0x02,
+
+    MSG_DONTROUTE = 0x04,
+
+
+
+
+
+
+    MSG_CTRUNC = 0x08,
+
+    MSG_PROXY = 0x10,
+
+    MSG_TRUNC = 0x20,
+
+    MSG_DONTWAIT = 0x40,
+
+    MSG_EOR = 0x80,
+
+    MSG_WAITALL = 0x100,
+
+    MSG_FIN = 0x200,
+
+    MSG_SYN = 0x400,
+
+    MSG_CONFIRM = 0x800,
+
+    MSG_RST = 0x1000,
+
+    MSG_ERRQUEUE = 0x2000,
+
+    MSG_NOSIGNAL = 0x4000,
+
+    MSG_MORE = 0x8000,
+
+    MSG_WAITFORONE = 0x10000,
+
+
+    MSG_CMSG_CLOEXEC = 0x40000000
+
+
+
+  };
+
+
+
+
+struct msghdr
+  {
+    void *msg_name;
+    socklen_t msg_namelen;
+
+    struct iovec *msg_iov;
+    size_t msg_iovlen;
+
+    void *msg_control;
+    size_t msg_controllen;
+
+
+
+
+    int msg_flags;
+  };
+# 278 "/usr/include/bits/socket.h" 3 4
+struct cmsghdr
+  {
+    size_t cmsg_len;
+
+
+
+
+    int cmsg_level;
+    int cmsg_type;
+
+    __extension__ unsigned char __cmsg_data [];
+
+  };
+# 308 "/usr/include/bits/socket.h" 3 4
+extern struct cmsghdr *__cmsg_nxthdr (struct msghdr *__mhdr,
+          struct cmsghdr *__cmsg) __attribute__ ((__nothrow__));
+# 335 "/usr/include/bits/socket.h" 3 4
+enum
+  {
+    SCM_RIGHTS = 0x01
+
+
+
+
+
+  };
+# 381 "/usr/include/bits/socket.h" 3 4
+# 1 "/usr/include/asm/socket.h" 1 3 4
+# 1 "/usr/include/asm-generic/socket.h" 1 3 4
+
+
+
+# 1 "/usr/include/asm/sockios.h" 1 3 4
+# 1 "/usr/include/asm-generic/sockios.h" 1 3 4
+# 1 "/usr/include/asm/sockios.h" 2 3 4
+# 5 "/usr/include/asm-generic/socket.h" 2 3 4
+# 1 "/usr/include/asm/socket.h" 2 3 4
+# 382 "/usr/include/bits/socket.h" 2 3 4
+# 415 "/usr/include/bits/socket.h" 3 4
+struct linger
+  {
+    int l_onoff;
+    int l_linger;
+  };
+
+
+
+
+
+
+
+
+
+extern int recvmmsg (int __fd, struct mmsghdr *__vmessages,
+       unsigned int __vlen, int __flags,
+       __const struct timespec *__tmo);
+
+
+
+
+
+extern int sendmmsg (int __fd, struct mmsghdr *__vmessages,
+       unsigned int __vlen, int __flags);
+
+
+# 41 "/usr/include/sys/socket.h" 2 3 4
+
+
+
+
+struct osockaddr
+  {
+    unsigned short int sa_family;
+    unsigned char sa_data[14];
+  };
+
+
+
+
+enum
+{
+  SHUT_RD = 0,
+
+  SHUT_WR,
+
+  SHUT_RDWR
+
+};
+# 105 "/usr/include/sys/socket.h" 3 4
+extern int socket (int __domain, int __type, int __protocol) __attribute__ ((__nothrow__));
+
+
+
+
+
+extern int socketpair (int __domain, int __type, int __protocol,
+         int __fds[2]) __attribute__ ((__nothrow__));
+
+
+extern int bind (int __fd, __const struct sockaddr * __addr, socklen_t __len)
+     __attribute__ ((__nothrow__));
+
+
+extern int getsockname (int __fd, struct sockaddr *__restrict __addr,
+   socklen_t *__restrict __len) __attribute__ ((__nothrow__));
+# 129 "/usr/include/sys/socket.h" 3 4
+extern int connect (int __fd, __const struct sockaddr * __addr, socklen_t __len);
+
+
+
+extern int getpeername (int __fd, struct sockaddr *__restrict __addr,
+   socklen_t *__restrict __len) __attribute__ ((__nothrow__));
+
+
+
+
+
+
+extern ssize_t send (int __fd, __const void *__buf, size_t __n, int __flags);
+
+
+
+
+
+
+extern ssize_t recv (int __fd, void *__buf, size_t __n, int __flags);
+
+
+
+
+
+
+extern ssize_t sendto (int __fd, __const void *__buf, size_t __n,
+         int __flags, __const struct sockaddr * __addr,
+         socklen_t __addr_len);
+# 166 "/usr/include/sys/socket.h" 3 4
+extern ssize_t recvfrom (int __fd, void *__restrict __buf, size_t __n,
+    int __flags, struct sockaddr *__restrict __addr,
+    socklen_t *__restrict __addr_len);
+
+
+
+
+
+
+
+extern ssize_t sendmsg (int __fd, __const struct msghdr *__message,
+   int __flags);
+
+
+
+
+
+
+extern ssize_t recvmsg (int __fd, struct msghdr *__message, int __flags);
+
+
+
+
+
+extern int getsockopt (int __fd, int __level, int __optname,
+         void *__restrict __optval,
+         socklen_t *__restrict __optlen) __attribute__ ((__nothrow__));
+
+
+
+
+extern int setsockopt (int __fd, int __level, int __optname,
+         __const void *__optval, socklen_t __optlen) __attribute__ ((__nothrow__));
+
+
+
+
+
+extern int listen (int __fd, int __n) __attribute__ ((__nothrow__));
+# 214 "/usr/include/sys/socket.h" 3 4
+extern int accept (int __fd, struct sockaddr *__restrict __addr,
+     socklen_t *__restrict __addr_len);
+# 232 "/usr/include/sys/socket.h" 3 4
+extern int shutdown (int __fd, int __how) __attribute__ ((__nothrow__));
+
+
+
+
+extern int sockatmark (int __fd) __attribute__ ((__nothrow__));
+
+
+
+
+
+
+
+extern int isfdtype (int __fd, int __fdtype) __attribute__ ((__nothrow__));
+# 254 "/usr/include/sys/socket.h" 3 4
+
+# 10 "/usr/include/xtables.h" 2 3 4
+
+# 1 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include-fixed/limits.h" 1 3 4
+# 34 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include-fixed/limits.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include-fixed/syslimits.h" 1 3 4
+
+
+
+
+
+
+# 1 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include-fixed/limits.h" 1 3 4
+# 169 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include-fixed/limits.h" 3 4
+# 1 "/usr/include/limits.h" 1 3 4
+# 145 "/usr/include/limits.h" 3 4
+# 1 "/usr/include/bits/posix1_lim.h" 1 3 4
+# 157 "/usr/include/bits/posix1_lim.h" 3 4
+# 1 "/usr/include/bits/local_lim.h" 1 3 4
+# 39 "/usr/include/bits/local_lim.h" 3 4
+# 1 "/usr/include/linux/limits.h" 1 3 4
+# 40 "/usr/include/bits/local_lim.h" 2 3 4
+# 158 "/usr/include/bits/posix1_lim.h" 2 3 4
+# 146 "/usr/include/limits.h" 2 3 4
+
+
+
+# 1 "/usr/include/bits/posix2_lim.h" 1 3 4
+# 150 "/usr/include/limits.h" 2 3 4
+# 170 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include-fixed/limits.h" 2 3 4
+# 8 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include-fixed/syslimits.h" 2 3 4
+# 35 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include-fixed/limits.h" 2 3 4
+# 12 "/usr/include/xtables.h" 2 3 4
+# 1 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include/stdbool.h" 1 3 4
+# 13 "/usr/include/xtables.h" 2 3 4
+# 1 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include/stddef.h" 1 3 4
+# 150 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include/stddef.h" 3 4
+typedef long int ptrdiff_t;
+# 324 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include/stddef.h" 3 4
+typedef int wchar_t;
+# 14 "/usr/include/xtables.h" 2 3 4
+# 1 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include/stdint.h" 1 3 4
+
+
+# 1 "/usr/include/stdint.h" 1 3 4
+# 27 "/usr/include/stdint.h" 3 4
+# 1 "/usr/include/bits/wchar.h" 1 3 4
+# 28 "/usr/include/stdint.h" 2 3 4
+# 1 "/usr/include/bits/wordsize.h" 1 3 4
+# 29 "/usr/include/stdint.h" 2 3 4
+# 49 "/usr/include/stdint.h" 3 4
+typedef unsigned char uint8_t;
+typedef unsigned short int uint16_t;
+
+typedef unsigned int uint32_t;
+
+
+
+typedef unsigned long int uint64_t;
+# 66 "/usr/include/stdint.h" 3 4
+typedef signed char int_least8_t;
+typedef short int int_least16_t;
+typedef int int_least32_t;
+
+typedef long int int_least64_t;
+
+
+
+
+
+
+typedef unsigned char uint_least8_t;
+typedef unsigned short int uint_least16_t;
+typedef unsigned int uint_least32_t;
+
+typedef unsigned long int uint_least64_t;
+# 91 "/usr/include/stdint.h" 3 4
+typedef signed char int_fast8_t;
+
+typedef long int int_fast16_t;
+typedef long int int_fast32_t;
+typedef long int int_fast64_t;
+# 104 "/usr/include/stdint.h" 3 4
+typedef unsigned char uint_fast8_t;
+
+typedef unsigned long int uint_fast16_t;
+typedef unsigned long int uint_fast32_t;
+typedef unsigned long int uint_fast64_t;
+# 120 "/usr/include/stdint.h" 3 4
+typedef long int intptr_t;
+
+
+typedef unsigned long int uintptr_t;
+# 135 "/usr/include/stdint.h" 3 4
+typedef long int intmax_t;
+typedef unsigned long int uintmax_t;
+# 4 "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include/stdint.h" 2 3 4
+# 15 "/usr/include/xtables.h" 2 3 4
+# 1 "/usr/include/netinet/in.h" 1 3 4
+# 29 "/usr/include/netinet/in.h" 3 4
+
+
+
+enum
+  {
+    IPPROTO_IP = 0,
+
+    IPPROTO_HOPOPTS = 0,
+
+    IPPROTO_ICMP = 1,
+
+    IPPROTO_IGMP = 2,
+
+    IPPROTO_IPIP = 4,
+
+    IPPROTO_TCP = 6,
+
+    IPPROTO_EGP = 8,
+
+    IPPROTO_PUP = 12,
+
+    IPPROTO_UDP = 17,
+
+    IPPROTO_IDP = 22,
+
+    IPPROTO_TP = 29,
+
+    IPPROTO_DCCP = 33,
+
+    IPPROTO_IPV6 = 41,
+
+    IPPROTO_ROUTING = 43,
+
+    IPPROTO_FRAGMENT = 44,
+
+    IPPROTO_RSVP = 46,
+
+    IPPROTO_GRE = 47,
+
+    IPPROTO_ESP = 50,
+
+    IPPROTO_AH = 51,
+
+    IPPROTO_ICMPV6 = 58,
+
+    IPPROTO_NONE = 59,
+
+    IPPROTO_DSTOPTS = 60,
+
+    IPPROTO_MTP = 92,
+
+    IPPROTO_ENCAP = 98,
+
+    IPPROTO_PIM = 103,
+
+    IPPROTO_COMP = 108,
+
+    IPPROTO_SCTP = 132,
+
+    IPPROTO_UDPLITE = 136,
+
+    IPPROTO_RAW = 255,
+
+    IPPROTO_MAX
+  };
+
+
+
+typedef uint16_t in_port_t;
+
+
+enum
+  {
+    IPPORT_ECHO = 7,
+    IPPORT_DISCARD = 9,
+    IPPORT_SYSTAT = 11,
+    IPPORT_DAYTIME = 13,
+    IPPORT_NETSTAT = 15,
+    IPPORT_FTP = 21,
+    IPPORT_TELNET = 23,
+    IPPORT_SMTP = 25,
+    IPPORT_TIMESERVER = 37,
+    IPPORT_NAMESERVER = 42,
+    IPPORT_WHOIS = 43,
+    IPPORT_MTP = 57,
+
+    IPPORT_TFTP = 69,
+    IPPORT_RJE = 77,
+    IPPORT_FINGER = 79,
+    IPPORT_TTYLINK = 87,
+    IPPORT_SUPDUP = 95,
+
+
+    IPPORT_EXECSERVER = 512,
+    IPPORT_LOGINSERVER = 513,
+    IPPORT_CMDSERVER = 514,
+    IPPORT_EFSSERVER = 520,
+
+
+    IPPORT_BIFFUDP = 512,
+    IPPORT_WHOSERVER = 513,
+    IPPORT_ROUTESERVER = 520,
+
+
+    IPPORT_RESERVED = 1024,
+
+
+    IPPORT_USERRESERVED = 5000
+  };
+
+
+
+typedef uint32_t in_addr_t;
+struct in_addr
+  {
+    in_addr_t s_addr;
+  };
+# 198 "/usr/include/netinet/in.h" 3 4
+struct in6_addr
+  {
+    union
+      {
+ uint8_t __u6_addr8[16];
+
+ uint16_t __u6_addr16[8];
+ uint32_t __u6_addr32[4];
+
+      } __in6_u;
+
+
+
+
+
+  };
+
+extern const struct in6_addr in6addr_any;
+extern const struct in6_addr in6addr_loopback;
+# 225 "/usr/include/netinet/in.h" 3 4
+struct sockaddr_in
+  {
+    sa_family_t sin_family;
+    in_port_t sin_port;
+    struct in_addr sin_addr;
+
+
+    unsigned char sin_zero[sizeof (struct sockaddr) -
+      (sizeof (unsigned short int)) -
+      sizeof (in_port_t) -
+      sizeof (struct in_addr)];
+  };
+
+
+struct sockaddr_in6
+  {
+    sa_family_t sin6_family;
+    in_port_t sin6_port;
+    uint32_t sin6_flowinfo;
+    struct in6_addr sin6_addr;
+    uint32_t sin6_scope_id;
+  };
+
+
+
+
+struct ip_mreq
+  {
+
+    struct in_addr imr_multiaddr;
+
+
+    struct in_addr imr_interface;
+  };
+
+struct ip_mreq_source
+  {
+
+    struct in_addr imr_multiaddr;
+
+
+    struct in_addr imr_interface;
+
+
+    struct in_addr imr_sourceaddr;
+  };
+
+
+
+
+struct ipv6_mreq
+  {
+
+    struct in6_addr ipv6mr_multiaddr;
+
+
+    unsigned int ipv6mr_interface;
+  };
+
+
+
+
+struct group_req
+  {
+
+    uint32_t gr_interface;
+
+
+    struct sockaddr_storage gr_group;
+  };
+
+struct group_source_req
+  {
+
+    uint32_t gsr_interface;
+
+
+    struct sockaddr_storage gsr_group;
+
+
+    struct sockaddr_storage gsr_source;
+  };
+
+
+
+struct ip_msfilter
+  {
+
+    struct in_addr imsf_multiaddr;
+
+
+    struct in_addr imsf_interface;
+
+
+    uint32_t imsf_fmode;
+
+
+    uint32_t imsf_numsrc;
+
+    struct in_addr imsf_slist[1];
+  };
+
+
+
+
+
+struct group_filter
+  {
+
+    uint32_t gf_interface;
+
+
+    struct sockaddr_storage gf_group;
+
+
+    uint32_t gf_fmode;
+
+
+    uint32_t gf_numsrc;
+
+    struct sockaddr_storage gf_slist[1];
+};
+# 356 "/usr/include/netinet/in.h" 3 4
+# 1 "/usr/include/bits/in.h" 1 3 4
+# 98 "/usr/include/bits/in.h" 3 4
+struct ip_opts
+  {
+    struct in_addr ip_dst;
+    char ip_opts[40];
+  };
+
+
+struct ip_mreqn
+  {
+    struct in_addr imr_multiaddr;
+    struct in_addr imr_address;
+    int imr_ifindex;
+  };
+
+
+struct in_pktinfo
+  {
+    int ipi_ifindex;
+    struct in_addr ipi_spec_dst;
+    struct in_addr ipi_addr;
+  };
+# 357 "/usr/include/netinet/in.h" 2 3 4
+# 365 "/usr/include/netinet/in.h" 3 4
+extern uint32_t ntohl (uint32_t __netlong) __attribute__ ((__nothrow__)) __attribute__ ((__const__));
+extern uint16_t ntohs (uint16_t __netshort)
+     __attribute__ ((__nothrow__)) __attribute__ ((__const__));
+extern uint32_t htonl (uint32_t __hostlong)
+     __attribute__ ((__nothrow__)) __attribute__ ((__const__));
+extern uint16_t htons (uint16_t __hostshort)
+     __attribute__ ((__nothrow__)) __attribute__ ((__const__));
+
+
+
+
+# 1 "/usr/include/bits/byteswap.h" 1 3 4
+# 377 "/usr/include/netinet/in.h" 2 3 4
+# 440 "/usr/include/netinet/in.h" 3 4
+extern int bindresvport (int __sockfd, struct sockaddr_in *__sock_in) __attribute__ ((__nothrow__));
+
+
+extern int bindresvport6 (int __sockfd, struct sockaddr_in6 *__sock_in)
+     __attribute__ ((__nothrow__));
+# 565 "/usr/include/netinet/in.h" 3 4
+
+# 16 "/usr/include/xtables.h" 2 3 4
+# 1 "/usr/include/net/if.h" 1 3 4
+# 34 "/usr/include/net/if.h" 3 4
+struct if_nameindex
+  {
+    unsigned int if_index;
+    char *if_name;
+  };
+
+
+
+
+enum
+  {
+    IFF_UP = 0x1,
+
+    IFF_BROADCAST = 0x2,
+
+    IFF_DEBUG = 0x4,
+
+    IFF_LOOPBACK = 0x8,
+
+    IFF_POINTOPOINT = 0x10,
+
+    IFF_NOTRAILERS = 0x20,
+
+    IFF_RUNNING = 0x40,
+
+    IFF_NOARP = 0x80,
+
+    IFF_PROMISC = 0x100,
+
+
+
+    IFF_ALLMULTI = 0x200,
+
+
+    IFF_MASTER = 0x400,
+
+    IFF_SLAVE = 0x800,
+
+
+    IFF_MULTICAST = 0x1000,
+
+
+    IFF_PORTSEL = 0x2000,
+
+    IFF_AUTOMEDIA = 0x4000,
+
+    IFF_DYNAMIC = 0x8000
+
+  };
+
+
+
+
+
+
+struct ifaddr
+  {
+    struct sockaddr ifa_addr;
+    union
+      {
+ struct sockaddr ifu_broadaddr;
+ struct sockaddr ifu_dstaddr;
+      } ifa_ifu;
+    struct iface *ifa_ifp;
+    struct ifaddr *ifa_next;
+  };
+# 112 "/usr/include/net/if.h" 3 4
+struct ifmap
+  {
+    unsigned long int mem_start;
+    unsigned long int mem_end;
+    unsigned short int base_addr;
+    unsigned char irq;
+    unsigned char dma;
+    unsigned char port;
+
+  };
+
+
+
+
+
+struct ifreq
+  {
+
+
+    union
+      {
+ char ifrn_name[16];
+      } ifr_ifrn;
+
+    union
+      {
+ struct sockaddr ifru_addr;
+ struct sockaddr ifru_dstaddr;
+ struct sockaddr ifru_broadaddr;
+ struct sockaddr ifru_netmask;
+ struct sockaddr ifru_hwaddr;
+ short int ifru_flags;
+ int ifru_ivalue;
+ int ifru_mtu;
+ struct ifmap ifru_map;
+ char ifru_slave[16];
+ char ifru_newname[16];
+ __caddr_t ifru_data;
+      } ifr_ifru;
+  };
+# 177 "/usr/include/net/if.h" 3 4
+struct ifconf
+  {
+    int ifc_len;
+    union
+      {
+ __caddr_t ifcu_buf;
+ struct ifreq *ifcu_req;
+      } ifc_ifcu;
+  };
+
+
+
+
+
+
+
+
+extern unsigned int if_nametoindex (__const char *__ifname) __attribute__ ((__nothrow__));
+extern char *if_indextoname (unsigned int __ifindex, char *__ifname) __attribute__ ((__nothrow__));
+
+
+extern struct if_nameindex *if_nameindex (void) __attribute__ ((__nothrow__));
+
+
+extern void if_freenameindex (struct if_nameindex *__ptr) __attribute__ ((__nothrow__));
+
+
+# 17 "/usr/include/xtables.h" 2 3 4
+# 1 "/usr/include/linux/types.h" 1 3 4
+
+
+
+# 1 "/usr/include/asm/types.h" 1 3 4
+
+
+
+# 1 "/usr/include/asm-generic/types.h" 1 3 4
+
+
+
+
+
+
+# 1 "/usr/include/asm-generic/int-ll64.h" 1 3 4
+# 11 "/usr/include/asm-generic/int-ll64.h" 3 4
+# 1 "/usr/include/asm/bitsperlong.h" 1 3 4
+# 10 "/usr/include/asm/bitsperlong.h" 3 4
+# 1 "/usr/include/asm-generic/bitsperlong.h" 1 3 4
+# 11 "/usr/include/asm/bitsperlong.h" 2 3 4
+# 12 "/usr/include/asm-generic/int-ll64.h" 2 3 4
+
+
+
+
+
+
+
+typedef __signed__ char __s8;
+typedef unsigned char __u8;
+
+typedef __signed__ short __s16;
+typedef unsigned short __u16;
+
+typedef __signed__ int __s32;
+typedef unsigned int __u32;
+
+
+__extension__ typedef __signed__ long long __s64;
+__extension__ typedef unsigned long long __u64;
+# 8 "/usr/include/asm-generic/types.h" 2 3 4
+
+
+
+typedef unsigned short umode_t;
+# 5 "/usr/include/asm/types.h" 2 3 4
+# 5 "/usr/include/linux/types.h" 2 3 4
+
+
+
+# 1 "/usr/include/linux/posix_types.h" 1 3 4
+
+
+
+# 1 "/usr/include/linux/stddef.h" 1 3 4
+# 5 "/usr/include/linux/posix_types.h" 2 3 4
+# 36 "/usr/include/linux/posix_types.h" 3 4
+typedef struct {
+ unsigned long fds_bits [(1024/(8 * sizeof(unsigned long)))];
+} __kernel_fd_set;
+
+
+typedef void (*__kernel_sighandler_t)(int);
+
+
+typedef int __kernel_key_t;
+typedef int __kernel_mqd_t;
+
+# 1 "/usr/include/asm/posix_types.h" 1 3 4
+
+
+
+# 1 "/usr/include/asm/posix_types_64.h" 1 3 4
+# 10 "/usr/include/asm/posix_types_64.h" 3 4
+typedef unsigned long __kernel_ino_t;
+typedef unsigned int __kernel_mode_t;
+typedef unsigned long __kernel_nlink_t;
+typedef long __kernel_off_t;
+typedef int __kernel_pid_t;
+typedef int __kernel_ipc_pid_t;
+typedef unsigned int __kernel_uid_t;
+typedef unsigned int __kernel_gid_t;
+typedef unsigned long __kernel_size_t;
+typedef long __kernel_ssize_t;
+typedef long __kernel_ptrdiff_t;
+typedef long __kernel_time_t;
+typedef long __kernel_suseconds_t;
+typedef long __kernel_clock_t;
+typedef int __kernel_timer_t;
+typedef int __kernel_clockid_t;
+typedef int __kernel_daddr_t;
+typedef char * __kernel_caddr_t;
+typedef unsigned short __kernel_uid16_t;
+typedef unsigned short __kernel_gid16_t;
+
+
+typedef long long __kernel_loff_t;
+
+
+typedef struct {
+ int val[2];
+} __kernel_fsid_t;
+
+typedef unsigned short __kernel_old_uid_t;
+typedef unsigned short __kernel_old_gid_t;
+typedef __kernel_uid_t __kernel_uid32_t;
+typedef __kernel_gid_t __kernel_gid32_t;
+
+typedef unsigned long __kernel_old_dev_t;
+# 5 "/usr/include/asm/posix_types.h" 2 3 4
+# 48 "/usr/include/linux/posix_types.h" 2 3 4
+# 9 "/usr/include/linux/types.h" 2 3 4
+# 27 "/usr/include/linux/types.h" 3 4
+typedef __u16 __le16;
+typedef __u16 __be16;
+typedef __u32 __le32;
+typedef __u32 __be32;
+typedef __u64 __le64;
+typedef __u64 __be64;
+
+typedef __u16 __sum16;
+typedef __u32 __wsum;
+# 18 "/usr/include/xtables.h" 2 3 4
+# 1 "/usr/include/linux/netfilter.h" 1 3 4
+
+
+
+
+
+# 1 "/usr/include/linux/sysctl.h" 1 3 4
+# 25 "/usr/include/linux/sysctl.h" 3 4
+# 1 "/usr/include/linux/kernel.h" 1 3 4
+# 12 "/usr/include/linux/kernel.h" 3 4
+struct sysinfo {
+ long uptime;
+ unsigned long loads[3];
+ unsigned long totalram;
+ unsigned long freeram;
+ unsigned long sharedram;
+ unsigned long bufferram;
+ unsigned long totalswap;
+ unsigned long freeswap;
+ unsigned short procs;
+ unsigned short pad;
+ unsigned long totalhigh;
+ unsigned long freehigh;
+ unsigned int mem_unit;
+ char _f[20-2*sizeof(long)-sizeof(int)];
+};
+# 26 "/usr/include/linux/sysctl.h" 2 3 4
+
+
+
+struct completion;
+
+
+
+
+
+
+struct __sysctl_args {
+ int *name;
+ int nlen;
+ void *oldval;
+ size_t *oldlenp;
+ void *newval;
+ size_t newlen;
+ unsigned long __unused[4];
+};
+
+
+
+
+
+enum
+{
+ CTL_KERN=1,
+ CTL_VM=2,
+ CTL_NET=3,
+ CTL_PROC=4,
+ CTL_FS=5,
+ CTL_DEBUG=6,
+ CTL_DEV=7,
+ CTL_BUS=8,
+ CTL_ABI=9,
+ CTL_CPU=10,
+ CTL_ARLAN=254,
+ CTL_S390DBF=5677,
+ CTL_SUNRPC=7249,
+ CTL_PM=9899,
+ CTL_FRV=9898,
+};
+
+
+enum
+{
+ CTL_BUS_ISA=1
+};
+
+
+enum
+{
+ INOTIFY_MAX_USER_INSTANCES=1,
+ INOTIFY_MAX_USER_WATCHES=2,
+ INOTIFY_MAX_QUEUED_EVENTS=3
+};
+
+
+enum
+{
+ KERN_OSTYPE=1,
+ KERN_OSRELEASE=2,
+ KERN_OSREV=3,
+ KERN_VERSION=4,
+ KERN_SECUREMASK=5,
+ KERN_PROF=6,
+ KERN_NODENAME=7,
+ KERN_DOMAINNAME=8,
+
+ KERN_PANIC=15,
+ KERN_REALROOTDEV=16,
+
+ KERN_SPARC_REBOOT=21,
+ KERN_CTLALTDEL=22,
+ KERN_PRINTK=23,
+ KERN_NAMETRANS=24,
+ KERN_PPC_HTABRECLAIM=25,
+ KERN_PPC_ZEROPAGED=26,
+ KERN_PPC_POWERSAVE_NAP=27,
+ KERN_MODPROBE=28,
+ KERN_SG_BIG_BUFF=29,
+ KERN_ACCT=30,
+ KERN_PPC_L2CR=31,
+
+ KERN_RTSIGNR=32,
+ KERN_RTSIGMAX=33,
+
+ KERN_SHMMAX=34,
+ KERN_MSGMAX=35,
+ KERN_MSGMNB=36,
+ KERN_MSGPOOL=37,
+ KERN_SYSRQ=38,
+ KERN_MAX_THREADS=39,
+  KERN_RANDOM=40,
+  KERN_SHMALL=41,
+  KERN_MSGMNI=42,
+  KERN_SEM=43,
+  KERN_SPARC_STOP_A=44,
+  KERN_SHMMNI=45,
+ KERN_OVERFLOWUID=46,
+ KERN_OVERFLOWGID=47,
+ KERN_SHMPATH=48,
+ KERN_HOTPLUG=49,
+ KERN_IEEE_EMULATION_WARNINGS=50,
+ KERN_S390_USER_DEBUG_LOGGING=51,
+ KERN_CORE_USES_PID=52,
+ KERN_TAINTED=53,
+ KERN_CADPID=54,
+ KERN_PIDMAX=55,
+   KERN_CORE_PATTERN=56,
+ KERN_PANIC_ON_OOPS=57,
+ KERN_HPPA_PWRSW=58,
+ KERN_HPPA_UNALIGNED=59,
+ KERN_PRINTK_RATELIMIT=60,
+ KERN_PRINTK_RATELIMIT_BURST=61,
+ KERN_PTY=62,
+ KERN_NGROUPS_MAX=63,
+ KERN_SPARC_SCONS_PWROFF=64,
+ KERN_HZ_TIMER=65,
+ KERN_UNKNOWN_NMI_PANIC=66,
+ KERN_BOOTLOADER_TYPE=67,
+ KERN_RANDOMIZE=68,
+ KERN_SETUID_DUMPABLE=69,
+ KERN_SPIN_RETRY=70,
+ KERN_ACPI_VIDEO_FLAGS=71,
+ KERN_IA64_UNALIGNED=72,
+ KERN_COMPAT_LOG=73,
+ KERN_MAX_LOCK_DEPTH=74,
+ KERN_NMI_WATCHDOG=75,
+ KERN_PANIC_ON_NMI=76,
+};
+
+
+
+
+enum
+{
+ VM_UNUSED1=1,
+ VM_UNUSED2=2,
+ VM_UNUSED3=3,
+ VM_UNUSED4=4,
+ VM_OVERCOMMIT_MEMORY=5,
+ VM_UNUSED5=6,
+ VM_UNUSED7=7,
+ VM_UNUSED8=8,
+ VM_UNUSED9=9,
+ VM_PAGE_CLUSTER=10,
+ VM_DIRTY_BACKGROUND=11,
+ VM_DIRTY_RATIO=12,
+ VM_DIRTY_WB_CS=13,
+ VM_DIRTY_EXPIRE_CS=14,
+ VM_NR_PDFLUSH_THREADS=15,
+ VM_OVERCOMMIT_RATIO=16,
+ VM_PAGEBUF=17,
+ VM_HUGETLB_PAGES=18,
+ VM_SWAPPINESS=19,
+ VM_LOWMEM_RESERVE_RATIO=20,
+ VM_MIN_FREE_KBYTES=21,
+ VM_MAX_MAP_COUNT=22,
+ VM_LAPTOP_MODE=23,
+ VM_BLOCK_DUMP=24,
+ VM_HUGETLB_GROUP=25,
+ VM_VFS_CACHE_PRESSURE=26,
+ VM_LEGACY_VA_LAYOUT=27,
+ VM_SWAP_TOKEN_TIMEOUT=28,
+ VM_DROP_PAGECACHE=29,
+ VM_PERCPU_PAGELIST_FRACTION=30,
+ VM_ZONE_RECLAIM_MODE=31,
+ VM_MIN_UNMAPPED=32,
+ VM_PANIC_ON_OOM=33,
+ VM_VDSO_ENABLED=34,
+ VM_MIN_SLAB=35,
+};
+
+
+
+enum
+{
+ NET_CORE=1,
+ NET_ETHER=2,
+ NET_802=3,
+ NET_UNIX=4,
+ NET_IPV4=5,
+ NET_IPX=6,
+ NET_ATALK=7,
+ NET_NETROM=8,
+ NET_AX25=9,
+ NET_BRIDGE=10,
+ NET_ROSE=11,
+ NET_IPV6=12,
+ NET_X25=13,
+ NET_TR=14,
+ NET_DECNET=15,
+ NET_ECONET=16,
+ NET_SCTP=17,
+ NET_LLC=18,
+ NET_NETFILTER=19,
+ NET_DCCP=20,
+ NET_IRDA=412,
+};
+
+
+enum
+{
+ RANDOM_POOLSIZE=1,
+ RANDOM_ENTROPY_COUNT=2,
+ RANDOM_READ_THRESH=3,
+ RANDOM_WRITE_THRESH=4,
+ RANDOM_BOOT_ID=5,
+ RANDOM_UUID=6
+};
+
+
+enum
+{
+ PTY_MAX=1,
+ PTY_NR=2
+};
+
+
+enum
+{
+ BUS_ISA_MEM_BASE=1,
+ BUS_ISA_PORT_BASE=2,
+ BUS_ISA_PORT_SHIFT=3
+};
+
+
+enum
+{
+ NET_CORE_WMEM_MAX=1,
+ NET_CORE_RMEM_MAX=2,
+ NET_CORE_WMEM_DEFAULT=3,
+ NET_CORE_RMEM_DEFAULT=4,
+
+ NET_CORE_MAX_BACKLOG=6,
+ NET_CORE_FASTROUTE=7,
+ NET_CORE_MSG_COST=8,
+ NET_CORE_MSG_BURST=9,
+ NET_CORE_OPTMEM_MAX=10,
+ NET_CORE_HOT_LIST_LENGTH=11,
+ NET_CORE_DIVERT_VERSION=12,
+ NET_CORE_NO_CONG_THRESH=13,
+ NET_CORE_NO_CONG=14,
+ NET_CORE_LO_CONG=15,
+ NET_CORE_MOD_CONG=16,
+ NET_CORE_DEV_WEIGHT=17,
+ NET_CORE_SOMAXCONN=18,
+ NET_CORE_BUDGET=19,
+ NET_CORE_AEVENT_ETIME=20,
+ NET_CORE_AEVENT_RSEQTH=21,
+ NET_CORE_WARNINGS=22,
+};
+
+
+
+
+
+
+
+enum
+{
+ NET_UNIX_DESTROY_DELAY=1,
+ NET_UNIX_DELETE_DELAY=2,
+ NET_UNIX_MAX_DGRAM_QLEN=3,
+};
+
+
+enum
+{
+ NET_NF_CONNTRACK_MAX=1,
+ NET_NF_CONNTRACK_TCP_TIMEOUT_SYN_SENT=2,
+ NET_NF_CONNTRACK_TCP_TIMEOUT_SYN_RECV=3,
+ NET_NF_CONNTRACK_TCP_TIMEOUT_ESTABLISHED=4,
+ NET_NF_CONNTRACK_TCP_TIMEOUT_FIN_WAIT=5,
+ NET_NF_CONNTRACK_TCP_TIMEOUT_CLOSE_WAIT=6,
+ NET_NF_CONNTRACK_TCP_TIMEOUT_LAST_ACK=7,
+ NET_NF_CONNTRACK_TCP_TIMEOUT_TIME_WAIT=8,
+ NET_NF_CONNTRACK_TCP_TIMEOUT_CLOSE=9,
+ NET_NF_CONNTRACK_UDP_TIMEOUT=10,
+ NET_NF_CONNTRACK_UDP_TIMEOUT_STREAM=11,
+ NET_NF_CONNTRACK_ICMP_TIMEOUT=12,
+ NET_NF_CONNTRACK_GENERIC_TIMEOUT=13,
+ NET_NF_CONNTRACK_BUCKETS=14,
+ NET_NF_CONNTRACK_LOG_INVALID=15,
+ NET_NF_CONNTRACK_TCP_TIMEOUT_MAX_RETRANS=16,
+ NET_NF_CONNTRACK_TCP_LOOSE=17,
+ NET_NF_CONNTRACK_TCP_BE_LIBERAL=18,
+ NET_NF_CONNTRACK_TCP_MAX_RETRANS=19,
+ NET_NF_CONNTRACK_SCTP_TIMEOUT_CLOSED=20,
+ NET_NF_CONNTRACK_SCTP_TIMEOUT_COOKIE_WAIT=21,
+ NET_NF_CONNTRACK_SCTP_TIMEOUT_COOKIE_ECHOED=22,
+ NET_NF_CONNTRACK_SCTP_TIMEOUT_ESTABLISHED=23,
+ NET_NF_CONNTRACK_SCTP_TIMEOUT_SHUTDOWN_SENT=24,
+ NET_NF_CONNTRACK_SCTP_TIMEOUT_SHUTDOWN_RECD=25,
+ NET_NF_CONNTRACK_SCTP_TIMEOUT_SHUTDOWN_ACK_SENT=26,
+ NET_NF_CONNTRACK_COUNT=27,
+ NET_NF_CONNTRACK_ICMPV6_TIMEOUT=28,
+ NET_NF_CONNTRACK_FRAG6_TIMEOUT=29,
+ NET_NF_CONNTRACK_FRAG6_LOW_THRESH=30,
+ NET_NF_CONNTRACK_FRAG6_HIGH_THRESH=31,
+ NET_NF_CONNTRACK_CHECKSUM=32,
+};
+
+
+enum
+{
+
+ NET_IPV4_FORWARD=8,
+ NET_IPV4_DYNADDR=9,
+
+ NET_IPV4_CONF=16,
+ NET_IPV4_NEIGH=17,
+ NET_IPV4_ROUTE=18,
+ NET_IPV4_FIB_HASH=19,
+ NET_IPV4_NETFILTER=20,
+
+ NET_IPV4_TCP_TIMESTAMPS=33,
+ NET_IPV4_TCP_WINDOW_SCALING=34,
+ NET_IPV4_TCP_SACK=35,
+ NET_IPV4_TCP_RETRANS_COLLAPSE=36,
+ NET_IPV4_DEFAULT_TTL=37,
+ NET_IPV4_AUTOCONFIG=38,
+ NET_IPV4_NO_PMTU_DISC=39,
+ NET_IPV4_TCP_SYN_RETRIES=40,
+ NET_IPV4_IPFRAG_HIGH_THRESH=41,
+ NET_IPV4_IPFRAG_LOW_THRESH=42,
+ NET_IPV4_IPFRAG_TIME=43,
+ NET_IPV4_TCP_MAX_KA_PROBES=44,
+ NET_IPV4_TCP_KEEPALIVE_TIME=45,
+ NET_IPV4_TCP_KEEPALIVE_PROBES=46,
+ NET_IPV4_TCP_RETRIES1=47,
+ NET_IPV4_TCP_RETRIES2=48,
+ NET_IPV4_TCP_FIN_TIMEOUT=49,
+ NET_IPV4_IP_MASQ_DEBUG=50,
+ NET_TCP_SYNCOOKIES=51,
+ NET_TCP_STDURG=52,
+ NET_TCP_RFC1337=53,
+ NET_TCP_SYN_TAILDROP=54,
+ NET_TCP_MAX_SYN_BACKLOG=55,
+ NET_IPV4_LOCAL_PORT_RANGE=56,
+ NET_IPV4_ICMP_ECHO_IGNORE_ALL=57,
+ NET_IPV4_ICMP_ECHO_IGNORE_BROADCASTS=58,
+ NET_IPV4_ICMP_SOURCEQUENCH_RATE=59,
+ NET_IPV4_ICMP_DESTUNREACH_RATE=60,
+ NET_IPV4_ICMP_TIMEEXCEED_RATE=61,
+ NET_IPV4_ICMP_PARAMPROB_RATE=62,
+ NET_IPV4_ICMP_ECHOREPLY_RATE=63,
+ NET_IPV4_ICMP_IGNORE_BOGUS_ERROR_RESPONSES=64,
+ NET_IPV4_IGMP_MAX_MEMBERSHIPS=65,
+ NET_TCP_TW_RECYCLE=66,
+ NET_IPV4_ALWAYS_DEFRAG=67,
+ NET_IPV4_TCP_KEEPALIVE_INTVL=68,
+ NET_IPV4_INET_PEER_THRESHOLD=69,
+ NET_IPV4_INET_PEER_MINTTL=70,
+ NET_IPV4_INET_PEER_MAXTTL=71,
+ NET_IPV4_INET_PEER_GC_MINTIME=72,
+ NET_IPV4_INET_PEER_GC_MAXTIME=73,
+ NET_TCP_ORPHAN_RETRIES=74,
+ NET_TCP_ABORT_ON_OVERFLOW=75,
+ NET_TCP_SYNACK_RETRIES=76,
+ NET_TCP_MAX_ORPHANS=77,
+ NET_TCP_MAX_TW_BUCKETS=78,
+ NET_TCP_FACK=79,
+ NET_TCP_REORDERING=80,
+ NET_TCP_ECN=81,
+ NET_TCP_DSACK=82,
+ NET_TCP_MEM=83,
+ NET_TCP_WMEM=84,
+ NET_TCP_RMEM=85,
+ NET_TCP_APP_WIN=86,
+ NET_TCP_ADV_WIN_SCALE=87,
+ NET_IPV4_NONLOCAL_BIND=88,
+ NET_IPV4_ICMP_RATELIMIT=89,
+ NET_IPV4_ICMP_RATEMASK=90,
+ NET_TCP_TW_REUSE=91,
+ NET_TCP_FRTO=92,
+ NET_TCP_LOW_LATENCY=93,
+ NET_IPV4_IPFRAG_SECRET_INTERVAL=94,
+ NET_IPV4_IGMP_MAX_MSF=96,
+ NET_TCP_NO_METRICS_SAVE=97,
+ NET_TCP_DEFAULT_WIN_SCALE=105,
+ NET_TCP_MODERATE_RCVBUF=106,
+ NET_TCP_TSO_WIN_DIVISOR=107,
+ NET_TCP_BIC_BETA=108,
+ NET_IPV4_ICMP_ERRORS_USE_INBOUND_IFADDR=109,
+ NET_TCP_CONG_CONTROL=110,
+ NET_TCP_ABC=111,
+ NET_IPV4_IPFRAG_MAX_DIST=112,
+  NET_TCP_MTU_PROBING=113,
+ NET_TCP_BASE_MSS=114,
+ NET_IPV4_TCP_WORKAROUND_SIGNED_WINDOWS=115,
+ NET_TCP_DMA_COPYBREAK=116,
+ NET_TCP_SLOW_START_AFTER_IDLE=117,
+ NET_CIPSOV4_CACHE_ENABLE=118,
+ NET_CIPSOV4_CACHE_BUCKET_SIZE=119,
+ NET_CIPSOV4_RBM_OPTFMT=120,
+ NET_CIPSOV4_RBM_STRICTVALID=121,
+ NET_TCP_AVAIL_CONG_CONTROL=122,
+ NET_TCP_ALLOWED_CONG_CONTROL=123,
+ NET_TCP_MAX_SSTHRESH=124,
+ NET_TCP_FRTO_RESPONSE=125,
+};
+
+enum {
+ NET_IPV4_ROUTE_FLUSH=1,
+ NET_IPV4_ROUTE_MIN_DELAY=2,
+ NET_IPV4_ROUTE_MAX_DELAY=3,
+ NET_IPV4_ROUTE_GC_THRESH=4,
+ NET_IPV4_ROUTE_MAX_SIZE=5,
+ NET_IPV4_ROUTE_GC_MIN_INTERVAL=6,
+ NET_IPV4_ROUTE_GC_TIMEOUT=7,
+ NET_IPV4_ROUTE_GC_INTERVAL=8,
+ NET_IPV4_ROUTE_REDIRECT_LOAD=9,
+ NET_IPV4_ROUTE_REDIRECT_NUMBER=10,
+ NET_IPV4_ROUTE_REDIRECT_SILENCE=11,
+ NET_IPV4_ROUTE_ERROR_COST=12,
+ NET_IPV4_ROUTE_ERROR_BURST=13,
+ NET_IPV4_ROUTE_GC_ELASTICITY=14,
+ NET_IPV4_ROUTE_MTU_EXPIRES=15,
+ NET_IPV4_ROUTE_MIN_PMTU=16,
+ NET_IPV4_ROUTE_MIN_ADVMSS=17,
+ NET_IPV4_ROUTE_SECRET_INTERVAL=18,
+ NET_IPV4_ROUTE_GC_MIN_INTERVAL_MS=19,
+};
+
+enum
+{
+ NET_PROTO_CONF_ALL=-2,
+ NET_PROTO_CONF_DEFAULT=-3
+
+
+};
+
+enum
+{
+ NET_IPV4_CONF_FORWARDING=1,
+ NET_IPV4_CONF_MC_FORWARDING=2,
+ NET_IPV4_CONF_PROXY_ARP=3,
+ NET_IPV4_CONF_ACCEPT_REDIRECTS=4,
+ NET_IPV4_CONF_SECURE_REDIRECTS=5,
+ NET_IPV4_CONF_SEND_REDIRECTS=6,
+ NET_IPV4_CONF_SHARED_MEDIA=7,
+ NET_IPV4_CONF_RP_FILTER=8,
+ NET_IPV4_CONF_ACCEPT_SOURCE_ROUTE=9,
+ NET_IPV4_CONF_BOOTP_RELAY=10,
+ NET_IPV4_CONF_LOG_MARTIANS=11,
+ NET_IPV4_CONF_TAG=12,
+ NET_IPV4_CONF_ARPFILTER=13,
+ NET_IPV4_CONF_MEDIUM_ID=14,
+ NET_IPV4_CONF_NOXFRM=15,
+ NET_IPV4_CONF_NOPOLICY=16,
+ NET_IPV4_CONF_FORCE_IGMP_VERSION=17,
+ NET_IPV4_CONF_ARP_ANNOUNCE=18,
+ NET_IPV4_CONF_ARP_IGNORE=19,
+ NET_IPV4_CONF_PROMOTE_SECONDARIES=20,
+ NET_IPV4_CONF_ARP_ACCEPT=21,
+ NET_IPV4_CONF_ARP_NOTIFY=22,
+};
+
+
+enum
+{
+ NET_IPV4_NF_CONNTRACK_MAX=1,
+ NET_IPV4_NF_CONNTRACK_TCP_TIMEOUT_SYN_SENT=2,
+ NET_IPV4_NF_CONNTRACK_TCP_TIMEOUT_SYN_RECV=3,
+ NET_IPV4_NF_CONNTRACK_TCP_TIMEOUT_ESTABLISHED=4,
+ NET_IPV4_NF_CONNTRACK_TCP_TIMEOUT_FIN_WAIT=5,
+ NET_IPV4_NF_CONNTRACK_TCP_TIMEOUT_CLOSE_WAIT=6,
+ NET_IPV4_NF_CONNTRACK_TCP_TIMEOUT_LAST_ACK=7,
+ NET_IPV4_NF_CONNTRACK_TCP_TIMEOUT_TIME_WAIT=8,
+ NET_IPV4_NF_CONNTRACK_TCP_TIMEOUT_CLOSE=9,
+ NET_IPV4_NF_CONNTRACK_UDP_TIMEOUT=10,
+ NET_IPV4_NF_CONNTRACK_UDP_TIMEOUT_STREAM=11,
+ NET_IPV4_NF_CONNTRACK_ICMP_TIMEOUT=12,
+ NET_IPV4_NF_CONNTRACK_GENERIC_TIMEOUT=13,
+ NET_IPV4_NF_CONNTRACK_BUCKETS=14,
+ NET_IPV4_NF_CONNTRACK_LOG_INVALID=15,
+ NET_IPV4_NF_CONNTRACK_TCP_TIMEOUT_MAX_RETRANS=16,
+ NET_IPV4_NF_CONNTRACK_TCP_LOOSE=17,
+ NET_IPV4_NF_CONNTRACK_TCP_BE_LIBERAL=18,
+ NET_IPV4_NF_CONNTRACK_TCP_MAX_RETRANS=19,
+  NET_IPV4_NF_CONNTRACK_SCTP_TIMEOUT_CLOSED=20,
+  NET_IPV4_NF_CONNTRACK_SCTP_TIMEOUT_COOKIE_WAIT=21,
+  NET_IPV4_NF_CONNTRACK_SCTP_TIMEOUT_COOKIE_ECHOED=22,
+  NET_IPV4_NF_CONNTRACK_SCTP_TIMEOUT_ESTABLISHED=23,
+  NET_IPV4_NF_CONNTRACK_SCTP_TIMEOUT_SHUTDOWN_SENT=24,
+  NET_IPV4_NF_CONNTRACK_SCTP_TIMEOUT_SHUTDOWN_RECD=25,
+  NET_IPV4_NF_CONNTRACK_SCTP_TIMEOUT_SHUTDOWN_ACK_SENT=26,
+ NET_IPV4_NF_CONNTRACK_COUNT=27,
+ NET_IPV4_NF_CONNTRACK_CHECKSUM=28,
+};
+
+
+enum {
+ NET_IPV6_CONF=16,
+ NET_IPV6_NEIGH=17,
+ NET_IPV6_ROUTE=18,
+ NET_IPV6_ICMP=19,
+ NET_IPV6_BINDV6ONLY=20,
+ NET_IPV6_IP6FRAG_HIGH_THRESH=21,
+ NET_IPV6_IP6FRAG_LOW_THRESH=22,
+ NET_IPV6_IP6FRAG_TIME=23,
+ NET_IPV6_IP6FRAG_SECRET_INTERVAL=24,
+ NET_IPV6_MLD_MAX_MSF=25,
+};
+
+enum {
+ NET_IPV6_ROUTE_FLUSH=1,
+ NET_IPV6_ROUTE_GC_THRESH=2,
+ NET_IPV6_ROUTE_MAX_SIZE=3,
+ NET_IPV6_ROUTE_GC_MIN_INTERVAL=4,
+ NET_IPV6_ROUTE_GC_TIMEOUT=5,
+ NET_IPV6_ROUTE_GC_INTERVAL=6,
+ NET_IPV6_ROUTE_GC_ELASTICITY=7,
+ NET_IPV6_ROUTE_MTU_EXPIRES=8,
+ NET_IPV6_ROUTE_MIN_ADVMSS=9,
+ NET_IPV6_ROUTE_GC_MIN_INTERVAL_MS=10
+};
+
+enum {
+ NET_IPV6_FORWARDING=1,
+ NET_IPV6_HOP_LIMIT=2,
+ NET_IPV6_MTU=3,
+ NET_IPV6_ACCEPT_RA=4,
+ NET_IPV6_ACCEPT_REDIRECTS=5,
+ NET_IPV6_AUTOCONF=6,
+ NET_IPV6_DAD_TRANSMITS=7,
+ NET_IPV6_RTR_SOLICITS=8,
+ NET_IPV6_RTR_SOLICIT_INTERVAL=9,
+ NET_IPV6_RTR_SOLICIT_DELAY=10,
+ NET_IPV6_USE_TEMPADDR=11,
+ NET_IPV6_TEMP_VALID_LFT=12,
+ NET_IPV6_TEMP_PREFERED_LFT=13,
+ NET_IPV6_REGEN_MAX_RETRY=14,
+ NET_IPV6_MAX_DESYNC_FACTOR=15,
+ NET_IPV6_MAX_ADDRESSES=16,
+ NET_IPV6_FORCE_MLD_VERSION=17,
+ NET_IPV6_ACCEPT_RA_DEFRTR=18,
+ NET_IPV6_ACCEPT_RA_PINFO=19,
+ NET_IPV6_ACCEPT_RA_RTR_PREF=20,
+ NET_IPV6_RTR_PROBE_INTERVAL=21,
+ NET_IPV6_ACCEPT_RA_RT_INFO_MAX_PLEN=22,
+ NET_IPV6_PROXY_NDP=23,
+ NET_IPV6_ACCEPT_SOURCE_ROUTE=25,
+ __NET_IPV6_MAX
+};
+
+
+enum {
+ NET_IPV6_ICMP_RATELIMIT=1
+};
+
+
+enum {
+ NET_NEIGH_MCAST_SOLICIT=1,
+ NET_NEIGH_UCAST_SOLICIT=2,
+ NET_NEIGH_APP_SOLICIT=3,
+ NET_NEIGH_RETRANS_TIME=4,
+ NET_NEIGH_REACHABLE_TIME=5,
+ NET_NEIGH_DELAY_PROBE_TIME=6,
+ NET_NEIGH_GC_STALE_TIME=7,
+ NET_NEIGH_UNRES_QLEN=8,
+ NET_NEIGH_PROXY_QLEN=9,
+ NET_NEIGH_ANYCAST_DELAY=10,
+ NET_NEIGH_PROXY_DELAY=11,
+ NET_NEIGH_LOCKTIME=12,
+ NET_NEIGH_GC_INTERVAL=13,
+ NET_NEIGH_GC_THRESH1=14,
+ NET_NEIGH_GC_THRESH2=15,
+ NET_NEIGH_GC_THRESH3=16,
+ NET_NEIGH_RETRANS_TIME_MS=17,
+ NET_NEIGH_REACHABLE_TIME_MS=18,
+};
+
+
+enum {
+ NET_DCCP_DEFAULT=1,
+};
+
+
+enum {
+ NET_IPX_PPROP_BROADCASTING=1,
+ NET_IPX_FORWARDING=2
+};
+
+
+enum {
+ NET_LLC2=1,
+ NET_LLC_STATION=2,
+};
+
+
+enum {
+ NET_LLC2_TIMEOUT=1,
+};
+
+
+enum {
+ NET_LLC_STATION_ACK_TIMEOUT=1,
+};
+
+
+enum {
+ NET_LLC2_ACK_TIMEOUT=1,
+ NET_LLC2_P_TIMEOUT=2,
+ NET_LLC2_REJ_TIMEOUT=3,
+ NET_LLC2_BUSY_TIMEOUT=4,
+};
+
+
+enum {
+ NET_ATALK_AARP_EXPIRY_TIME=1,
+ NET_ATALK_AARP_TICK_TIME=2,
+ NET_ATALK_AARP_RETRANSMIT_LIMIT=3,
+ NET_ATALK_AARP_RESOLVE_TIME=4
+};
+
+
+
+enum {
+ NET_NETROM_DEFAULT_PATH_QUALITY=1,
+ NET_NETROM_OBSOLESCENCE_COUNT_INITIALISER=2,
+ NET_NETROM_NETWORK_TTL_INITIALISER=3,
+ NET_NETROM_TRANSPORT_TIMEOUT=4,
+ NET_NETROM_TRANSPORT_MAXIMUM_TRIES=5,
+ NET_NETROM_TRANSPORT_ACKNOWLEDGE_DELAY=6,
+ NET_NETROM_TRANSPORT_BUSY_DELAY=7,
+ NET_NETROM_TRANSPORT_REQUESTED_WINDOW_SIZE=8,
+ NET_NETROM_TRANSPORT_NO_ACTIVITY_TIMEOUT=9,
+ NET_NETROM_ROUTING_CONTROL=10,
+ NET_NETROM_LINK_FAILS_COUNT=11,
+ NET_NETROM_RESET=12
+};
+
+
+enum {
+ NET_AX25_IP_DEFAULT_MODE=1,
+ NET_AX25_DEFAULT_MODE=2,
+ NET_AX25_BACKOFF_TYPE=3,
+ NET_AX25_CONNECT_MODE=4,
+ NET_AX25_STANDARD_WINDOW=5,
+ NET_AX25_EXTENDED_WINDOW=6,
+ NET_AX25_T1_TIMEOUT=7,
+ NET_AX25_T2_TIMEOUT=8,
+ NET_AX25_T3_TIMEOUT=9,
+ NET_AX25_IDLE_TIMEOUT=10,
+ NET_AX25_N2=11,
+ NET_AX25_PACLEN=12,
+ NET_AX25_PROTOCOL=13,
+ NET_AX25_DAMA_SLAVE_TIMEOUT=14
+};
+
+
+enum {
+ NET_ROSE_RESTART_REQUEST_TIMEOUT=1,
+ NET_ROSE_CALL_REQUEST_TIMEOUT=2,
+ NET_ROSE_RESET_REQUEST_TIMEOUT=3,
+ NET_ROSE_CLEAR_REQUEST_TIMEOUT=4,
+ NET_ROSE_ACK_HOLD_BACK_TIMEOUT=5,
+ NET_ROSE_ROUTING_CONTROL=6,
+ NET_ROSE_LINK_FAIL_TIMEOUT=7,
+ NET_ROSE_MAX_VCS=8,
+ NET_ROSE_WINDOW_SIZE=9,
+ NET_ROSE_NO_ACTIVITY_TIMEOUT=10
+};
+
+
+enum {
+ NET_X25_RESTART_REQUEST_TIMEOUT=1,
+ NET_X25_CALL_REQUEST_TIMEOUT=2,
+ NET_X25_RESET_REQUEST_TIMEOUT=3,
+ NET_X25_CLEAR_REQUEST_TIMEOUT=4,
+ NET_X25_ACK_HOLD_BACK_TIMEOUT=5,
+ NET_X25_FORWARD=6
+};
+
+
+enum
+{
+ NET_TR_RIF_TIMEOUT=1
+};
+
+
+enum {
+ NET_DECNET_NODE_TYPE = 1,
+ NET_DECNET_NODE_ADDRESS = 2,
+ NET_DECNET_NODE_NAME = 3,
+ NET_DECNET_DEFAULT_DEVICE = 4,
+ NET_DECNET_TIME_WAIT = 5,
+ NET_DECNET_DN_COUNT = 6,
+ NET_DECNET_DI_COUNT = 7,
+ NET_DECNET_DR_COUNT = 8,
+ NET_DECNET_DST_GC_INTERVAL = 9,
+ NET_DECNET_CONF = 10,
+ NET_DECNET_NO_FC_MAX_CWND = 11,
+ NET_DECNET_MEM = 12,
+ NET_DECNET_RMEM = 13,
+ NET_DECNET_WMEM = 14,
+ NET_DECNET_DEBUG_LEVEL = 255
+};
+
+
+enum {
+ NET_DECNET_CONF_LOOPBACK = -2,
+ NET_DECNET_CONF_DDCMP = -3,
+ NET_DECNET_CONF_PPP = -4,
+ NET_DECNET_CONF_X25 = -5,
+ NET_DECNET_CONF_GRE = -6,
+ NET_DECNET_CONF_ETHER = -7
+
+
+};
+
+
+enum {
+ NET_DECNET_CONF_DEV_PRIORITY = 1,
+ NET_DECNET_CONF_DEV_T1 = 2,
+ NET_DECNET_CONF_DEV_T2 = 3,
+ NET_DECNET_CONF_DEV_T3 = 4,
+ NET_DECNET_CONF_DEV_FORWARDING = 5,
+ NET_DECNET_CONF_DEV_BLKSIZE = 6,
+ NET_DECNET_CONF_DEV_STATE = 7
+};
+
+
+enum {
+ NET_SCTP_RTO_INITIAL = 1,
+ NET_SCTP_RTO_MIN = 2,
+ NET_SCTP_RTO_MAX = 3,
+ NET_SCTP_RTO_ALPHA = 4,
+ NET_SCTP_RTO_BETA = 5,
+ NET_SCTP_VALID_COOKIE_LIFE = 6,
+ NET_SCTP_ASSOCIATION_MAX_RETRANS = 7,
+ NET_SCTP_PATH_MAX_RETRANS = 8,
+ NET_SCTP_MAX_INIT_RETRANSMITS = 9,
+ NET_SCTP_HB_INTERVAL = 10,
+ NET_SCTP_PRESERVE_ENABLE = 11,
+ NET_SCTP_MAX_BURST = 12,
+ NET_SCTP_ADDIP_ENABLE = 13,
+ NET_SCTP_PRSCTP_ENABLE = 14,
+ NET_SCTP_SNDBUF_POLICY = 15,
+ NET_SCTP_SACK_TIMEOUT = 16,
+ NET_SCTP_RCVBUF_POLICY = 17,
+};
+
+
+enum {
+ NET_BRIDGE_NF_CALL_ARPTABLES = 1,
+ NET_BRIDGE_NF_CALL_IPTABLES = 2,
+ NET_BRIDGE_NF_CALL_IP6TABLES = 3,
+ NET_BRIDGE_NF_FILTER_VLAN_TAGGED = 4,
+ NET_BRIDGE_NF_FILTER_PPPOE_TAGGED = 5,
+};
+
+
+enum {
+ NET_IRDA_DISCOVERY=1,
+ NET_IRDA_DEVNAME=2,
+ NET_IRDA_DEBUG=3,
+ NET_IRDA_FAST_POLL=4,
+ NET_IRDA_DISCOVERY_SLOTS=5,
+ NET_IRDA_DISCOVERY_TIMEOUT=6,
+ NET_IRDA_SLOT_TIMEOUT=7,
+ NET_IRDA_MAX_BAUD_RATE=8,
+ NET_IRDA_MIN_TX_TURN_TIME=9,
+ NET_IRDA_MAX_TX_DATA_SIZE=10,
+ NET_IRDA_MAX_TX_WINDOW=11,
+ NET_IRDA_MAX_NOREPLY_TIME=12,
+ NET_IRDA_WARN_NOREPLY_TIME=13,
+ NET_IRDA_LAP_KEEPALIVE_TIME=14,
+};
+
+
+
+enum
+{
+ FS_NRINODE=1,
+ FS_STATINODE=2,
+ FS_MAXINODE=3,
+ FS_NRDQUOT=4,
+ FS_MAXDQUOT=5,
+ FS_NRFILE=6,
+ FS_MAXFILE=7,
+ FS_DENTRY=8,
+ FS_NRSUPER=9,
+ FS_MAXSUPER=10,
+ FS_OVERFLOWUID=11,
+ FS_OVERFLOWGID=12,
+ FS_LEASES=13,
+ FS_DIR_NOTIFY=14,
+ FS_LEASE_TIME=15,
+ FS_DQSTATS=16,
+ FS_XFS=17,
+ FS_AIO_NR=18,
+ FS_AIO_MAX_NR=19,
+ FS_INOTIFY=20,
+ FS_OCFS2=988,
+};
+
+
+enum {
+ FS_DQ_LOOKUPS = 1,
+ FS_DQ_DROPS = 2,
+ FS_DQ_READS = 3,
+ FS_DQ_WRITES = 4,
+ FS_DQ_CACHE_HITS = 5,
+ FS_DQ_ALLOCATED = 6,
+ FS_DQ_FREE = 7,
+ FS_DQ_SYNCS = 8,
+ FS_DQ_WARNINGS = 9,
+};
+
+
+
+
+enum {
+ DEV_CDROM=1,
+ DEV_HWMON=2,
+ DEV_PARPORT=3,
+ DEV_RAID=4,
+ DEV_MAC_HID=5,
+ DEV_SCSI=6,
+ DEV_IPMI=7,
+};
+
+
+enum {
+ DEV_CDROM_INFO=1,
+ DEV_CDROM_AUTOCLOSE=2,
+ DEV_CDROM_AUTOEJECT=3,
+ DEV_CDROM_DEBUG=4,
+ DEV_CDROM_LOCK=5,
+ DEV_CDROM_CHECK_MEDIA=6
+};
+
+
+enum {
+ DEV_PARPORT_DEFAULT=-3
+};
+
+
+enum {
+ DEV_RAID_SPEED_LIMIT_MIN=1,
+ DEV_RAID_SPEED_LIMIT_MAX=2
+};
+
+
+enum {
+ DEV_PARPORT_DEFAULT_TIMESLICE=1,
+ DEV_PARPORT_DEFAULT_SPINTIME=2
+};
+
+
+enum {
+ DEV_PARPORT_SPINTIME=1,
+ DEV_PARPORT_BASE_ADDR=2,
+ DEV_PARPORT_IRQ=3,
+ DEV_PARPORT_DMA=4,
+ DEV_PARPORT_MODES=5,
+ DEV_PARPORT_DEVICES=6,
+ DEV_PARPORT_AUTOPROBE=16
+};
+
+
+enum {
+ DEV_PARPORT_DEVICES_ACTIVE=-3,
+};
+
+
+enum {
+ DEV_PARPORT_DEVICE_TIMESLICE=1,
+};
+
+
+enum {
+ DEV_MAC_HID_KEYBOARD_SENDS_LINUX_KEYCODES=1,
+ DEV_MAC_HID_KEYBOARD_LOCK_KEYCODES=2,
+ DEV_MAC_HID_MOUSE_BUTTON_EMULATION=3,
+ DEV_MAC_HID_MOUSE_BUTTON2_KEYCODE=4,
+ DEV_MAC_HID_MOUSE_BUTTON3_KEYCODE=5,
+ DEV_MAC_HID_ADB_MOUSE_SENDS_KEYCODES=6
+};
+
+
+enum {
+ DEV_SCSI_LOGGING_LEVEL=1,
+};
+
+
+enum {
+ DEV_IPMI_POWEROFF_POWERCYCLE=1,
+};
+
+
+enum
+{
+ ABI_DEFHANDLER_COFF=1,
+ ABI_DEFHANDLER_ELF=2,
+ ABI_DEFHANDLER_LCALL7=3,
+ ABI_DEFHANDLER_LIBCSO=4,
+ ABI_TRACE=5,
+ ABI_FAKE_UTSNAME=6,
+};
+# 7 "/usr/include/linux/netfilter.h" 2 3 4
+# 42 "/usr/include/linux/netfilter.h" 3 4
+enum nf_inet_hooks {
+ NF_INET_PRE_ROUTING,
+ NF_INET_LOCAL_IN,
+ NF_INET_FORWARD,
+ NF_INET_LOCAL_OUT,
+ NF_INET_POST_ROUTING,
+ NF_INET_NUMHOOKS
+};
+
+enum {
+ NFPROTO_UNSPEC = 0,
+ NFPROTO_IPV4 = 2,
+ NFPROTO_ARP = 3,
+ NFPROTO_BRIDGE = 7,
+ NFPROTO_IPV6 = 10,
+ NFPROTO_DECNET = 12,
+ NFPROTO_NUMPROTO,
+};
+
+union nf_inet_addr {
+ __u32 all[4];
+ __be32 ip;
+ __be32 ip6[4];
+ struct in_addr in;
+ struct in6_addr in6;
+};
+# 19 "/usr/include/xtables.h" 2 3 4
+# 1 "/usr/include/linux/netfilter/x_tables.h" 1 3 4
+# 10 "/usr/include/linux/netfilter/x_tables.h" 3 4
+struct xt_entry_match {
+ union {
+  struct {
+   __u16 match_size;
+
+
+   char name[29];
+   __u8 revision;
+  } user;
+  struct {
+   __u16 match_size;
+
+
+   struct xt_match *match;
+  } kernel;
+
+
+  __u16 match_size;
+ } u;
+
+ unsigned char data[0];
+};
+
+struct xt_entry_target {
+ union {
+  struct {
+   __u16 target_size;
+
+
+   char name[29];
+   __u8 revision;
+  } user;
+  struct {
+   __u16 target_size;
+
+
+   struct xt_target *target;
+  } kernel;
+
+
+  __u16 target_size;
+ } u;
+
+ unsigned char data[0];
+};
+# 64 "/usr/include/linux/netfilter/x_tables.h" 3 4
+struct xt_standard_target {
+ struct xt_entry_target target;
+ int verdict;
+};
+
+struct xt_error_target {
+ struct xt_entry_target target;
+ char errorname[30];
+};
+
+
+
+struct xt_get_revision {
+ char name[29];
+ __u8 revision;
+};
+# 92 "/usr/include/linux/netfilter/x_tables.h" 3 4
+struct _xt_align {
+ __u8 u8;
+ __u16 u16;
+ __u32 u32;
+ __u64 u64;
+};
+# 109 "/usr/include/linux/netfilter/x_tables.h" 3 4
+struct xt_counters {
+ __u64 pcnt, bcnt;
+};
+
+
+struct xt_counters_info {
+
+ char name[32];
+
+ unsigned int num_counters;
+
+
+ struct xt_counters counters[0];
+};
+# 20 "/usr/include/xtables.h" 2 3 4
+# 37 "/usr/include/xtables.h" 3 4
+struct in_addr;
+# 74 "/usr/include/xtables.h" 3 4
+enum xt_option_type {
+ XTTYPE_NONE,
+ XTTYPE_UINT8,
+ XTTYPE_UINT16,
+ XTTYPE_UINT32,
+ XTTYPE_UINT64,
+ XTTYPE_UINT8RC,
+ XTTYPE_UINT16RC,
+ XTTYPE_UINT32RC,
+ XTTYPE_UINT64RC,
+ XTTYPE_DOUBLE,
+ XTTYPE_STRING,
+ XTTYPE_TOSMASK,
+ XTTYPE_MARKMASK32,
+ XTTYPE_SYSLOGLEVEL,
+ XTTYPE_HOST,
+ XTTYPE_HOSTMASK,
+ XTTYPE_PROTOCOL,
+ XTTYPE_PORT,
+ XTTYPE_PORTRC,
+ XTTYPE_PLEN,
+ XTTYPE_PLENMASK,
+ XTTYPE_ETHERMAC,
+};
+# 107 "/usr/include/xtables.h" 3 4
+enum xt_option_flags {
+ XTOPT_INVERT = 1 << 0,
+ XTOPT_MAND = 1 << 1,
+ XTOPT_MULTI = 1 << 2,
+ XTOPT_PUT = 1 << 3,
+ XTOPT_NBO = 1 << 4,
+};
+# 127 "/usr/include/xtables.h" 3 4
+struct xt_option_entry {
+ const char *name;
+ enum xt_option_type type;
+ unsigned int id, excl, also, flags;
+ unsigned int ptroff;
+ size_t size;
+ unsigned int min, max;
+};
+# 148 "/usr/include/xtables.h" 3 4
+struct xt_option_call {
+ const char *arg, *ext_name;
+ const struct xt_option_entry *entry;
+ void *data;
+ unsigned int xflags;
+ _Bool invert;
+ uint8_t nvals;
+ union {
+  uint8_t u8, u8_range[2], syslog_level, protocol;
+  uint16_t u16, u16_range[2], port, port_range[2];
+  uint32_t u32, u32_range[2];
+  uint64_t u64, u64_range[2];
+  double dbl;
+  struct {
+   union nf_inet_addr haddr, hmask;
+   uint8_t hlen;
+  };
+  struct {
+   uint8_t tos_value, tos_mask;
+  };
+  struct {
+   uint32_t mark, mask;
+  };
+  uint8_t ethermac[6];
+ } val;
+
+ union {
+  struct xt_entry_match **match;
+  struct xt_entry_target **target;
+ };
+ void *xt_entry;
+ void *udata;
+};
+# 189 "/usr/include/xtables.h" 3 4
+struct xt_fcheck_call {
+ const char *ext_name;
+ void *data, *udata;
+ unsigned int xflags;
+};
+
+
+
+
+
+struct xtables_lmap {
+ char *name;
+ int id;
+ struct xtables_lmap *next;
+};
+
+
+struct xtables_match
+{
+
+
+
+
+ const char *version;
+
+ struct xtables_match *next;
+
+ const char *name;
+
+
+ u_int8_t revision;
+
+ u_int16_t family;
+
+
+ size_t size;
+
+
+ size_t userspacesize;
+
+
+ void (*help)(void);
+
+
+ void (*init)(struct xt_entry_match *m);
+
+
+
+
+ int (*parse)(int c, char **argv, int invert, unsigned int *flags,
+       const void *entry,
+       struct xt_entry_match **match);
+
+
+ void (*final_check)(unsigned int flags);
+
+
+
+ void (*print)(const void *ip,
+        const struct xt_entry_match *match, int numeric);
+
+
+
+ void (*save)(const void *ip, const struct xt_entry_match *match);
+
+
+ const struct option *extra_opts;
+
+
+ void (*x6_parse)(struct xt_option_call *);
+ void (*x6_fcheck)(struct xt_fcheck_call *);
+ const struct xt_option_entry *x6_options;
+
+
+ size_t udata_size;
+
+
+ void *udata;
+ unsigned int option_offset;
+ struct xt_entry_match *m;
+ unsigned int mflags;
+ unsigned int loaded;
+};
+
+struct xtables_target
+{
+
+
+
+
+ const char *version;
+
+ struct xtables_target *next;
+
+
+ const char *name;
+
+
+ u_int8_t revision;
+
+ u_int16_t family;
+
+
+
+ size_t size;
+
+
+ size_t userspacesize;
+
+
+ void (*help)(void);
+
+
+ void (*init)(struct xt_entry_target *t);
+
+
+
+
+ int (*parse)(int c, char **argv, int invert, unsigned int *flags,
+       const void *entry,
+       struct xt_entry_target **targetinfo);
+
+
+ void (*final_check)(unsigned int flags);
+
+
+ void (*print)(const void *ip,
+        const struct xt_entry_target *target, int numeric);
+
+
+ void (*save)(const void *ip,
+       const struct xt_entry_target *target);
+
+
+ const struct option *extra_opts;
+
+
+ void (*x6_parse)(struct xt_option_call *);
+ void (*x6_fcheck)(struct xt_fcheck_call *);
+ const struct xt_option_entry *x6_options;
+
+ size_t udata_size;
+
+
+ void *udata;
+ unsigned int option_offset;
+ struct xt_entry_target *t;
+ unsigned int tflags;
+ unsigned int used;
+ unsigned int loaded;
+};
+
+struct xtables_rule_match {
+ struct xtables_rule_match *next;
+ struct xtables_match *match;
+
+
+ _Bool completed;
+};
+
+
+
+
+
+
+
+struct xtables_pprot {
+ const char *name;
+ u_int8_t num;
+};
+
+enum xtables_tryload {
+ XTF_DONT_LOAD,
+ XTF_DURING_LOAD,
+ XTF_TRY_LOAD,
+ XTF_LOAD_MUST_SUCCEED,
+};
+
+enum xtables_exittype {
+ OTHER_PROBLEM = 1,
+ PARAMETER_PROBLEM,
+ VERSION_PROBLEM,
+ RESOURCE_PROBLEM,
+ XTF_ONLY_ONCE,
+ XTF_NO_INVERT,
+ XTF_BAD_VALUE,
+ XTF_ONE_ACTION,
+};
+
+struct xtables_globals
+{
+ unsigned int option_offset;
+ const char *program_name, *program_version;
+ struct option *orig_opts;
+ struct option *opts;
+ void (*exit_err)(enum xtables_exittype status, const char *msg, ...) __attribute__((noreturn, format(printf,2,3)));
+};
+
+
+
+
+
+
+
+extern const char *xtables_modprobe_program;
+extern struct xtables_match *xtables_matches;
+extern struct xtables_target *xtables_targets;
+
+extern void xtables_init(void);
+extern void xtables_set_nfproto(uint8_t);
+extern void *xtables_calloc(size_t, size_t);
+extern void *xtables_malloc(size_t);
+extern void *xtables_realloc(void *, size_t);
+
+extern int xtables_insmod(const char *, const char *, _Bool);
+extern int xtables_load_ko(const char *, _Bool);
+extern int xtables_set_params(struct xtables_globals *xtp);
+extern void xtables_free_opts(int reset_offset);
+extern struct option *xtables_merge_options(struct option *origopts,
+ struct option *oldopts, const struct option *newopts,
+ unsigned int *option_offset);
+
+extern int xtables_init_all(struct xtables_globals *xtp, uint8_t nfproto);
+extern struct xtables_match *xtables_find_match(const char *name,
+ enum xtables_tryload, struct xtables_rule_match **match);
+extern struct xtables_target *xtables_find_target(const char *name,
+ enum xtables_tryload);
+
+
+extern void xtables_register_match(struct xtables_match *me);
+extern void xtables_register_matches(struct xtables_match *, unsigned int);
+extern void xtables_register_target(struct xtables_target *me);
+extern void xtables_register_targets(struct xtables_target *, unsigned int);
+
+extern _Bool xtables_strtoul(const char *, char **, uintmax_t *,
+ uintmax_t, uintmax_t);
+extern _Bool xtables_strtoui(const char *, char **, unsigned int *,
+ unsigned int, unsigned int);
+extern int xtables_service_to_port(const char *name, const char *proto);
+extern u_int16_t xtables_parse_port(const char *port, const char *proto);
+extern void
+xtables_parse_interface(const char *arg, char *vianame, unsigned char *mask);
+
+
+
+
+extern struct xtables_globals *xt_params;
+
+
+extern void xtables_param_act(unsigned int, const char *, ...);
+
+extern const char *xtables_ipaddr_to_numeric(const struct in_addr *);
+extern const char *xtables_ipaddr_to_anyname(const struct in_addr *);
+extern const char *xtables_ipmask_to_numeric(const struct in_addr *);
+extern struct in_addr *xtables_numeric_to_ipaddr(const char *);
+extern struct in_addr *xtables_numeric_to_ipmask(const char *);
+extern void xtables_ipparse_any(const char *, struct in_addr **,
+ struct in_addr *, unsigned int *);
+extern void xtables_ipparse_multiple(const char *, struct in_addr **,
+ struct in_addr **, unsigned int *);
+
+extern struct in6_addr *xtables_numeric_to_ip6addr(const char *);
+extern const char *xtables_ip6addr_to_numeric(const struct in6_addr *);
+extern const char *xtables_ip6addr_to_anyname(const struct in6_addr *);
+extern const char *xtables_ip6mask_to_numeric(const struct in6_addr *);
+extern void xtables_ip6parse_any(const char *, struct in6_addr **,
+ struct in6_addr *, unsigned int *);
+extern void xtables_ip6parse_multiple(const char *, struct in6_addr **,
+ struct in6_addr **, unsigned int *);
+
+
+
+
+
+extern void xtables_save_string(const char *value);
+# 477 "/usr/include/xtables.h" 3 4
+extern const struct xtables_pprot xtables_chain_protos[];
+extern u_int16_t xtables_parse_protocol(const char *s);
+
+
+extern void xtables_option_metavalidate(const char *,
+     const struct xt_option_entry *);
+extern struct option *xtables_options_xfrm(struct option *, struct option *,
+        const struct xt_option_entry *,
+        unsigned int *);
+extern void xtables_option_parse(struct xt_option_call *);
+extern void xtables_option_tpcall(unsigned int, char **, _Bool,
+      struct xtables_target *, void *);
+extern void xtables_option_mpcall(unsigned int, char **, _Bool,
+      struct xtables_match *, void *);
+extern void xtables_option_tfcall(struct xtables_target *);
+extern void xtables_option_mfcall(struct xtables_match *);
+extern void xtables_options_fcheck(const char *, unsigned int,
+       const struct xt_option_entry *);
+
+extern struct xtables_lmap *xtables_lmap_init(const char *);
+extern void xtables_lmap_free(struct xtables_lmap *);
+extern int xtables_lmap_name2id(const struct xtables_lmap *, const char *);
+extern const char *xtables_lmap_id2name(const struct xtables_lmap *, int);
+# 2 "xtables.c" 2

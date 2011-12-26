@@ -6,3 +6,4 @@
 */*res
 */*lps
 tests/test_libip4tc
+tests/xtables_test

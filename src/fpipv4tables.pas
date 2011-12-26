@@ -34,7 +34,7 @@ type
   end;
 
 implementation
-uses BaseUnix, lipip4tc;
+uses BaseUnix, libip4tc;
 
 { TChains }
 

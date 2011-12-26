@@ -82,31 +82,31 @@ const
 type
   pxt_option_entry = ^xt_option_entry;
   xt_option_entry  = record
+    name   : PChar;          // name of option
+    type_  : xt_option_type; // type of input and validation method, see %XTTYPE_*
+    id,                      // unique number (within extension) for option, 0-31
+    excl,                    // bitmask of flags that cannot be used with this option
+    also,                    // bitmask of flags that must be used with this option
+    flags  : cuint;          // bitmask of option flags, see %XTOPT_*
+    ptroff : cuint;          // offset into private structure for member
+    size   : csize_t;        // size of the item pointed to by @ptroff; this is a safeguard
+    min,                     // lowest allowed value (for singular integral types)
+    max    : cuint;          // highest allowed value (for singular integral types)
+  end;
+
+  pxt_option_call = ^xt_option_call;
+  xt_option_call  = record
+    arg,                         //
+    ext_name : PChar;            //
+    entry    : pxt_option_entry; //
+    data     : pointer;
+    xflags   : cuint;
+    invert   : cbool;
+    nvals    : cuint8;
 
   end;
 
 (*
-/**
- * @name:	name of option
- * @type:	type of input and validation method, see %XTTYPE_*
- * @id:		unique number (within extension) for option, 0-31
- * @excl:	bitmask of flags that cannot be used with this option
- * @also:	bitmask of flags that must be used with this option
- * @flags:	bitmask of option flags, see %XTOPT_*
- * @ptroff:	offset into private structure for member
- * @size:	size of the item pointed to by @ptroff; this is a safeguard
- * @min:	lowest allowed value (for singular integral types)
- * @max:	highest allowed value (for singular integral types)
- */
-struct xt_option_entry {
-	const char *name;
-	enum xt_option_type type;
-	unsigned int id, excl, also, flags;
-	unsigned int ptroff;
-	size_t size;
-	unsigned int min, max;
-};
-
 /**
  * @arg:	input from command line
  * @ext_name:	name of extension currently being processed

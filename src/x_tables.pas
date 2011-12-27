@@ -145,21 +145,21 @@ type
 procedure set_counter(c : xt_counters; b,p : cuint64); inline; cdecl;
 procedure add_counter(c : xt_counters; b,p : cuint64); inline; cdecl;
 
+type
+ pxt_counters_info = ^xt_counters_info;
+ // The argument to IPT_SO_ADD_COUNTERS.
+ xt_counters_info  = record
+   // which table
+   name         : array[0..XT_TABLE_MAXNAMELEN-1] of char;
+   num_counters : cuint;
+   // The counters (actually `number' of these).
+   counters     : array[0..0] of xt_counters;
+ end;
+
+const
+  XT_INV_PROTO = $40; // Invert the sense of PROTO.
+
 (*
-
-/* The argument to IPT_SO_ADD_COUNTERS. */
-struct xt_counters_info {
-	/* Which table. */
-	char name[XT_TABLE_MAXNAMELEN];
-
-	unsigned int num_counters;
-
-	/* The counters (actually `number' of these). */
-	struct xt_counters counters[0];
-};
-
-#define XT_INV_PROTO		0x40	/* Invert the sense of PROTO. */
-
 /* fn returns 0 to continue iteration */
 #define XT_MATCH_ITERATE(type, e, fn, args...)			\
 ({								\
@@ -178,6 +178,7 @@ struct xt_counters_info {
 	}							\
 	__ret;							\
 })
+
 
 /* fn returns 0 to continue iteration */
 #define XT_ENTRY_ITERATE_CONTINUE(type, entries, size, n, fn, args...) \

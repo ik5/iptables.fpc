@@ -1,3 +1,6 @@
+{$IFNDEF LINUX}
+   {$ERROR This unit can work only with Linux - It requires iptables that are part of the Linux kernel}
+{$ENDIF}
 unit x_tables;
 
 {$mode fpc}{$packrecords c}

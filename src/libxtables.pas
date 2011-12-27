@@ -156,85 +156,83 @@ type
     udata    : pointer;          // parsed result (cf. xtables_{match,target}->udata_size)
   end;
 
+  pxt_fcheck_call = ^xt_fcheck_call;
+  xt_fcheck_call  = record
+    ext_name : PChar;   // name of extension currently being processed
+    data,               // per-extension (kernel) data block
+    udata    : pointer; { per-extension private scratch area
+                          (cf. xtables_{match,target}->udata_size) }
+    xflags   : cuint;   // options of the extension that have been used
+  end;
+
+  pxtables_lmap = ^xtables_lmap;
+  // A "linear"/linked-list based name<->id map, for files similar to /etc/iproute2/
+  xtables_lmap  = record
+    name : PChar;
+    id   : cint;
+    next : pxtables_lmap;
+  end;
+
+  ppxtables_match = ^pxtables_match;
+  pxtables_match  = ^xtables_match;
+  // Include file for additions: new matches and targets.
+  xtables_match   = record
+   (*
+	  * ABI/API version this module requires. Must be first member,
+	  * as the rest of this struct may be subject to ABI changes.
+	  *)
+    version       : PChar;
+    next          : pxtables_match;
+    name          : PChar;
+    // Revision of match (0 by default).
+    revision      : cuint8;
+    family        : cuint16;
+    // Size of match data.
+    size          : csize_t;
+    // Size of match data relevent for userspace comparison purposes
+    userspacesize : csize_t;
+    // Function which prints out usage message.
+    help          : procedure; cdecl;
+    // Function which prints out usage message.
+    init          : procedure(m : pxt_entry_match); cdecl;
+    (* Function which parses command options; returns true if it ate an option
+       entry is struct ipt_entry for example
+    *)
+    parse         : function(c     : cint;
+                            argv   : PPChar;
+                            invert : cint;
+                            flags  : cuint;
+                            entry  : Pointer;
+                            match  : ppxt_entry_match) : cint; cdecl;
+    // Final check; exit if not ok.
+    final_check   : procedure (flags   : cuint); cdecl;
+    (*
+      Prints out the match iff non-NULL: put space at end
+    	ip is struct ipt_ip * for example
+    *)
+    print         : procedure (ip      : pointer;
+                               match   : pxt_entry_match;
+                               numeric : cint); cdecl;
+    (*
+      Saves the match info in parsable form to stdout.
+	    ip is struct ipt_ip * for example
+    *)
+    save          : procedure (ip      : pointer;
+                               match   : pxt_entry_match); cdecl;
+    // Pointer to list of extra command-line options
+    options       :
+
+  end;
+
 (*
-/**
- * @ext_name:	name of extension currently being processed
- * @data:	per-extension (kernel) data block
- * @udata:	per-extension private scratch area
- * 		(cf. xtables_{match,target}->udata_size)
- * @xflags:	options of the extension that have been used
- */
-struct xt_fcheck_call {
-	const char *ext_name;
-	void *data, *udata;
-	unsigned int xflags;
-};
-
-/**
- * A "linear"/linked-list based name<->id map, for files similar to
- * /etc/iproute2/.
- */
-struct xtables_lmap {
-	char *name;
-	int id;
-	struct xtables_lmap *next;
-};
-
-/* Include file for additions: new matches and targets. */
 struct xtables_match
 {
-	/*
-	 * ABI/API version this module requires. Must be first member,
-	 * as the rest of this struct may be subject to ABI changes.
-	 */
-	const char *version;
-
-	struct xtables_match *next;
-
-	const char *name;
-
-	/* Revision of match (0 by default). */
-	u_int8_t revision;
-
-	u_int16_t family;
-
-	/* Size of match data. */
-	size_t size;
-
-	/* Size of match data relevent for userspace comparison purposes */
-	size_t userspacesize;
-
-	/* Function which prints out usage message. */
-	void (*help)(void);
-
-	/* Initialize the match. */
-	void (*init)(struct xt_entry_match *m);
-
-	/* Function which parses command options; returns true if it
-           ate an option */
-	/* entry is struct ipt_entry for example */
-	int (*parse)(int c, char **argv, int invert, unsigned int *flags,
-		     const void *entry,
-		     struct xt_entry_match **match);
-
-	/* Final check; exit if not ok. */
-	void (*final_check)(unsigned int flags);
-
-	/* Prints out the match iff non-NULL: put space at end */
-	/* ip is struct ipt_ip * for example */
-	void (*print)(const void *ip,
-		      const struct xt_entry_match *match, int numeric);
-
-	/* Saves the match info in parsable form to stdout. */
-	/* ip is struct ipt_ip * for example */
-	void (*save)(const void *ip, const struct xt_entry_match *match);
-
-	/* Pointer to list of extra command-line options */
+	/*  */
 	const struct option *extra_opts;
 
 	/* New parser */
-	void (*x6_parse)(struct xt_option_call *);
-	void (*x6_fcheck)(struct xt_fcheck_call *);
+	void ( * x6_parse)(struct xt_option_call * );
+	void ( * x6_fcheck)(struct xt_fcheck_call * );
 	const struct xt_option_entry *x6_options;
 
 	/* Size of per-extension instance extra "global" scratch space */
@@ -274,35 +272,35 @@ struct xtables_target
 	size_t userspacesize;
 
 	/* Function which prints out usage message. */
-	void (*help)(void);
+	void ( * help)(void);
 
 	/* Initialize the target. */
-	void (*init)(struct xt_entry_target *t);
+	void ( * init)(struct xt_entry_target *t);
 
 	/* Function which parses command options; returns true if it
            ate an option */
 	/* entry is struct ipt_entry for example */
-	int (*parse)(int c, char **argv, int invert, unsigned int *flags,
+	int ( * parse)(int c, char **argv, int invert, unsigned int *flags,
 		     const void *entry,
 		     struct xt_entry_target **targetinfo);
 
 	/* Final check; exit if not ok. */
-	void (*final_check)(unsigned int flags);
+	void ( * final_check)(unsigned int flags);
 
 	/* Prints out the target iff non-NULL: put space at end */
-	void (*print)(const void *ip,
+	void ( * print)(const void *ip,
 		      const struct xt_entry_target *target, int numeric);
 
 	/* Saves the targinfo in parsable form to stdout. */
-	void (*save)(const void *ip,
+	void ( * save)(const void *ip,
 		     const struct xt_entry_target *target);
 
 	/* Pointer to list of extra command-line options */
 	const struct option *extra_opts;
 
 	/* New parser */
-	void (*x6_parse)(struct xt_option_call *);
-	void (*x6_fcheck)(struct xt_fcheck_call *);
+	void ( * x6_parse)(struct xt_option_call * );
+	void ( * x6_fcheck)(struct xt_fcheck_call * );
 	const struct xt_option_entry *x6_options;
 
 	size_t udata_size;
@@ -359,7 +357,7 @@ struct xtables_globals
 	const char *program_name, *program_version;
 	struct option *orig_opts;
 	struct option *opts;
-	void (*exit_err)(enum xtables_exittype status, const char *msg, ...) __attribute__((noreturn, format(printf,2,3)));
+	void ( * exit_err)(enum xtables_exittype status, const char *msg, ...) __attribute__((noreturn, format(printf,2,3)));
 };
 
 #define XT_GETOPT_TABLEEND {.name = NULL, .has_arg = false}
@@ -415,24 +413,24 @@ extern struct xtables_globals *xt_params;
 
 extern void xtables_param_act(unsigned int, const char *, ...);
 
-extern const char *xtables_ipaddr_to_numeric(const struct in_addr *);
-extern const char *xtables_ipaddr_to_anyname(const struct in_addr *);
-extern const char *xtables_ipmask_to_numeric(const struct in_addr *);
-extern struct in_addr *xtables_numeric_to_ipaddr(const char *);
-extern struct in_addr *xtables_numeric_to_ipmask(const char *);
+extern const char *xtables_ipaddr_to_numeric(const struct in_addr * );
+extern const char *xtables_ipaddr_to_anyname(const struct in_addr * );
+extern const char *xtables_ipmask_to_numeric(const struct in_addr * );
+extern struct in_addr *xtables_numeric_to_ipaddr(const char * );
+extern struct in_addr *xtables_numeric_to_ipmask(const char * );
 extern void xtables_ipparse_any(const char *, struct in_addr **,
-	struct in_addr *, unsigned int *);
+	struct in_addr *, unsigned int * );
 extern void xtables_ipparse_multiple(const char *, struct in_addr **,
-	struct in_addr **, unsigned int *);
+	struct in_addr **, unsigned int * );
 
-extern struct in6_addr *xtables_numeric_to_ip6addr(const char *);
-extern const char *xtables_ip6addr_to_numeric(const struct in6_addr *);
-extern const char *xtables_ip6addr_to_anyname(const struct in6_addr *);
-extern const char *xtables_ip6mask_to_numeric(const struct in6_addr *);
+extern struct in6_addr *xtables_numeric_to_ip6addr(const char * );
+extern const char *xtables_ip6addr_to_numeric(const struct in6_addr * );
+extern const char *xtables_ip6addr_to_anyname(const struct in6_addr * );
+extern const char *xtables_ip6mask_to_numeric(const struct in6_addr * );
 extern void xtables_ip6parse_any(const char *, struct in6_addr **,
-	struct in6_addr *, unsigned int *);
+	struct in6_addr *, unsigned int * );
 extern void xtables_ip6parse_multiple(const char *, struct in6_addr **,
-	struct in6_addr **, unsigned int *);
+	struct in6_addr **, unsigned int * );
 
 /**
  * Print the specified value to standard output, quoting dangerous
@@ -481,13 +479,12 @@ extern const char *xtables_lmap_id2name(const struct xtables_lmap *, int);
 /* Shipped modules rely on this... */
 
 #	ifndef ARRAY_SIZE
-#		define ARRAY_SIZE(x) (sizeof(x) / sizeof(*(x)))
+#		define ARRAY_SIZE(x) (sizeof(x) / sizeof( *(x)))
 #	endif
 
 extern void _init(void);
 
 *)
-  *)
 implementation
 
 end.

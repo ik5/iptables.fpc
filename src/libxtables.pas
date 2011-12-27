@@ -369,15 +369,24 @@ function xtables_matches : pxtables_match;
 function xtables_targets : pxtables_target;
  cdecl; external XTABLES_LIB;
 
+procedure xtables_init;
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_set_nfproto(p : cuint8);
+ cdecl; external XTABLES_LIB;
+
+function xtables_calloc(p1, p2 : csize_t) : pointer;
+ cdecl; external XTABLES_LIB;
+
+function xtables_malloc(p1 : csize_t) : pointer;
+ cdecl; external XTABLES_LIB;
+
+function xtables_realloc(p1 : pointer; p2 : csize_t) : pointer;
+ cdecl; external XTABLES_LIB;
+
 
 
 (*
-extern void xtables_init(void);
-extern void xtables_set_nfproto(uint8_t);
-extern void *xtables_calloc(size_t, size_t);
-extern void *xtables_malloc(size_t);
-extern void *xtables_realloc(void *, size_t);
-
 extern int xtables_insmod(const char *, const char *, bool);
 extern int xtables_load_ko(const char *, bool);
 extern int xtables_set_params(struct xtables_globals *xtp);

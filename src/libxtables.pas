@@ -384,17 +384,23 @@ function xtables_malloc(p1 : csize_t) : pointer;
 function xtables_realloc(p1 : pointer; p2 : csize_t) : pointer;
  cdecl; external XTABLES_LIB;
 
+function xtables_insmod(p1, p2 : PChar; p3 : cbool) : cint;
+ cdecl; external XTABLES_LIB;
 
+function xtables_load_ko(p1 : PChar; p2 : cbool) : cint;
+ cdecl; external XTABLES_LIB;
+
+function xtables_set_params(xtp : pxtables_globals) : cint;
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_free_opts(reset_offset : cint);
+ cdecl; external XTABLES_LIB;
+
+function xtables_merge_options(origopts, oldopts, newopts : poption;
+                               option_offset              : pcuint) : poption;
+ cdecl; external XTABLES_LIB;
 
 (*
-extern int xtables_insmod(const char *, const char *, bool);
-extern int xtables_load_ko(const char *, bool);
-extern int xtables_set_params(struct xtables_globals *xtp);
-extern void xtables_free_opts(int reset_offset);
-extern struct option *xtables_merge_options(struct option *origopts,
-	struct option *oldopts, const struct option *newopts,
-	unsigned int *option_offset);
-
 extern int xtables_init_all(struct xtables_globals *xtp, uint8_t nfproto);
 extern struct xtables_match *xtables_find_match(const char *name,
 	enum xtables_tryload, struct xtables_rule_match **match);

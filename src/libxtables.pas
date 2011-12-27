@@ -297,64 +297,81 @@ type
     loaded        : cuint; // simulate loading so options are merged properly
   end;
 
+  ppxtables_rule_match = ^pxtables_rule_match;
+  pxtables_rule_match  = ^xtables_rule_match;
+  xtables_rule_match   = record
+    next      : pxtables_rule_match;
+    match     : pxtables_match;
+    (*
+      Multiple matches of the same type: the ones before
+ 	    the current one are completed from parsing point of view
+     *)
+    completed : cbool;
+  end;
+
+  pxtables_pprot = ^xtables_pprot;
+  (**
+   * struct xtables_pprot -
+   *
+   * A few hardcoded protocols for 'all' and in case the user has no
+   * /etc/protocols.
+   *)
+  xtables_pprot  = record
+    name : PChar;
+    num  : cuint8;
+  end;
+
+  xtables_tryload  = cint;
+  xtables_exittype = cint;
+
+const
+  XTF_DONT_LOAD         = 0;
+  XTF_DURING_LOAD       = 1;
+  XTF_TRY_LOAD          = 2;
+  XTF_LOAD_MUST_SUCCEED = 3;
+
+  OTHER_PROBLEM         = 1;
+  PARAMETER_PROBLEM     = 2;
+  VERSION_PROBLEM       = 3;
+  RESOURCE_PROBLEM      = 4;
+  XTF_ONLY_ONCE         = 5;
+  XTF_NO_INVERT         = 6;
+  XTF_BAD_VALUE         = 7;
+  XTF_ONE_ACTION        = 8;
+
+type
+  pxtables_globals = ^xtables_globals;
+  xtables_globals  = record
+    option_offset   : cuint;
+    program_name,
+    program_version : PChar;
+    orig_opts,
+    opts            : poption;
+    exit_err        : procedure(status : xtables_exittype;
+                                msg    : PChar);           cdecl; varargs;
+    (*
+       varargs exists from FPC 2.6.0 afaik, it allow us to do 1,2,3 instead of
+       [1,2,3]. It arrives only with cdecl; prior to it.
+       http://freepascal.org/docs-html/ref/refsu77.html
+     *)
+  end;
+
 (*
-
-struct xtables_rule_match {
-	struct xtables_rule_match *next;
-	struct xtables_match *match;
-	/* Multiple matches of the same type: the ones before
-	   the current one are completed from parsing point of view */
-	bool completed;
-};
-
-/**
- * struct xtables_pprot -
- *
- * A few hardcoded protocols for 'all' and in case the user has no
- * /etc/protocols.
- */
-struct xtables_pprot {
-	const char *name;
-	u_int8_t num;
-};
-
-enum xtables_tryload {
-	XTF_DONT_LOAD,
-	XTF_DURING_LOAD,
-	XTF_TRY_LOAD,
-	XTF_LOAD_MUST_SUCCEED,
-};
-
-enum xtables_exittype {
-	OTHER_PROBLEM = 1,
-	PARAMETER_PROBLEM,
-	VERSION_PROBLEM,
-	RESOURCE_PROBLEM,
-	XTF_ONLY_ONCE,
-	XTF_NO_INVERT,
-	XTF_BAD_VALUE,
-	XTF_ONE_ACTION,
-};
-
-struct xtables_globals
-{
-	unsigned int option_offset;
-	const char *program_name, *program_version;
-	struct option *orig_opts;
-	struct option *opts;
-	void ( * exit_err)(enum xtables_exittype status, const char *msg, ...) __attribute__((noreturn, format(printf,2,3)));
-};
-
 #define XT_GETOPT_TABLEEND {.name = NULL, .has_arg = false}
+*)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+function xtables_modprobe_program : PChar;
+ cdecl; external XTABLES_LIB;
 
-extern const char *xtables_modprobe_program;
-extern struct xtables_match *xtables_matches;
-extern struct xtables_target *xtables_targets;
+function xtables_matches : pxtables_match;
+ cdecl; external XTABLES_LIB;
 
+function xtables_targets : pxtables_target;
+ cdecl; external XTABLES_LIB;
+
+
+
+(*
 extern void xtables_init(void);
 extern void xtables_set_nfproto(uint8_t);
 extern void *xtables_calloc(size_t, size_t);

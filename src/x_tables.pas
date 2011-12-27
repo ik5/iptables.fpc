@@ -43,8 +43,9 @@ type
           );
   end;
 
-  pxt_entry_match = ^xt_entry_match;
-  xt_entry_match  = record
+  ppxt_entry_match = ^pxt_entry_match;
+  pxt_entry_match  = ^xt_entry_match;
+  xt_entry_match   = record
     u    : ___match_u;
     data : array[0..0] of Byte;
   end;
@@ -66,8 +67,9 @@ type
           );
   end;
 
-  pxt_entry_target = ^xt_entry_target;
-  xt_entry_target  = record
+  ppxt_entry_target = ^pxt_entry_target;
+  pxt_entry_target  = ^xt_entry_target;
+  xt_entry_target   = record
      u    : ___target_u;
      data : array[0..0] of char;
   end;

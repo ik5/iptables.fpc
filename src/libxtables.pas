@@ -8,7 +8,7 @@ unit libxtables;
 interface
 
 uses
-  ctypes, sockets, x_tables;
+  ctypes, sockets, x_tables, netfilter;
 
 const
   XTABLES_LIB = 'libxtables';
@@ -94,15 +94,7 @@ type
     max    : cuint;          // highest allowed value (for singular integral types)
   end;
 
-  pxt_option_call = ^xt_option_call;
-  xt_option_call  = record
-    arg,                         //
-    ext_name : PChar;            //
-    entry    : pxt_option_entry; //
-    data     : pointer;
-    xflags   : cuint;
-    invert   : cbool;
-    nvals    : cuint8;
+  ____option_val = record // for internal usage only due to the union
     case val : Integer of
      0 : (
             u8           : cuint8;
@@ -128,71 +120,43 @@ type
            dbl : cdouble;
          );
      5 : (
-           //haddr, hmask : nf
+           haddr, hmask : nf_inet_addr;
+           hlen         : cuint8;
          );
-     (*
-		struct {
-			union nf_inet_addr haddr, hmask;
-			uint8_t hlen;
-		};
-		struct {
-			uint8_t tos_value, tos_mask;
-		};
-		struct {
-			uint32_t mark, mask;
-		};
-		uint8_t ethermac[6];
-	} val;
-    end; *)
+     6 : (
+           tos_value, tos_mask : cuint8;
+         );
+     7 : (
+           mark, mask : cuint32;
+         );
+     8 : (
+           ethermac : array[0..5] of cuint8;
+         );
+  end;
+
+  ____option_entry = record
+    case integer of
+     0 : ( match  : ppxt_entry_match);
+     1 : ( target : ppxt_entry_target);
+  end;
+
+  pxt_option_call = ^xt_option_call;
+  xt_option_call  = record
+    arg,                         // input from command line
+    ext_name : PChar;            // name of extension currently being processed
+    entry    : pxt_option_entry; // current option being processed
+    data     : pointer;          // per-extension kernel data block
+    xflags   : cuint;            // options of the extension that have been used
+    invert   : cbool;            // whether option was used with !
+    nvals    : cuint8;           // number of results in uXX_multi
+    val      : ____option_val;   // parsed result
+    //Wished for a world where the ones below were gone:
+    union    : ____option_entry;
+    xt_entry : pointer;
+    udata    : pointer;          // parsed result (cf. xtables_{match,target}->udata_size)
   end;
 
 (*
-/**
- * @arg:	input from command line
- * @ext_name:	name of extension currently being processed
- * @entry:	current option being processed
- * @data:	per-extension kernel data block
- * @xflags:	options of the extension that have been used
- * @invert:	whether option was used with !
- * @nvals:	number of results in uXX_multi
- * @val:	parsed result
- * @udata:	per-extension private scratch area
- * 		(cf. xtables_{match,target}->udata_size)
- */
-struct xt_option_call {
-	const char *arg, *ext_name;
-	const struct xt_option_entry *entry;
-	void *data;
-	unsigned int xflags;
-	bool invert;
-	uint8_t nvals;
-	union {
-		uint8_t u8, u8_range[2], syslog_level, protocol;
-		uint16_t u16, u16_range[2], port, port_range[2];
-		uint32_t u32, u32_range[2];
-		uint64_t u64, u64_range[2];
-		double dbl;
-		struct {
-			union nf_inet_addr haddr, hmask;
-			uint8_t hlen;
-		};
-		struct {
-			uint8_t tos_value, tos_mask;
-		};
-		struct {
-			uint32_t mark, mask;
-		};
-		uint8_t ethermac[6];
-	} val;
-	/* Wished for a world where the ones below were gone: */
-	union {
-		struct xt_entry_match **match;
-		struct xt_entry_target **target;
-	};
-	void *xt_entry;
-	void *udata;
-};
-
 /**
  * @ext_name:	name of extension currently being processed
  * @data:	per-extension (kernel) data block

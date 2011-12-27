@@ -400,13 +400,18 @@ function xtables_merge_options(origopts, oldopts, newopts : poption;
                                option_offset              : pcuint) : poption;
  cdecl; external XTABLES_LIB;
 
-(*
-extern int xtables_init_all(struct xtables_globals *xtp, uint8_t nfproto);
-extern struct xtables_match *xtables_find_match(const char *name,
-	enum xtables_tryload, struct xtables_rule_match **match);
-extern struct xtables_target *xtables_find_target(const char *name,
-	enum xtables_tryload);
+function xtables_init_all(xtp : pxtables_globals; nfproto : cuint8) : cuint;
+ cdecl; external XTABLES_LIB;
 
+function xtables_find_match(name    : PChar;
+                            tryload : xtables_tryload;
+                            match   : ppxtables_rule_match) : pxtables_match;
+ cdecl; external XTABLES_LIB;
+
+function xtables_find_target(name : PChar; tryload : xtables_tryload) : pxtables_target;
+ cdecl; external XTABLES_LIB;
+
+(*
 /* Your shared library should call one of these. */
 extern void xtables_register_match(struct xtables_match *me);
 extern void xtables_register_matches(struct xtables_match *, unsigned int);

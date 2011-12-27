@@ -411,13 +411,21 @@ function xtables_find_match(name    : PChar;
 function xtables_find_target(name : PChar; tryload : xtables_tryload) : pxtables_target;
  cdecl; external XTABLES_LIB;
 
-(*
-/* Your shared library should call one of these. */
-extern void xtables_register_match(struct xtables_match *me);
-extern void xtables_register_matches(struct xtables_match *, unsigned int);
-extern void xtables_register_target(struct xtables_target *me);
-extern void xtables_register_targets(struct xtables_target *, unsigned int);
+// Your shared library should call one of these.
 
+procedure xtables_register_match(me : pxtables_match);
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_register_matches(p1 : pxtables_match; p2 : cuint);
+ cdecl; external XTABLES_LIB
+
+procedure xtables_register_target(me : pxtables_target);
+ cdecl; external XTABLES_LIB
+
+procedure xtables_register_targets(p1 : pxtables_target; p2 : cuint);
+ cdecl; external XTABLES_LIB
+
+(*
 extern bool xtables_strtoul(const char *, char **, uintmax_t *,
 	uintmax_t, uintmax_t);
 extern bool xtables_strtoui(const char *, char **, unsigned int *,

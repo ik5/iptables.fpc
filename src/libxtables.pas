@@ -417,32 +417,47 @@ procedure xtables_register_match(me : pxtables_match);
  cdecl; external XTABLES_LIB;
 
 procedure xtables_register_matches(p1 : pxtables_match; p2 : cuint);
- cdecl; external XTABLES_LIB
+ cdecl; external XTABLES_LIB;
 
 procedure xtables_register_target(me : pxtables_target);
- cdecl; external XTABLES_LIB
+ cdecl; external XTABLES_LIB;
 
 procedure xtables_register_targets(p1 : pxtables_target; p2 : cuint);
- cdecl; external XTABLES_LIB
+ cdecl; external XTABLES_LIB;
+
+function xtables_strtoul(p1 : PChar; p2 : PPChar; p3, p4, p5 : culong) : cbool;
+ cdecl; external XTABLES_LIB;
+
+function xtables_strtoui(p1 : PChar; p2 : PPChar; p3, p4, p5 : cuint) : cbool;
+ cdecl; external XTABLES_LIB;
+
+function xtables_service_to_port(name, proto : PChar) : cint;
+ cdecl; external XTABLES_LIB;
+
+function xtables_parse_port(port, proto : PChar) : cuint16;
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_parse_interface(arg, vianame : PChar; mask : PChar);
+ cdecl; external XTABLES_LIB;
 
 (*
-extern bool xtables_strtoul(const char *, char **, uintmax_t *,
-	uintmax_t, uintmax_t);
-extern bool xtables_strtoui(const char *, char **, unsigned int *,
-	unsigned int, unsigned int);
-extern int xtables_service_to_port(const char *name, const char *proto);
-extern u_int16_t xtables_parse_port(const char *port, const char *proto);
-extern void
-xtables_parse_interface(const char *arg, char *vianame, unsigned char *mask);
-
 /* this is a special 64bit data type that is 8-byte aligned */
 #define aligned_u64 u_int64_t __attribute__((aligned(8)))
+*)
 
-extern struct xtables_globals *xt_params;
+function xt_params : pxtables_globals;
+ cdecl; external XTABLES_LIB;
+
+(*
 #define xtables_error (xt_params->exit_err)
+*)
 
-extern void xtables_param_act(unsigned int, const char *, ...);
+procedure xtables_param_act(p1 : cuint; p2 : PChar);
+ cdecl; varargs; external XTABLES_LIB;
 
+
+
+(*
 extern const char *xtables_ipaddr_to_numeric(const struct in_addr * );
 extern const char *xtables_ipaddr_to_anyname(const struct in_addr * );
 extern const char *xtables_ipmask_to_numeric(const struct in_addr * );

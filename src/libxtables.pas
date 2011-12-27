@@ -241,80 +241,63 @@ type
     loaded        : cuint; // simulate loading so options are merged properly
   end;
 
-  pxtables_target = ^xtables_target;
-  xtables_target  = record
-
+  ppxtables_target = ^pxtables_target;
+  pxtables_target  = ^xtables_target;
+  xtables_target   = record
+    (*
+     * ABI/API version this module requires. Must be first member,
+  	 * as the rest of this struct may be subject to ABI changes.
+     *)
+    version        : PChar;
+    next           : pxtables_target;
+    name           : PChar;
+    // Revision of target (0 by default).
+    revision       : cuint8;
+    family         : cuint16;
+    // Size of target data.
+    size           : csize_t;
+    // Size of target data relevent for userspace comparison purposes
+    userspacesize : csize_t;
+    // Function which prints out usage message.
+    help          : procedure; cdecl;
+    // Initialize the target.
+    init          : procedure(t : pxt_entry_target); cdecl;
+    (*
+       Function which parses command options; returns true if it ate an option
+       entry is struct ipt_entry for example
+    *)
+    parse         : function(c          : cint;
+                             argv       : PPChar;
+                             invert     : cint;
+                             flags      : pcuint;
+                             entry      : Pointer;
+                             targetinfo : ppxtables_target) : cint; cdecl;
+    // Final check; exit if not ok.
+    final_check   : procedure(flags : cuint); cdecl;
+    // Prints out the target iff non-NULL: put space at end
+    print         : procedure(ip      : pointer;
+                              target  : pxt_entry_target;
+                              numeric : cint); cdecl;
+    // Saves the targinfo in parsable form to stdout.
+    save          : procedure(ip     : pointer;
+                              target : pxt_entry_target); cdecl;
+    // Pointer to list of extra command-line options
+    extra_opts    : poption;
+    // New parser
+    x6_parse      : procedure(p : pxt_option_call); cdecl;
+    x6_fcheck     : procedure(p : pxt_fcheck_call); cdecl;
+    x6_options    : pxt_option_entry;
+    udata_size    : csize_t;
+    // Ignore these men behind the curtain:
+    udata         : pointer;
+    option_offset : cuint;
+    t             : pxt_entry_target;
+    tflags        : cuint;
+    used          : cuint;
+    loaded        : cuint; // simulate loading so options are merged properly
   end;
 
 (*
-
-struct xtables_target
-{
-	/*
-	 * ABI/API version this module requires. Must be first member,
-	 * as the rest of this struct may be subject to ABI changes.
-	 */
-	const char *version;
-
-	struct xtables_target *next;
-
-
-	const char *name;
-
-	/* Revision of target (0 by default). */
-	u_int8_t revision;
-
-	u_int16_t family;
-
-
-	/* Size of target data. */
-	size_t size;
-
-	/* Size of target data relevent for userspace comparison purposes */
-	size_t userspacesize;
-
-	/* Function which prints out usage message. */
-	void ( * help)(void);
-
-	/* Initialize the target. */
-	void ( * init)(struct xt_entry_target *t);
-
-	/* Function which parses command options; returns true if it
-           ate an option */
-	/* entry is struct ipt_entry for example */
-	int ( * parse)(int c, char **argv, int invert, unsigned int *flags,
-		     const void *entry,
-		     struct xt_entry_target **targetinfo);
-
-	/* Final check; exit if not ok. */
-	void ( * final_check)(unsigned int flags);
-
-	/* Prints out the target iff non-NULL: put space at end */
-	void ( * print)(const void *ip,
-		      const struct xt_entry_target *target, int numeric);
-
-	/* Saves the targinfo in parsable form to stdout. */
-	void ( * save)(const void *ip,
-		     const struct xt_entry_target *target);
-
-	/* Pointer to list of extra command-line options */
-	const struct option *extra_opts;
-
-	/* New parser */
-	void ( * x6_parse)(struct xt_option_call * );
-	void ( * x6_fcheck)(struct xt_fcheck_call * );
-	const struct xt_option_entry *x6_options;
-
-	size_t udata_size;
-
-	/* Ignore these men behind the curtain: */
-	void *udata;
-	unsigned int option_offset;
-	struct xt_entry_target *t;
-	unsigned int tflags;
-	unsigned int used;
-	unsigned int loaded; /* simulate loading so options are merged properly */
-};
 
 struct xtables_rule_match {
 	struct xtables_rule_match *next;

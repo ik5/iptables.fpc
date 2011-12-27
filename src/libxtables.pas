@@ -34,6 +34,12 @@ const
   XTABLES_VERSION_CODE = 7;
 
 type
+{$IF not defined(option)}
+  ppoption = ^poption;
+  poption  = ^option;
+  option   = record end;
+{$ENDIF}
+
   (**
    * Select the format the input has to conform to, as well as the target type
    * (area pointed to with XTOPT_POINTER). Note that the storing is not always
@@ -198,12 +204,12 @@ type
     (* Function which parses command options; returns true if it ate an option
        entry is struct ipt_entry for example
     *)
-    parse         : function(c     : cint;
-                            argv   : PPChar;
-                            invert : cint;
-                            flags  : cuint;
-                            entry  : Pointer;
-                            match  : ppxt_entry_match) : cint; cdecl;
+    parse         : function(c      : cint;
+                             argv   : PPChar;
+                             invert : cint;
+                             flags  : cuint;
+                             entry  : Pointer;
+                             match  : ppxt_entry_match) : cint; cdecl;
     // Final check; exit if not ok.
     final_check   : procedure (flags   : cuint); cdecl;
     (*
@@ -220,31 +226,27 @@ type
     save          : procedure (ip      : pointer;
                                match   : pxt_entry_match); cdecl;
     // Pointer to list of extra command-line options
-    options       :
+    extra_opts    : poption;
+    // New parser
+    x6_parse      : procedure(p : pxt_option_call); cdecl;
+    x6_fcheck     : procedure(p : pxt_fcheck_call); cdecl;
+    x6_options    : pxt_option_entry;
+    // Size of per-extension instance extra "global" scratch space
+    udata_size    : csize_t;
+    //Ignore these men behind the curtain:
+    udata         : pointer;
+    option_offset : cuint;
+    m             : pxt_entry_match;
+    mflags        : cuint;
+    loaded        : cuint; // simulate loading so options are merged properly
+  end;
+
+  pxtables_target = ^xtables_target;
+  xtables_target  = record
 
   end;
 
 (*
-struct xtables_match
-{
-	/*  */
-	const struct option *extra_opts;
-
-	/* New parser */
-	void ( * x6_parse)(struct xt_option_call * );
-	void ( * x6_fcheck)(struct xt_fcheck_call * );
-	const struct xt_option_entry *x6_options;
-
-	/* Size of per-extension instance extra "global" scratch space */
-	size_t udata_size;
-
-	/* Ignore these men behind the curtain: */
-	void *udata;
-	unsigned int option_offset;
-	struct xt_entry_match *m;
-	unsigned int mflags;
-	unsigned int loaded; /* simulate loading so options are merged properly */
-};
 
 struct xtables_target
 {

@@ -12,12 +12,18 @@ const
   XT_EXTENSION_MAXNAMELEN = 29;
   XT_TABLE_MAXNAMELEN     = 32;
 
-type
-  pxt_match = ^xt_match;
-  xt_match  = record end;
+{$IF not defined(NF_REPEAT)}
+  NF_REPEAT               = 4;
+{$ENDIF}
 
-  xt_entry_match = record
-    case u : Byte of
+type
+  pxt_match  = ^xt_match;
+  xt_match   = record end;
+  pxt_target = ^xt_target;
+  xt_target  = record end;
+
+  ___match_u = record // Internal record, to seperate the union parts ...
+    case Integer of
       0 : ( user : record
               match_size : cuint16;
               // Used by userspace
@@ -35,39 +41,38 @@ type
       2 : (
             match_size : cuint16;
           );
+  end;
 
+  pxt_entry_match = ^xt_entry_match;
+  xt_entry_match  = record
+    u    : ___match_u;
     data : array[0..0] of Byte;
   end;
 
+  ___target_u = record  // internal record for seperating unions
+    case Integer of
+      0 : ( match_size0 : cuint16;
+            // Used by userspace
+            name        : array[0..XT_EXTENSION_MAXNAMELEN-1] of char;
+            revision    : cuint8;
+          );
+      1 : (
+            match_size1 : cuint16;
+            // Used inside the kernel
+            target      : pxt_target;
+          );
+      2 : ( // Total length
+            match_size2 : cuint16;
+          );
+  end;
+
+  pxt_entry_target = ^xt_entry_target;
+  xt_entry_target  = record
+     u    : ___target_u;
+     data : array[0..0] of char;
+  end;
+
 (*
-
-struct xt_entry_match {
-
-	unsigned char data[0];
-};
-
-struct xt_entry_target {
-	union {
-		struct {
-			__u16 target_size;
-
-			/* Used by userspace */
-			char name[XT_EXTENSION_MAXNAMELEN];
-			__u8 revision;
-		} user;
-		struct {
-			__u16 target_size;
-
-			/* Used inside the kernel */
-			struct xt_target *target;
-		} kernel;
-
-		/* Total length */
-		__u16 target_size;
-	} u;
-
-	unsigned char data[0];
-};
 
 #define XT_TARGET_INIT(__name, __size)					       \
 {									       \
@@ -77,54 +82,70 @@ struct xt_entry_target {
 	},								       \
 }
 
-struct xt_standard_target {
-	struct xt_entry_target target;
-	int verdict;
-};
+*)
 
-struct xt_error_target {
-	struct xt_entry_target target;
-	char errorname[XT_FUNCTION_MAXNAMELEN];
-};
+  pxt_standard_target = ^xt_standard_target;
+  xt_standard_target  = record
+     target  : xt_entry_target;
+     verdict : cint;
+  end;
 
-/* The argument to IPT_SO_GET_REVISION_*.  Returns highest revision
- * kernel supports, if >= revision. */
-struct xt_get_revision {
-	char name[XT_EXTENSION_MAXNAMELEN];
-	__u8 revision;
-};
+  pxt_error_target = ^xt_error_target;
+  xt_error_target  = record
+    target    : xt_entry_target;
+    errorname : array[0..XT_FUNCTION_MAXNAMELEN-1] of char;
+  end;
 
-/* CONTINUE verdict for targets */
-#define XT_CONTINUE 0xFFFFFFFF
+  pxt_get_revision = ^xt_get_revision;
+  (* The argument to IPT_SO_GET_REVISION_*.  Returns highest revision
+   * kernel supports, if >= revision. *)
+  xt_get_revision  = record
+    name     : array[0..XT_FUNCTION_MAXNAMELEN-1] of char;
+    revision : cuint8;
+  end;
 
-/* For standard target */
-#define XT_RETURN (-NF_REPEAT - 1)
+const
+  // CONTINUE verdict for targets
+  XT_CONTINUE = $FFFFFFFF;
+  // For standard target
+  XT_RETURN   = -NF_REPEAT - 1;
 
-/* this is a dummy structure to find out the alignment requirement for a struct
+type
+(* this is a dummy structure to find out the alignment requirement for a struct
  * containing all the fundamental data types that are used in ipt_entry,
  * ip6t_entry and arpt_entry.  This sucks, and it is a hack.  It will be my
  * personal pleasure to remove it -HW
- */
-struct _xt_align {
-	__u8 u8;
-	__u16 u16;
-	__u32 u32;
-	__u64 u64;
-};
+ *)
 
+ p_xt_align = ^_xt_align ;
+ _xt_align  = record
+   u8  : cuint8;
+   u16 : cuint16;
+   u32 : cuint32;
+   u64 : cuint64;
+ end;
+
+(*
 #define XT_ALIGN(s) __ALIGN_KERNEL((s), __alignof__(struct _xt_align))
+*)
 
-/* Standard return verdict, or do jump. */
-#define XT_STANDARD_TARGET ""
-/* Error verdict. */
-#define XT_ERROR_TARGET "ERROR"
+const
+  // Standard return verdict, or do jump.
+  XT_STANDARD_TARGET_ = '';
+  // Error verdict.
+  XT_ERROR_TARGET_    = 'ERROR';
 
-#define SET_COUNTER(c,b,p) do { (c).bcnt = (b); (c).pcnt = (p); } while(0)
-#define ADD_COUNTER(c,b,p) do { (c).bcnt += (b); (c).pcnt += (p); } while(0)
+type
+ pxt_counters = ^xt_counters;
+ xt_counters  = record
+   // Packet and byte counters
+   pcnt, bcnt : cuint64;
+ end;
 
-struct xt_counters {
-	__u64 pcnt, bcnt;			/* Packet and byte counters */
-};
+procedure set_counter(c : xt_counters; b,p : cuint64); inline; cdecl;
+procedure add_counter(c : xt_counters; b,p : cuint64); inline; cdecl;
+
+(*
 
 /* The argument to IPT_SO_ADD_COUNTERS. */
 struct xt_counters_info {
@@ -201,6 +222,24 @@ struct xt_counters_info {
 *)
 
 implementation
+
+procedure set_counter(c: xt_counters; b, p: cuint64); cdecl;
+begin
+// #define SET_COUNTER(c,b,p) do { (c).bcnt = (b); (c).pcnt = (p); } while(0)
+ repeat
+  c.bcnt := b;
+  c.pcnt := p;
+ until true;
+end;
+
+procedure add_counter(c: xt_counters; b, p: cuint64); cdecl;
+begin
+// #define ADD_COUNTER(c,b,p) do { (c).bcnt += (b); (c).pcnt += (p); } while(0)
+ repeat
+   inc(c.bcnt, b);
+   inc(c.pcnt, p);
+ until true;
+end;
 
 end.
 

@@ -26,7 +26,6 @@ Documentation arrived from the following web-site:
   http://opalsoft.net/qos/libiptc/mfunction.html
 
 IP_TABLES - symbole is to use the header instead of inline code ...
-X_TABLES  - symboles for some netfilter headers ...
 }
 {$IFNDEF LINUX}
   {$ERROR This unit can work only with Linux - It requires iptables that are part of the Linux kernel}
@@ -44,9 +43,7 @@ uses
   {$ELSE}
     , Sockets
   {$ENDIF}
-  {$IFDEF X_TABLES}
     , x_tables
-  {$ENDIF}
   ;
 
 const
@@ -59,14 +56,6 @@ type
 
   ipt_chainlabel  = array[0..31] of char;
   tipt_chainlabel = ipt_chainlabel;
-
-{$IFNDEF X_TABLES}
-type
-  xt_counters = record
-    // Packet and byte counters
-    pcnt, bcnt : cuint64;
-  end;
-{$ENDIF}
 
 {$IFNDEF IP_TABLES}
 const
@@ -91,10 +80,6 @@ type
     invflags      : cuint8;
   end;
   tipt_ip = ipt_ip;
-
-  pipt_counters = ^ipt_counters;
-  ipt_counters  = xt_counters;
-  tipt_counters = ipt_counters;
 
 { This structure defines each of the firewall rules.  Consists of 3
   parts which are 1) general IP header stuff 2) match specific

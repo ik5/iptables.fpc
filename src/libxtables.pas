@@ -509,11 +509,13 @@ procedure xtables_ip6parse_multiple(p1 : PChar;      p2 : ppin6_addr;
  cdecl; external XTABLES_LIB;
 
 (*
-/**
  * Print the specified value to standard output, quoting dangerous
  * characters if required.
- */
-extern void xtables_save_string(const char *value);
+ *)
+procedure xtables_save_string(value : PChar);
+ cdecl; external XTABLES_LIB;
+
+(*
 
 #if defined(ALL_INCLUSIVE) || defined(NO_SHARED_LIBS)
 #	ifdef _INIT
@@ -526,42 +528,65 @@ extern void xtables_save_string(const char *value);
 #else
 #	define _init __attribute__((constructor)) _INIT
 #endif
-
-extern const struct xtables_pprot xtables_chain_protos[];
-extern u_int16_t xtables_parse_protocol(const char *s);
-
-/* xtoptions.c */
-extern void xtables_option_metavalidate(const char *,
-					const struct xt_option_entry * );
-extern struct option *xtables_options_xfrm(struct option *, struct option *,
-					   const struct xt_option_entry *,
-					   unsigned int * );
-extern void xtables_option_parse(struct xt_option_call * );
-extern void xtables_option_tpcall(unsigned int, char **, bool,
-				  struct xtables_target *, void * );
-extern void xtables_option_mpcall(unsigned int, char **, bool,
-				  struct xtables_match *, void * );
-extern void xtables_option_tfcall(struct xtables_target * );
-extern void xtables_option_mfcall(struct xtables_match * );
-extern void xtables_options_fcheck(const char *, unsigned int,
-				   const struct xt_option_entry * );
-
-extern struct xtables_lmap *xtables_lmap_init(const char * );
-extern void xtables_lmap_free(struct xtables_lmap * );
-extern int xtables_lmap_name2id(const struct xtables_lmap *, const char * );
-extern const char *xtables_lmap_id2name(const struct xtables_lmap *, int);
-
-#ifdef XTABLES_INTERNAL
-
-/* Shipped modules rely on this... */
-
-#	ifndef ARRAY_SIZE
-#		define ARRAY_SIZE(x) (sizeof(x) / sizeof( *(x)))
-#	endif
-
-extern void _init(void);
-
 *)
+
+var xtables_chain_protos : pxtables_pprot; external XTABLES_LIB;
+
+function xtables_parse_protocol(s : PChar) : cuint16;
+ cdecl; external XTABLES_LIB;
+
+// xtoptions.c
+
+procedure xtables_option_metavalidate(p1 : PChar; p2 : pxt_option_entry);
+ cdecl; external XTABLES_LIB;
+
+function xtables_options_xfrm(p1, p2 : poption;
+                                  p3 : pxt_option_entry;
+                                  p4 : pcint)            : poption;
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_option_parse(p1 : pxt_option_call);
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_option_tpcall(p1 : cuint;
+                                p2 : PPChar;
+                                p3 : cbool;
+                                p4 : pxtables_target;
+                                p5 : Pointer);
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_option_mpcall(p1 : cuint;
+                                p2 : PPChar;
+                                p3 : cbool;
+                                p4 : pxtables_target;
+                                p5 : Pointer);
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_option_tfcall(p1 : pxtables_target);
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_option_mfcall(p1 : pxtables_target);
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_options_fcheck(p1 : PChar;
+                                 p2 : cuint;
+                                 p3 : pxt_option_entry);
+ cdecl; external XTABLES_LIB;
+
+function xtables_lmap_init(p1 : PChar) : pxtables_lmap;
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_lmap_free(p1 : pxtables_lmap);
+ cdecl; external XTABLES_LIB;
+
+function xtables_lmap_name2id(p1 : pxtables_lmap;
+                              p2 : PChar)         : cint;
+ cdecl; external XTABLES_LIB;
+
+function xtables_lmap_id2name(p1 : pxtables_lmap;
+                              p2 : cint)          : PChar;
+ cdecl; external XTABLES_LIB;
+
 implementation
 
 end.

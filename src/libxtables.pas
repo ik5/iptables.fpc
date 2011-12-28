@@ -475,6 +475,11 @@ type
   ppin_addr = ^pin_addr;
 {$ENDIF}
 
+{$IF not defined(ppin6_addr)}
+type
+  ppin6_addr = ^pin6_addr;
+{$ENDIF}
+
 procedure xtables_ipparse_any(p1 : PChar;    p2 : ppin_addr;
                               p3 : pin_addr; p4 : pcint);
  cdecl; external XTABLES_LIB;
@@ -483,18 +488,27 @@ procedure xtables_ipparse_multiple(p1 : PChar;      p2 : ppin_addr;
                                    p3 : ppin_addr;  p4 : pcint);
  cdecl; external XTABLES_LIB;
 
+function xtables_numeric_to_ip6addr(p1 : PChar) : pin6_addr;
+ cdecl; external XTABLES_LIB;
 
+function xtables_ip6addr_to_numeric(p1 : pin6_addr) : PChar;
+ cdecl; external XTABLES_LIB;
+
+function xtables_ip6addr_to_anyname(p1 : pin6_addr) : PChar;
+ cdecl; external XTABLES_LIB;
+
+function xtables_ip6mask_to_numeric(p1 : pin6_addr) : PChar;
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_ip6parse_any(p1 : PChar;     p2 : ppin6_addr;
+                               p3 : pin6_addr; p4 : pcint);
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_ip6parse_multiple(p1 : PChar;      p2 : ppin6_addr;
+                                    p3 : ppin6_addr; p4 : pcint);
+ cdecl; external XTABLES_LIB;
 
 (*
-extern struct in6_addr *xtables_numeric_to_ip6addr(const char * );
-extern const char *xtables_ip6addr_to_numeric(const struct in6_addr * );
-extern const char *xtables_ip6addr_to_anyname(const struct in6_addr * );
-extern const char *xtables_ip6mask_to_numeric(const struct in6_addr * );
-extern void xtables_ip6parse_any(const char *, struct in6_addr **,
-	struct in6_addr *, unsigned int * );
-extern void xtables_ip6parse_multiple(const char *, struct in6_addr **,
-	struct in6_addr **, unsigned int * );
-
 /**
  * Print the specified value to standard output, quoting dangerous
  * characters if required.

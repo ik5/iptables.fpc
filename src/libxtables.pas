@@ -455,19 +455,37 @@ function xt_params : pxtables_globals;
 procedure xtables_param_act(p1 : cuint; p2 : PChar);
  cdecl; varargs; external XTABLES_LIB;
 
+function xtables_ipaddr_to_numeric(p1 : pin_addr) : PChar;
+ cdecl; external XTABLES_LIB;
+
+function xtables_ipaddr_to_anyname(p1 : pin_addr) : PChar;
+ cdecl; external XTABLES_LIB;
+
+function xtables_ipmask_to_numeric(p1 : pin_addr) : PChar;
+ cdecl; external XTABLES_LIB;
+
+function xtables_numeric_to_ipaddr(p1 : PChar) : pin_addr;
+ cdecl; external XTABLES_LIB;
+
+function xtables_numeric_to_ipmask(p1 : PChar) : pin_addr;
+ cdecl; external XTABLES_LIB;
+
+{$IF not defined(ppin_addr)}
+type
+  ppin_addr = ^pin_addr;
+{$ENDIF}
+
+procedure xtables_ipparse_any(p1 : PChar;    p2 : ppin_addr;
+                              p3 : pin_addr; p4 : pcint);
+ cdecl; external XTABLES_LIB;
+
+procedure xtables_ipparse_multiple(p1 : PChar;      p2 : ppin_addr;
+                                   p3 : ppin_addr;  p4 : pcint);
+ cdecl; external XTABLES_LIB;
+
 
 
 (*
-extern const char *xtables_ipaddr_to_numeric(const struct in_addr * );
-extern const char *xtables_ipaddr_to_anyname(const struct in_addr * );
-extern const char *xtables_ipmask_to_numeric(const struct in_addr * );
-extern struct in_addr *xtables_numeric_to_ipaddr(const char * );
-extern struct in_addr *xtables_numeric_to_ipmask(const char * );
-extern void xtables_ipparse_any(const char *, struct in_addr **,
-	struct in_addr *, unsigned int * );
-extern void xtables_ipparse_multiple(const char *, struct in_addr **,
-	struct in_addr **, unsigned int * );
-
 extern struct in6_addr *xtables_numeric_to_ip6addr(const char * );
 extern const char *xtables_ip6addr_to_numeric(const struct in6_addr * );
 extern const char *xtables_ip6addr_to_anyname(const struct in6_addr * );

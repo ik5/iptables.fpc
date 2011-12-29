@@ -264,6 +264,10 @@ function iptc_get_target(e : pipt_entry; handle : piptc_handle) : PChar;
 function iptc_builtin(chain : PChar; handle : piptc_handle) : cint;
  cdecl; external IPTC_LIBRARY;
 
+type
+  pipt_counters = pxt_counters;
+  ipt_counters  = xt_counters;
+
 {
 * Usage:
    Get the policy of a given built-in chain.
@@ -282,7 +286,7 @@ function iptc_builtin(chain : PChar; handle : piptc_handle) : cint;
 }
 function iptc_get_policy(chain   : PChar;
                          counter : pipt_counters;
-                         handle : piptc_handle)   : PChar;
+                         handle  : piptc_handle)   : PChar;
  cdecl; external IPTC_LIBRARY;
 
 ////////////////////////////////////////////////////////////////////////////////

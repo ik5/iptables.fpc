@@ -104,65 +104,74 @@ const
    Check		NLM_F_EXCL
  *)
 
-(*
+ NLMSG_ALIGNTO = cuint(4);
 
-#define NLMSG_ALIGNTO	4U
-#define NLMSG_ALIGN(len) ( ((len)+NLMSG_ALIGNTO-1) & ~(NLMSG_ALIGNTO-1) )
-#define NLMSG_HDRLEN	 ((int) NLMSG_ALIGN(sizeof(struct nlmsghdr)))
-#define NLMSG_LENGTH(len) ((len)+NLMSG_ALIGN(NLMSG_HDRLEN))
-#define NLMSG_SPACE(len) NLMSG_ALIGN(NLMSG_LENGTH(len))
-#define NLMSG_DATA(nlh)  ((void* )(((char* )nlh) + NLMSG_LENGTH(0)))
+function NLMSG_ALIGN(len : cint) : cint; inline; cdecl;
+function NLMSG_HDRLEN : cint; inline; cdecl;
+function NLMSG_LENGTH(len : cint) : cint; inline; cdecl;
+function NLMSG_SPACE(len : cint) : cint; inline; cdecl;
+function NLMSG_DATA(nlh : cint) : pointer; inline; cdecl;
+
+(*
 #define NLMSG_NEXT(nlh,len)	 ((len) -= NLMSG_ALIGN((nlh)->nlmsg_len), \
 				  (struct nlmsghdr* )(((char* )(nlh)) + NLMSG_ALIGN((nlh)->nlmsg_len)))
 #define NLMSG_OK(nlh,len) ((len) >= (int)sizeof(struct nlmsghdr) && \
 			   (nlh)->nlmsg_len >= sizeof(struct nlmsghdr) && \
 			   (nlh)->nlmsg_len <= (len))
-#define NLMSG_PAYLOAD(nlh,len) ((nlh)->nlmsg_len - NLMSG_SPACE((len)))
+*)
+function NLMSG_PAYLOAD(nlh : nlmsghdr; len : cint) : cint; inline; cdecl;
 
-#define NLMSG_NOOP		0x1	/* Nothing.		*/
-#define NLMSG_ERROR		0x2	/* Error		*/
-#define NLMSG_DONE		0x3	/* End of a dump	*/
-#define NLMSG_OVERRUN		0x4	/* Data lost		*/
+const
+ NLMSG_NOOP    = $1; // Nothing
+ NLMSG_ERROR   = $2; // Error
+ NLMSG_DONE    = $3; // End of a dump
+ NLMSG_OVERRUN = $4; // Data lost
 
-#define NLMSG_MIN_TYPE		0x10	/* < 0x10: reserved control messages */
+ NLMSG_MIN_TYPE = $10; // < 0x10: reserved control messages
 
-struct nlmsgerr {
-	int		error;
-	struct nlmsghdr msg;
-};
+type
+ pnlmsgerr = ^nlmsgerr;
+ nlmsgerr  = record
+  error : cint;
+  msg   : nlmsghdr;
+ end;
 
-#define NETLINK_ADD_MEMBERSHIP	1
-#define NETLINK_DROP_MEMBERSHIP	2
-#define NETLINK_PKTINFO		3
-#define NETLINK_BROADCAST_ERROR	4
-#define NETLINK_NO_ENOBUFS	5
+const
+ NETLINK_ADD_MEMBERSHIP  = 1;
+ NETLINK_DROP_MEMBERSHIP = 2;
+ NETLINK_PKTINFO         = 3;
+ NETLINK_BROADCAST_ERROR = 4;
+ NETLINK_NO_ENOBUFS      = 5;
 
-struct nl_pktinfo {
-	__u32	group;
-};
+type
+  pnl_pktinfo = ^nl_pktinfo;
+  nl_pktinfo  = record
+    group : cuint32;
+  end;
 
-#define NET_MAJOR 36		/* Major 36 is reserved for networking 						*/
+const
+  NET_MAJOR = 36; // Major 36 is reserved for networking
 
-enum {
-	NETLINK_UNCONNECTED = 0,
-	NETLINK_CONNECTED,
-};
+  NETLINK_UNCONNECTED = 0;
+  NETLINK_CONNECTED   = 1;
 
-/*
+(*
  *  <------- NLA_HDRLEN ------> <-- NLA_ALIGN(payload)-->
  * +---------------------+- - -+- - - - - - - - - -+- - -+
  * |        Header       | Pad |     Payload       | Pad |
  * |   (struct nlattr)   | ing |                   | ing |
  * +---------------------+- - -+- - - - - - - - - -+- - -+
  *  <-------------- nlattr->nla_len -------------->
- */
+ *)
 
-struct nlattr {
-	__u16           nla_len;
-	__u16           nla_type;
-};
+type
+ pnlattr = ^nlattr;
+ nlattr  = record
+   nla_len  : cuint16;
+   nla_type : cuint16;
+ end;
 
-/*
+(*
  * nla_type (16 bits)
  * +---+---+-------------------------------+
  * | N | O | Attribute Type                |
@@ -171,20 +180,67 @@ struct nlattr {
  * O := Payload stored in network byte order
  *
  * Note: The N and O flag are mutually exclusive.
- */
-#define NLA_F_NESTED		(1 << 15)
-#define NLA_F_NET_BYTEORDER	(1 << 14)
-#define NLA_TYPE_MASK		~(NLA_F_NESTED | NLA_F_NET_BYTEORDER)
+ *)
+const
+ NLA_F_NESTED        = 1 shl 15;
+ NLA_F_NET_BYTEORDER = 1 shl 14;
+ NLA_TYPE_MASK       = not (NLA_F_NESTED or NLA_F_NET_BYTEORDER);
 
-#define NLA_ALIGNTO		4
-#define NLA_ALIGN(len)		(((len) + NLA_ALIGNTO - 1) & ~(NLA_ALIGNTO - 1))
-#define NLA_HDRLEN		((int) NLA_ALIGN(sizeof(struct nlattr)))
+ NLA_ALIGNTO         = 4;
 
-
-#endif	/* __LINUX_NETLINK_H */
-*)
+function NLA_ALIGN(len : cint) : cint; inline; cdecl;
+function NLA_HDRLEN : cint; inline; cdecl;
 
 implementation
+
+function NLMSG_ALIGN(len: cint): cint; cdecl;
+begin
+// #define NLMSG_ALIGN(len) ( ((len)+NLMSG_ALIGNTO-1) & ~(NLMSG_ALIGNTO-1) )
+ NLMSG_ALIGN := (len + NLMSG_ALIGNTO -1) and not (NLMSG_ALIGNTO-1);
+end;
+
+function NLMSG_HDRLEN: cint; cdecl;
+begin
+// #define NLMSG_HDRLEN	 ((int) NLMSG_ALIGN(sizeof(struct nlmsghdr)))
+ NLMSG_HDRLEN := NLMSG_ALIGN(sizeof(nlmsghdr));
+end;
+
+function NLMSG_LENGTH(len: cint): cint; cdecl;
+begin
+// #define NLMSG_LENGTH(len) ((len)+NLMSG_ALIGN(NLMSG_HDRLEN))
+  NLMSG_LENGTH := len + NLMSG_ALIGN(NLMSG_HDRLEN);
+end;
+
+function NLMSG_SPACE(len: cint): cint; cdecl;
+begin
+// #define NLMSG_SPACE(len) NLMSG_ALIGN(NLMSG_LENGTH(len))
+  NLMSG_SPACE := NLMSG_ALIGN(NLMSG_LENGTH(len));
+end;
+
+function NLMSG_DATA(nlh: cint): pointer; cdecl;
+begin
+// #define NLMSG_DATA(nlh)  ((void* )(((char* )nlh) + NLMSG_LENGTH(0)))
+  NLMSG_DATA := Pointer((pchar(nlh))+(NLMSG_LENGTH(0)));
+end;
+
+function NLMSG_PAYLOAD(nlh: nlmsghdr; len: cint): cint; cdecl;
+begin
+// #define NLMSG_PAYLOAD(nlh,len) ((nlh)->nlmsg_len - NLMSG_SPACE((len)))
+  NLMSG_PAYLOAD := nlh.nlmsg_len - NLMSG_SPACE(len);
+end;
+
+function NLA_ALIGN(len: cint): cint; cdecl;
+begin
+//#define NLA_ALIGN(len)		(((len) + NLA_ALIGNTO - 1) & ~(NLA_ALIGNTO - 1))
+ NLA_ALIGN := (len + NLA_ALIGNTO -1) and not (NLA_ALIGNTO -1);
+end;
+
+function NLA_HDRLEN: cint; cdecl;
+begin
+//#define NLA_HDRLEN		((int) NLA_ALIGN(sizeof(struct nlattr)))
+ NLA_HDRLEN := NLA_ALIGN(sizeof(nlattr));
+end;
+
 
 end.
 

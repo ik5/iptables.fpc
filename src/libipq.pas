@@ -57,7 +57,29 @@ type
 {$IF not defined(cssize_t)}
 type
  cssize_t = clong;
-{$END}
+{$ENDIF}
+
+{$IFNDEF USE_IPQUEUE}
+type
+ pipq_packet_msg = ^ipq_packet_msg;
+ ipq_packet_msg  = record
+   packet_id      : culong;
+   mark           : culong;
+   timestamp_sec  : clong;
+   timestamp_usec : clong;
+   hook           : cuint;
+   indev_name     : array[0..15] of char;
+   outdev_name    : array[0..15] of char;
+   hw_protocol    : cint16;
+   hw_type        : cushort;
+   hw_addrlen     : cuchar;
+   hw_addr        : array[0..7] of char;
+   data_len       : csize_t;
+   payload        : array[0..0] of char;
+ end;
+ pipq_packet_msg_t = ^ipq_packet_msg_t;
+ ipq_packet_msg_t  = ipq_packet_msg;
+{$ENDIF}
 
 type
  pipq_handle = ^ipq_handle;
@@ -86,24 +108,31 @@ function ipq_set_mode(h    : pipq_handle;
                       len  : csize_t)     : cint;
  cdecl; external IPQ_LIB;
 
-(*
-ipq_packet_msg_t *ipq_get_packet(const unsigned char *buf);
 
-int ipq_message_type(const unsigned char *buf);
+function ipq_get_packet(bug : PChar) : pipq_packet_msg_t;
+ cdecl; external IPQ_LIB;
 
-int ipq_get_msgerr(const unsigned char *buf);
+function ipq_message_type(bug : PChar) : cint;
+ cdecl; external IPQ_LIB;
 
-int ipq_set_verdict(const struct ipq_handle *h,
-                    ipq_id_t id,
-                    unsigned int verdict,
-                    size_t data_len,
-                    unsigned char *buf);
+function ipq_get_msgerr(buf : PChar) : cint;
+ cdecl; external IPQ_LIB;
 
-int ipq_ctl(const struct ipq_handle *h, int request, ...);
+function ipq_set_verdict(h        : pipq_handle;
+                         id       : ipq_id_t;
+                         verdict  : cuint;
+                         data_len : csize_t;
+                         buf      : PChar)        : cint;
+ cdecl; external IPQ_LIB;
 
-char *ipq_errstr(void);
-void ipq_perror(const char *s);
-*)
+function ipq_ctl(h : pipq_handle; request : cint) : cint;
+ cdecl; varargs; external IPQ_LIB;
+
+function ipq_errstr : PChar;
+ cdecl; external IPQ_LIB;
+
+procedure ipq_perror(s : PChar);
+  cdecl; external IPQ_LIB;
 
 implementation
 

@@ -95,32 +95,42 @@ type
    peer     : sockaddr_nl;
  end;
 
+// Initialise library, return context handle
 function ipq_create_handle(flags : cuint32; protocol : cuint32) : pipq_handle;
  cdecl; external IPQ_LIB;
 
+// Destroy context handle and associated resources.
 function ipq_destroy_handle(h : pipq_handle) : cint;
  cdecl; external IPQ_LIB;
 
+// Wait for a queue message to arrive from ip_queue and read it into a buffer.
 function ipq_read(h       : pipq_handle;
                   buf     : PChar;
                   len     : csize_t;
                   timeout : cint)         :  cssize_t;
  cdecl; external IPQ_LIB;
 
+(* Set the queue mode, to copy either packet metadata, or payloads as well as
+   metadata to userspace.
+*)
 function ipq_set_mode(h    : pipq_handle;
                       mode : cuint8;
                       len  : csize_t)     : cint;
  cdecl; external IPQ_LIB;
 
+// Retrieve a packet message from the buffer.
 function ipq_get_packet(bug : PChar) : pipq_packet_msg_t;
  cdecl; external IPQ_LIB;
 
+// Determine message type in the buffer.
 function ipq_message_type(bug : PChar) : cint;
  cdecl; external IPQ_LIB;
 
+// Retrieve an error message from the buffer.
 function ipq_get_msgerr(buf : PChar) : cint;
  cdecl; external IPQ_LIB;
 
+// Set a verdict on a packet, optionally replacing its contents.
 function ipq_set_verdict(h        : pipq_handle;
                          id       : ipq_id_t;
                          verdict  : cuint;
@@ -131,9 +141,11 @@ function ipq_set_verdict(h        : pipq_handle;
 function ipq_ctl(h : pipq_handle; request : cint) : cint;
  cdecl; varargs; external IPQ_LIB;
 
+// Return an error message corresponding to the internal ipq_errno variable.
 function ipq_errstr : PChar;
  cdecl; external IPQ_LIB;
 
+// Helper function to print error messages to stderr.
 procedure ipq_perror(s : PChar);
   cdecl; external IPQ_LIB;
 

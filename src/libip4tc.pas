@@ -21,6 +21,12 @@ Documentation arrived from the following web-site:
   http://opalsoft.net/qos/libiptc/qfunction.html
   http://opalsoft.net/qos/libiptc/mfunction.html
 
+Note: 
+  According to netfilter FAQ:
+    http://www.netfilter.org/documentation/FAQ/netfilter-faq-4.html#ss4.5
+
+    Make sure it is exists prior on using it !
+
 IP_TABLES - symbole is to use the header instead of inline code ...
 }
 {$IFNDEF LINUX}

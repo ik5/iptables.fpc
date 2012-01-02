@@ -45,7 +45,7 @@ type
    hw_addrlen     : cuchar;
    hw_addr        : array[0..7] of char;
    data_len       : csize_t;
-   payload        : array[0..0] of char;
+   payload        : PChar;
  end;
  pipq_packet_msg_t = ^ipq_packet_msg_t;
  ipq_packet_msg_t  = ipq_packet_msg;
@@ -63,7 +63,7 @@ type
    value    : cuint;               // Verdict to hand to netfilter
    id       : culong;              // Packet ID for this verdict
    data_len : csize_t;             // Length of replacement data
-   payload  : array[0..0] of char; // Optional replacement packet
+   payload  : PChar;               // Optional replacement packet
  end;
  pipq_verdict_msg_t = ^ipq_verdict_msg_t;
  ipq_verdict_msg_t  = ipq_verdict_msg;

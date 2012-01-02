@@ -9,6 +9,17 @@ program test_libipq;
 
  Or any other protocol to queue ...
 
+ To clear the rules:
+  # iptables -F
+  # iptables -X
+  # iptables -t nat -F
+  # iptables -t nat -X
+  # iptables -t mangle -F
+  # iptables -t mangle -X
+  # iptables -P INPUT ACCEPT
+  # iptables -P FORWARD ACCEPT
+  # iptables -P OUTPUT ACCEPT
+
  The following code is a translation from the C code at man libipq
 }
 
@@ -33,6 +44,7 @@ var
  buf          : array[0..BUFSIZE-1] of char;
  h            : pipq_handle;
  message_type : cint;
+ m            : pipq_packet_msg_t;
 
 begin
  h := ipq_create_handle(0, NFPROTO_IPV4);
@@ -46,9 +58,20 @@ begin
    if status < 0 then die(h);
 
    message_type := ipq_message_type(buf);
-   //case message_type of
+   case message_type of
+     NLMSG_ERROR : writeln(stderr, 'Received error message ',
+                           ipq_get_msgerr(buf));
+     IPQM_PACKET : begin
+                    m      := ipq_get_packet(buf);
+                    status := ipq_set_verdict(h, m^.packet_id, NF_ACCEPT, 0, Nil);
+                    if (status < 0) then die(h);
 
-   //end;
+                   end;
+     else
+       writeln(stderr, 'Unknown message type!');
+   end;
  until true;
+
+ ipq_destroy_handle(h);
 end.
 

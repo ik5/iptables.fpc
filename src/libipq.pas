@@ -54,6 +54,11 @@ type
  end;
 {$ENDIF}
 
+{$IF not defined(cssize_t)}
+type
+ cssize_t = clong;
+{$END}
+
 type
  pipq_handle = ^ipq_handle;
  ipq_handle  = record
@@ -66,15 +71,22 @@ type
 function ipq_create_handle(flags : cuint32; protocol : cuint32) : pipq_handle;
  cdecl; external IPQ_LIB;
 
+function ipq_destroy_handle(h : pipq_handle) : cint;
+ cdecl; external IPQ_LIB;
+
+function ipq_read(h       : pipq_handle;
+                  buf     : PChar;
+                  len     : csize_t;
+                  timeout : cint)         :  cssize_t;
+ cdecl; external IPQ_LIB;
+
+
+function ipq_set_mode(h    : pipq_handle;
+                      mode : cuint8;
+                      len  : csize_t)     : cint;
+ cdecl; external IPQ_LIB;
 
 (*
-int ipq_destroy_handle(struct ipq_handle *h);
-
-ssize_t ipq_read(const struct ipq_handle *h,
-                unsigned char *buf, size_t len, int timeout);
-
-int ipq_set_mode(const struct ipq_handle *h, u_int8_t mode, size_t len);
-
 ipq_packet_msg_t *ipq_get_packet(const unsigned char *buf);
 
 int ipq_message_type(const unsigned char *buf);

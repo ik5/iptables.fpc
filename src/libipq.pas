@@ -107,12 +107,10 @@ function ipq_read(h       : pipq_handle;
                   timeout : cint)         :  cssize_t;
  cdecl; external IPQ_LIB;
 
-
 function ipq_set_mode(h    : pipq_handle;
                       mode : cuint8;
                       len  : csize_t)     : cint;
  cdecl; external IPQ_LIB;
-
 
 function ipq_get_packet(bug : PChar) : pipq_packet_msg_t;
  cdecl; external IPQ_LIB;

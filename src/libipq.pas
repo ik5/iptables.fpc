@@ -31,7 +31,7 @@ unit libipq;
 interface
 
 uses
-  ctypes;
+  ctypes, ip_queue, netlink;
 
 const
   IPQ_LIB = 'libipq';
@@ -46,44 +46,9 @@ const
  MSG_TRUNC = $20;
 {$ENDIF}
 
-{$IFNDEF USE_NETLINK}
-type
- {$IF not defined(__kernel_sa_family_t)}
- __kernel_sa_family_t = cushort;
- {$ENDIF}
- psockaddr_nl = ^sockaddr_nl;
- sockaddr_nl  = record
-   nl_family : __kernel_sa_family_t;
-   nl_pid    : cuint32;
-   nl_groups : cuint32;
- end;
-{$ENDIF}
-
 {$IF not defined(cssize_t)}
 type
  cssize_t = clong;
-{$ENDIF}
-
-{$IFNDEF USE_IPQUEUE}
-type
- pipq_packet_msg = ^ipq_packet_msg;
- ipq_packet_msg  = record
-   packet_id      : culong;
-   mark           : culong;
-   timestamp_sec  : clong;
-   timestamp_usec : clong;
-   hook           : cuint;
-   indev_name     : array[0..15] of char;
-   outdev_name    : array[0..15] of char;
-   hw_protocol    : cint16;
-   hw_type        : cushort;
-   hw_addrlen     : cuchar;
-   hw_addr        : array[0..7] of char;
-   data_len       : csize_t;
-   payload        : array[0..0] of char;
- end;
- pipq_packet_msg_t = ^ipq_packet_msg_t;
- ipq_packet_msg_t  = ipq_packet_msg;
 {$ENDIF}
 
 type

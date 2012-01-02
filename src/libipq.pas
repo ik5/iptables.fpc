@@ -15,6 +15,11 @@
   You should have received a copy of the GNU Library General Public License
   along with this library; if not, write to the Free Software Foundation,
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+  Libipq
+    provides an API for communicating with ip_queue.  The following is an
+    overview of API usage, refer to individual man pages for more details
+    on each function.
 }
 {$IFNDEF LINUX}
   {$ERROR This unit can work only with Linux - It requires iptables that are part of the Linux kernel}

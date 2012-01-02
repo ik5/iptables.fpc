@@ -28,6 +28,71 @@ interface
 uses
   ctypes;
 
+const
+  IPQ_LIB = 'libipq';
+
+type
+ pipq_id_t = ^ipq_id_t;
+ ipq_id_t  = culong;
+
+{$IF not defined(MSG_TRUNC)}
+// FIXME: glibc sucks
+const
+ MSG_TRUNC = $20;
+{$ENDIF}
+
+{$IFNDEF USE_NETLINK}
+type
+ {$IF not defined(__kernel_sa_family_t)}
+ __kernel_sa_family_t = cushort;
+ {$ENDIF}
+ psockaddr_nl = ^sockaddr_nl;
+ sockaddr_nl  = record
+   nl_family : __kernel_sa_family_t;
+   nl_pid    : cuint32;
+   nl_groups : cuint32;
+ end;
+{$ENDIF}
+
+type
+ pipq_handle = ^ipq_handle;
+ ipq_handle  = record
+   fd       : cint;
+   blocking : cuint8;
+   local    : sockaddr_nl;
+   peer     : sockaddr_nl;
+ end;
+
+function ipq_create_handle(flags : cuint32; protocol : cuint32) : pipq_handle;
+ cdecl; external IPQ_LIB;
+
+
+(*
+int ipq_destroy_handle(struct ipq_handle *h);
+
+ssize_t ipq_read(const struct ipq_handle *h,
+                unsigned char *buf, size_t len, int timeout);
+
+int ipq_set_mode(const struct ipq_handle *h, u_int8_t mode, size_t len);
+
+ipq_packet_msg_t *ipq_get_packet(const unsigned char *buf);
+
+int ipq_message_type(const unsigned char *buf);
+
+int ipq_get_msgerr(const unsigned char *buf);
+
+int ipq_set_verdict(const struct ipq_handle *h,
+                    ipq_id_t id,
+                    unsigned int verdict,
+                    size_t data_len,
+                    unsigned char *buf);
+
+int ipq_ctl(const struct ipq_handle *h, int request, ...);
+
+char *ipq_errstr(void);
+void ipq_perror(const char *s);
+*)
+
 implementation
 
 end.

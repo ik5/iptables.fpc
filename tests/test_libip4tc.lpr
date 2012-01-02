@@ -148,7 +148,7 @@ end;
 
 begin
   get_protos(protos);
-  handle := iptc_init('filter');
+  handle := iptc_init('filter'); // can be also nat or mangle, depend on your needs
   if handle = nil then
     begin
       writeln(StdErr, 'Error initializing: ', iptc_strerror(errno));

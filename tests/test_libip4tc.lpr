@@ -7,8 +7,11 @@ program test_libip4tc;
 {$mode fpc}{$H+}
 
 uses
-  BaseUnix, SysUtils, strutils, libip4tc, sockets
+  BaseUnix, SysUtils, strutils, libip4tc, libxtables, x_tables, sockets
   { you can add units after this };
+
+const
+  invchar : array[Boolean] of string = ('', '!');
 
 type
  (**
@@ -37,8 +40,7 @@ begin
     exit;
 
   write(letter, ' ');
-  if invert then
-    write('!');
+  write(invchar[invert]);
 
   for i := 0 to IFNAMSIZ -1 do
    begin
@@ -94,8 +96,8 @@ begin
 end;
 
 procedure print_proto(proto : byte; invert : ByteBool);
-const
-  invchar : array[Boolean] of string = ('', '!');
+var
+  i : Cardinal;
 begin
   for i := low(protos) to high(protos) do
    begin
@@ -107,6 +109,41 @@ begin
    end;
 
   write('-p ', invchar[invert], proto);
+end;
+
+function print_match(e : pxt_entry_match; ip : pipt_ip) : Boolean;
+var
+  match   : pxtables_match;
+  //matches : ppxtables_rule_match;
+begin
+  match := xtables_find_match(e^.u.user.name, XTF_TRY_LOAD, nil);
+  if match = nil then
+    begin
+      writeln(stderr, 'Can''t find library for match ', e^.u.user.name);
+      Exit(false);
+    end;
+  write('-m ', e^.u.user.name);
+
+  if match^.save <> nil then
+    match^.save(ip, e);
+
+ print_match := True;
+end;
+
+// print a given ip including mask if neccessary
+procedure print_ip(prefix : PChar; ip, mask : cuint32; invert : ByteBool);
+begin
+  if (mask = 0) and (ip = 0) then exit;
+  write(prefix, ' ', invchar[invert],
+  printf("%s %s%u.%u.%u.%u",
+    prefix,
+    invert ? "! " : "",
+    IP_PARTS(ip));
+
+  if (mask != 0xffffffff)
+    printf("/%u.%u.%u.%u ", IP_PARTS(mask));
+  else
+    printf(" ");
 end;
 
 begin

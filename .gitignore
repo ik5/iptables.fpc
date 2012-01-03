@@ -10,3 +10,4 @@ tests/xtables_test
 tests/test_libipq
 reference/iptables*/*
 reference/*tar*
+packages/*pas

@@ -50,7 +50,6 @@ function NFA_LENGTH(len : cuint16) : cuint16; inline; cdecl;
 function NFA_SPACE(len : cuint16) : cuint16; inline; cdecl;
 function NFA_DATA(nfa : nfattr) : pointer; inline; cdecl;
 function NFA_PAYLOAD(nfa : nfattr) : cint; inline; cdecl;
-function
 
 (*
 #define NFA_NEST(skb, type) \

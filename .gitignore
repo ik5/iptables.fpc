@@ -8,6 +8,8 @@
 tests/test_libip4tc
 tests/xtables_test
 tests/test_libipq
+tests/gmon.out
 reference/iptables*/*
 reference/*tar*
 packages/*pas
+reference/libnetfilter_testing/*

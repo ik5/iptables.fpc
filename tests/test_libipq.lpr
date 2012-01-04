@@ -62,6 +62,7 @@ begin
      NLMSG_ERROR : writeln(stderr, 'Received error message ',
                            ipq_get_msgerr(buf));
      IPQM_PACKET : begin
+                    writeln('IPQM_PACKET');
                     m      := ipq_get_packet(buf);
                     status := ipq_set_verdict(h, m^.packet_id, NF_ACCEPT, 0, Nil);
                     if (status < 0) then die(h);
@@ -71,7 +72,7 @@ begin
        writeln(stderr, 'Unknown message type!');
    end;
  until true;
-
+                    n
  ipq_destroy_handle(h);
 end.
 

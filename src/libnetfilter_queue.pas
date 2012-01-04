@@ -8,7 +8,7 @@ unit libnetfilter_queue;
 interface
 
 uses
-  ctypes;
+  ctypes, sockets;
 
 
 

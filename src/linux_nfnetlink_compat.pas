@@ -64,8 +64,11 @@ function NFA_PAYLOAD(nfa : nfattr) : cint; inline; cdecl;
                 skb_trim(skb, (unsigned char * ) (start) - (skb)->data); \
         -1; })
 
-#define NFM_NFA(n)      ((struct nfattr * )(((char * )(n)) \
-        + NLMSG_ALIGN(sizeof(struct nfgenmsg))))
+*)
+
+function NFM_NFA(n : pcchar) : pnfattr; inline; cdecl;
+
+(*
 #define NFM_PAYLOAD(n)  NLMSG_PAYLOAD(n, sizeof(struct nfgenmsg))
 
 #endif /* ! __KERNEL__ */
@@ -73,6 +76,7 @@ function NFA_PAYLOAD(nfa : nfattr) : cint; inline; cdecl;
 *)
 
 implementation
+uses netlink, netlink_kernel, nfnetlink;
 
 function NFA_TYPE(attr: nfattr): cuint16; cdecl;
 begin
@@ -124,6 +128,14 @@ function NFA_PAYLOAD(nfa: nfattr): cint; cdecl;
 begin
 // #define NFA_PAYLOAD(nfa) ((int)((nfa)->nfa_len) - NFA_LENGTH(0))
  NFA_PAYLOAD := nfa.nfa_len - NFA_LENGTH(0);
+end;
+
+function NFM_NFA(n: pcchar): pnfattr; cdecl;
+begin
+//#define NFM_NFA(n)      ((struct nfattr * )(((char * )(n)) \
+//        + NLMSG_ALIGN(sizeof(struct nfgenmsg))))
+
+ NFM_NFA := pnfattr(n + NLMSG_ALIGN(sizeof(nfgenmsg)));
 end;
 
 end.

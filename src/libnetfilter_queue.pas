@@ -22,12 +22,28 @@
 {$ENDIF}
 unit libnetfilter_queue;
 
-{$mode fpc}{$packerecords c}
+{$mode fpc}{$packrecords c}
 
 interface
 
 uses
   ctypes, sockets;
+
+const
+  NETFILTER_QUEUE_LIB = 'libnetfilter_queue';
+
+type
+  pnfq_handle = ^nfq_handle;
+  nfq_handle  = record end;
+
+  pnfq_q_handle = ^nfq_q_handle;
+  nfq_q_handle  = record end;
+
+  pnfq_data = ^nfq_data;
+  nfq_data  = record end;
+
+var
+  nfq_errno : cint; external NETFILTER_QUEUE_LIB;
 
 
 

@@ -27,7 +27,7 @@ unit libnetfilter_queue;
 interface
 
 uses
-  ctypes, sockets, libnfnetlink, nfnetlink;
+  ctypes, sockets, libnfnetlink, nfnetlink, linux_nfnetlink_queue;
 
 const
   NETFILTER_QUEUE_LIB = 'libnetfilter_queue';
@@ -114,22 +114,14 @@ function nfq_set_verdict_mark(qh      : pnfq_q_handle;
                               mark    : cuint32;
                               dataleb : cuint32;
                               buf     : PChar)          : cint;
-  cdecl; external NETFILTER_QUEUE_LIB; deprecated;
+ cdecl; external NETFILTER_QUEUE_LIB; deprecated;
+
+// message parsing function
+
+function nfq_get_msg_packet_hdr(nfad : pnfq_data) : pnfqnl_msg_packet_hdr;
+ cdecl; external NETFILTER_QUEUE_LIB;
 
 (*
-extern __attribute__((deprecated))
-int (struct nfq_q_handle *qh,
-			 u_int32_t id,
-			 u_int32_t verdict,
-			 u_int32_t mark,
-			 u_int32_t datalen,
-			 const unsigned char *buf);
-
-/* message parsing function */
-
-extern struct nfqnl_msg_packet_hdr *
-				nfq_get_msg_packet_hdr(struct nfq_data *nfad);
-
 extern u_int32_t nfq_get_nfmark(struct nfq_data *nfad);
 
 extern int nfq_get_timestamp(struct nfq_data *nfad, struct timeval *tv);

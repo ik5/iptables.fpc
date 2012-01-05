@@ -57,72 +57,69 @@ type
    sec, usec : cuint64;
  end;
 
+type
+ nfqnl_attr_type = cint;
 
-(*
-struct nfqnl_msg_packet_timestamp {
-	aligned_u64	sec;
-	aligned_u64	usec;
-} __attribute__ ((packed));
+const
+ NFQA_UNSPEC             = 0;
+ NFQA_PACKET_HDR         = 1;
+ NFQA_VERDICT_HDR        = 2;  // nfqnl_msg_verdict_hrd
+ NFQA_MARK               = 4;  // u_int32_t nfmark
+ NFQA_TIMESTAMP          = 5;  // nfqnl_msg_packet_timestamp
+ NFQA_IFINDEX_INDEV      = 6;  // u_int32_t ifindex
+ NFQA_IFINDEX_OUTDEV     = 7;  // u_int32_t ifindex
+ NFQA_IFINDEX_PHYSINDEV  = 8;  // u_int32_t ifindex
+ NFQA_IFINDEX_PHYSOUTDEV = 9;  // u_int32_t ifindex
+ NFQA_HWADDR             = 10; // nfqnl_msg_packet_hw
+ NFQA_PAYLOAD            = 11; // opaque data payload
+ __NFQA_MAX              = 12;
+ NFQA_MAX                = __NFQA_MAX;
 
-enum nfqnl_attr_type {
-	NFQA_UNSPEC,
-	NFQA_PACKET_HDR,
-	NFQA_VERDICT_HDR,		/* nfqnl_msg_verdict_hrd */
-	NFQA_MARK,			/* u_int32_t nfmark */
-	NFQA_TIMESTAMP,			/* nfqnl_msg_packet_timestamp */
-	NFQA_IFINDEX_INDEV,		/* u_int32_t ifindex */
-	NFQA_IFINDEX_OUTDEV,		/* u_int32_t ifindex */
-	NFQA_IFINDEX_PHYSINDEV,		/* u_int32_t ifindex */
-	NFQA_IFINDEX_PHYSOUTDEV,	/* u_int32_t ifindex */
-	NFQA_HWADDR,			/* nfqnl_msg_packet_hw */
-	NFQA_PAYLOAD,			/* opaque data payload */
+type
+ pnfqnl_msg_verdict_hdr = ^nfqnl_msg_verdict_hdr;
+ nfqnl_msg_verdict_hdr  = packed record
+   verdict : cuint32;
+   id      : cuint32;
+ end;
 
-	__NFQA_MAX
-};
-#define NFQA_MAX (__NFQA_MAX - 1)
+const
+ NFQNL_CFG_CMD_NONE      = 0;
+ NFQNL_CFG_CMD_BIND      = 1;
+ NFQNL_CFG_CMD_UNBIND    = 2;
+ NFQNL_CFG_CMD_PF_BIND   = 3;
+ NFQNL_CFG_CMD_PF_UNBIND = 4;
 
-struct nfqnl_msg_verdict_hdr {
-	u_int32_t verdict;
-	u_int32_t id;
-} __attribute__ ((packed));
+type
+ pnfqnl_msg_config_cmd = ^nfqnl_msg_config_cmd;
+ nfqnl_msg_config_cmd  = packed record
+   command : cuint8;  // nfqnl_msg_config_cmds
+   _pad    : cuint8;
+   pf      : cuint16; // AF_xxx for PF_[UN]BIND
+ end;
 
+ nfqnl_config_mode = cint;
 
-enum nfqnl_msg_config_cmds {
-	NFQNL_CFG_CMD_NONE,
-	NFQNL_CFG_CMD_BIND,
-	NFQNL_CFG_CMD_UNBIND,
-	NFQNL_CFG_CMD_PF_BIND,
-	NFQNL_CFG_CMD_PF_UNBIND,
-};
+const
+ NFQNL_COPY_NONE   = 0;
+ NFQNL_COPY_META   = 1;
+ NFQNL_COPY_PACKET = 2;
 
-struct nfqnl_msg_config_cmd {
-	u_int8_t	command;	/* nfqnl_msg_config_cmds */
-	u_int8_t	_pad;
-	u_int16_t	pf;		/* AF_xxx for PF_[UN]BIND */
-} __attribute__ ((packed));
+type
+ pnfqnl_msg_config_params = ^nfqnl_msg_config_params;
+ nfqnl_msg_config_params  = packed record
+   copy_range : cuint32;
+   copy_mode  : cuint8;  // enum nfqnl_config_mode
+ end;
 
-enum nfqnl_config_mode {
-	NFQNL_COPY_NONE,
-	NFQNL_COPY_META,
-	NFQNL_COPY_PACKET,
-};
+ nfqnl_attr_config = cint;
 
-struct nfqnl_msg_config_params {
-	u_int32_t	copy_range;
-	u_int8_t	copy_mode;	/* enum nfqnl_config_mode */
-} __attribute__ ((packed));
-
-
-enum nfqnl_attr_config {
-	NFQA_CFG_UNSPEC,
-	NFQA_CFG_CMD,			/* nfqnl_msg_config_cmd */
-	NFQA_CFG_PARAMS,		/* nfqnl_msg_config_params */
-	NFQA_CFG_QUEUE_MAXLEN,		/* u_int32_t */
-	__NFQA_CFG_MAX
-};
-#define NFQA_CFG_MAX (__NFQA_CFG_MAX-1)
-
-*)
+const
+  NFQA_CFG_UNSPEC       = 0;
+  NFQA_CFG_CMD          = 1; // nfqnl_msg_config_cmd
+  NFQA_CFG_PARAMS       = 2; // nfqnl_msg_config_params
+  NFQA_CFG_QUEUE_MAXLEN = 3; // u_int32_t
+  __NFQA_CFG_MAX        = 4;
+  NFQA_CFG_MAX          = __NFQA_CFG_MAX -1;
 
 implementation
 

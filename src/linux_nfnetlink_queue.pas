@@ -42,7 +42,7 @@ type
  nfqnl_msg_packet_hdr  = packed record
    packet_id   : cuint32; // unique ID of packet in queue
    hw_protocol : cuint16; // hw protocol (network order)
-   hook        : cuin8;   // netfilter hook
+   hook        : cuint8;   // netfilter hook
  end;
 
  pnfqnl_msg_packet_hw = ^nfqnl_msg_packet_hw;

@@ -29,28 +29,19 @@ interface
 uses
   ctypes;
 
-(*
+type
+ nfnetlink_groups = cint;
 
-enum nfnetlink_groups {
-	NFNLGRP_NONE,
-#define NFNLGRP_NONE			NFNLGRP_NONE
-	NFNLGRP_CONNTRACK_NEW,
-#define NFNLGRP_CONNTRACK_NEW		NFNLGRP_CONNTRACK_NEW
-	NFNLGRP_CONNTRACK_UPDATE,
-#define NFNLGRP_CONNTRACK_UPDATE	NFNLGRP_CONNTRACK_UPDATE
-	NFNLGRP_CONNTRACK_DESTROY,
-#define NFNLGRP_CONNTRACK_DESTROY	NFNLGRP_CONNTRACK_DESTROY
-	NFNLGRP_CONNTRACK_EXP_NEW,
-#define	NFNLGRP_CONNTRACK_EXP_NEW	NFNLGRP_CONNTRACK_EXP_NEW
-	NFNLGRP_CONNTRACK_EXP_UPDATE,
-#define NFNLGRP_CONNTRACK_EXP_UPDATE	NFNLGRP_CONNTRACK_EXP_UPDATE
-	NFNLGRP_CONNTRACK_EXP_DESTROY,
-#define NFNLGRP_CONNTRACK_EXP_DESTROY	NFNLGRP_CONNTRACK_EXP_DESTROY
-	__NFNLGRP_MAX,
-};
-#define NFNLGRP_MAX	(__NFNLGRP_MAX - 1)
-
-*)
+const
+  NFNLGRP_NONE                  = 0;
+  NFNLGRP_CONNTRACK_NEW         = 1;
+  NFNLGRP_CONNTRACK_UPDATE      = 2;
+  NFNLGRP_CONNTRACK_DESTROY     = 3;
+  NFNLGRP_CONNTRACK_EXP_NEW     = 4;
+  NFNLGRP_CONNTRACK_EXP_UPDATE  = 5;
+  NFNLGRP_CONNTRACK_EXP_DESTROY = 6;
+  __NFNLGRP_MAX                 = 7;
+  NFNLGRP_MAX                   = __NFNLGRP_MAX -1;
 
 type
   pnfgenmsg = ^nfgenmsg;
@@ -61,25 +52,27 @@ type
    res_id       : cuint16; // resource id
  end;
 
-(*
-#define NFNETLINK_V0	0
+const
+ NFNETLINK_V0 = 0;
 
-/* netfilter netlink message types are split in two pieces:
+(* netfilter netlink message types are split in two pieces:
  * 8 bit subsystem, 8bit operation.
- */
+ *)
 
-#define NFNL_SUBSYS_ID(x)	((x & 0xff00) >> 8)
-#define NFNL_MSG_TYPE(x)	(x & 0x00ff)
+function NFNL_SUBSYS_ID(x : cuint8) : cuint8; inline; cdecl;
+function NFNL_MSG_TYPE(x : cuint8) : cuint8; inline; cdecl;
 
-/* No enum here, otherwise __stringify() trick of MODULE_ALIAS_NFNL_SUBSYS()
- * won't work anymore */
-#define NFNL_SUBSYS_NONE 		0
-#define NFNL_SUBSYS_CTNETLINK		1
-#define NFNL_SUBSYS_CTNETLINK_EXP	2
-#define NFNL_SUBSYS_QUEUE		3
-#define NFNL_SUBSYS_ULOG		4
-#define NFNL_SUBSYS_COUNT		5
+(* No enum here, otherwise __stringify() trick of MODULE_ALIAS_NFNL_SUBSYS()
+ * won't work anymore *)
+const
+ NFNL_SUBSYS_NONE          = 0;
+ NFNL_SUBSYS_CTNETLINK     = 1;
+ NFNL_SUBSYS_CTNETLINK_EXP = 2;
+ NFNL_SUBSYS_QUEUE         = 3;
+ NFNL_SUBSYS_ULOG          = 4;
+ NFNL_SUBSYS_COUNT         = 5;
 
+(*
 #ifdef __KERNEL__
 
 #include <linux/netlink.h>
@@ -116,6 +109,18 @@ extern int nfnetlink_unicast(struct sk_buff *skb, u_int32_t pid, int flags);
 *)
 
 implementation
+
+function NFNL_SUBSYS_ID(x: cuint8): cuint8; cdecl;
+begin
+//#define NFNL_SUBSYS_ID(x)	((x & 0xff00) >> 8)
+  NFNL_SUBSYS_ID := (x and $ff00) shr 8;
+end;
+
+function NFNL_MSG_TYPE(x: cuint8): cuint8; cdecl;
+begin
+// #define NFNL_MSG_TYPE(x)	(x & 0x00ff)
+  NFNL_MSG_TYPE := x and $00ff;
+end;
 
 end.
 

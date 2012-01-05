@@ -165,8 +165,9 @@ const
  *)
 
 type
- pnlattr = ^nlattr;
- nlattr  = record
+ ppnlattr = ^pnlattr;
+ pnlattr  = ^nlattr;
+ nlattr   = record
    nla_len  : cuint16;
    nla_type : cuint16;
  end;

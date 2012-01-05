@@ -27,7 +27,7 @@ unit libnetfilter_queue;
 interface
 
 uses
-  ctypes, sockets;
+  ctypes, sockets, libnfnetlink, nfnetlink;
 
 const
   NETFILTER_QUEUE_LIB = 'libnetfilter_queue';
@@ -45,52 +45,80 @@ type
 var
   nfq_errno : cint; external NETFILTER_QUEUE_LIB;
 
-//function nfq_nfnlh(h : pnfq_handle
+function nfq_nfnlh(h : pnfq_handle) : pnfnl_handle;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_fd(h : pnfq_handle) : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+type
+ nfq_callback = function(gh   : pnfq_q_handle; nfmsg : nfgenmsg;
+                         nfad : pnfq_data;     data  : pointer) : cint;   cdecl;
+
+function nfq_open : pnfq_handle;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_open_nfnl(nfnlh : pnfnl_handle) : pnfq_handle;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_close(h : pnfq_handle) : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_bind_pf(h : pnfq_handle; pf : cuint16) : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_unbind_pf(h : pnfq_handle; pf : cuint16) : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_create_queue(h    : pnfq_handle;
+                          num  : cuint16;
+                          cb   : nfq_callback;
+                          data : pointer)       : pnfq_q_handle;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_destroy_queue(qh : pnfq_q_handle) : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_handle_packet(h   : pnfq_handle;
+                           buf : PChar;
+                           len : cint)        : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_set_mode(qh   : nfq_q_handle;
+                      mode : cuint8;
+                      len  : cuint)       : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_set_queue_maxlen(qh       : pnfq_q_handle;
+                              queuelen : cuint32)       : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_set_verdict(qh       : pnfq_q_handle;
+                         id       : cuint32;
+                         verdict  : cuint32;
+                         data_len : cuint32;
+                         buf      : PChar)          : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_set_verdict2(qh      : pnfq_q_handle;
+                          id      : cuint32;
+                          verdict : cuint32;
+                          mark    : cuint32;
+                          datalen : cuint32;
+                          buf     : PChar)          : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_set_verdict_mark(qh      : pnfq_q_handle;
+                              id      : cuint32;
+                              verdict : cuint32;
+                              mark    : cuint32;
+                              dataleb : cuint32;
+                              buf     : PChar)          : cint;
+  cdecl; external NETFILTER_QUEUE_LIB; deprecated;
 
 (*
-extern struct nfnl_handle *nfq_nfnlh(struct nfq_handle *h);
-extern int nfq_fd(struct nfq_handle *h);
-
-typedef int  nfq_callback(struct nfq_q_handle *gh, struct nfgenmsg *nfmsg,
-		       struct nfq_data *nfad, void *data);
-
-
-extern struct nfq_handle *nfq_open(void);
-extern struct nfq_handle *nfq_open_nfnl(struct nfnl_handle *nfnlh);
-extern int nfq_close(struct nfq_handle *h);
-
-extern int nfq_bind_pf(struct nfq_handle *h, u_int16_t pf);
-extern int nfq_unbind_pf(struct nfq_handle *h, u_int16_t pf);
-
-extern struct nfq_q_handle *nfq_create_queue(struct nfq_handle *h,
-			      			 u_int16_t num,
-						 nfq_callback *cb,
-						 void *data);
-extern int nfq_destroy_queue(struct nfq_q_handle *qh);
-
-extern int nfq_handle_packet(struct nfq_handle *h, char *buf, int len);
-
-extern int nfq_set_mode(struct nfq_q_handle *qh,
-			  u_int8_t mode, unsigned int len);
-
-int nfq_set_queue_maxlen(struct nfq_q_handle *qh,
-			u_int32_t queuelen);
-
-extern int nfq_set_verdict(struct nfq_q_handle *qh,
-			     u_int32_t id,
-			     u_int32_t verdict,
-			     u_int32_t data_len,
-			     const unsigned char *buf);
-
-extern int nfq_set_verdict2(struct nfq_q_handle *qh,
-			    u_int32_t id,
-			    u_int32_t verdict,
-			    u_int32_t mark,
-			    u_int32_t datalen,
-			    const unsigned char *buf);
-
 extern __attribute__((deprecated))
-int nfq_set_verdict_mark(struct nfq_q_handle *qh,
+int (struct nfq_q_handle *qh,
 			 u_int32_t id,
 			 u_int32_t verdict,
 			 u_int32_t mark,

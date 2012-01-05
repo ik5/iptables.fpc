@@ -49,7 +49,7 @@ const
   NETLINK_NO_ENOBUFS = 5;
 {$ENDIF}
 
-function NLMSG_TAIL(nlh: nlmsghdr): pointer; cdecl; inline;
+//function NLMSG_TAIL(nlh: nlmsghdr): pointer; cdecl; inline;
 
 (*
 #define NFNL_HEADER_LEN	(NLMSG_ALIGN(sizeof(struct nlmsghdr))	\
@@ -72,9 +72,16 @@ struct nfnl_callback {
 	u_int16_t attr_count;
 };
 
-struct nfnl_handle;
-struct nfnl_subsys_handle;
+*)
 
+type
+  pnfnl_handle = ^nfnl_handle;
+  nfnl_handle  = record end;
+
+  pnfnl_subsys_handle = ^nfnl_subsys_handle;
+  nfnl_subsys_handle  = record end;
+
+(*
 extern int nfnl_fd(struct nfnl_handle *h);
 extern unsigned int nfnl_portid(const struct nfnl_handle *h);
 

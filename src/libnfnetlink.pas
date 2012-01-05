@@ -234,8 +234,13 @@ extern void nfnl_dump_packet(struct nlmsghdr *, int, char * );
 #define IFNAMSIZ 16
 #endif
 
-struct nlif_handle;
+*)
 
+type
+  pnlif_handle = ^nlif_handle;
+  nlif_handle  = record end;
+
+(*
 struct nlif_handle *nlif_open(void);
 void nlif_close(struct nlif_handle *orig);
 int nlif_fd(struct nlif_handle *nlif_handle);

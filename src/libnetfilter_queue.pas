@@ -27,7 +27,7 @@ unit libnetfilter_queue;
 interface
 
 uses
-  ctypes, sockets, libnfnetlink, nfnetlink, linux_nfnetlink_queue;
+  ctypes, unixtype, sockets, libnfnetlink, nfnetlink, linux_nfnetlink_queue;
 
 const
   NETFILTER_QUEUE_LIB = 'libnetfilter_queue';
@@ -121,35 +121,64 @@ function nfq_set_verdict_mark(qh      : pnfq_q_handle;
 function nfq_get_msg_packet_hdr(nfad : pnfq_data) : pnfqnl_msg_packet_hdr;
  cdecl; external NETFILTER_QUEUE_LIB;
 
+function nfq_get_nfmark(nfad : pnfq_data) : cuint32;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_get_timestamp(nfad : pnfq_data; tv : ptimeval) : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+// return 0 if not set
+
+function nfq_get_indev(nfad : pnfq_data) : cuint32;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_get_physindev(nfad : pnfq_data) : cuint32;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_get_outdev(nfad : pnfq_data) : cuint32;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_get_physoutdev(nfad : pnfq_data) : cuint32;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_get_indev_name(nlif_handle : pnlif_handle;
+                            nfad        : pnfq_data;
+                            name        : PChar)         : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_get_physindev_name(nlif_handle : pnlif_handle;
+                                nfad        : pnfq_data;
+                                name        : PChar)         : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_get_outdev_name(nlif_handle : pnlif_handle;
+                             nfad        : pnfq_data;
+                             name        : PChar)         : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_get_physoutdev_name(nlif_handle : pnlif_handle;
+                                 nfad        : pnfq_data;
+                                 name        : PChar)         : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+function nfq_get_packet_hw(nfad : pnfq_data) : pnfqnl_msg_packet_hw;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+//return -1 if problem, length otherwise
+function nfq_get_payload(nfad : pnfq_data;
+                         data : ppchar)     : cint;
+ cdecl; external NETFILTER_QUEUE_LIB;
+
+const
+ NFQ_XML_HW   = 1 shl 0;
+ NFQ_XML_MARK = 1 shl 1;
+ NFQ_XML_DEV  =
+
 (*
-extern u_int32_t nfq_get_nfmark(struct nfq_data *nfad);
-
-extern int nfq_get_timestamp(struct nfq_data *nfad, struct timeval *tv);
-
-/* return 0 if not set */
-extern u_int32_t nfq_get_indev(struct nfq_data *nfad);
-extern u_int32_t nfq_get_physindev(struct nfq_data *nfad);
-extern u_int32_t nfq_get_outdev(struct nfq_data *nfad);
-extern u_int32_t nfq_get_physoutdev(struct nfq_data *nfad);
-
-extern int nfq_get_indev_name(struct nlif_handle *nlif_handle,
-			      struct nfq_data *nfad, char *name);
-extern int nfq_get_physindev_name(struct nlif_handle *nlif_handle,
-			          struct nfq_data *nfad, char *name);
-extern int nfq_get_outdev_name(struct nlif_handle *nlif_handle,
-			       struct nfq_data *nfad, char *name);
-extern int nfq_get_physoutdev_name(struct nlif_handle *nlif_handle,
-				   struct nfq_data *nfad, char *name);
-
-extern struct nfqnl_msg_packet_hw *nfq_get_packet_hw(struct nfq_data *nfad);
-
-/* return -1 if problem, length otherwise */
-extern int nfq_get_payload(struct nfq_data *nfad, unsigned char **data);
-
 enum {
-	NFQ_XML_HW	= (1 << 0),
-	NFQ_XML_MARK	= (1 << 1),
-	NFQ_XML_DEV	= (1 << 2),
+		= (1 << 0),
+		= (1 << 1),
+		= (1 << 2),
 	NFQ_XML_PHYSDEV	= (1 << 3),
 	NFQ_XML_PAYLOAD	= (1 << 4),
 	NFQ_XML_TIME	= (1 << 5),

@@ -4,68 +4,71 @@ program test_libnetfilter;
 
 uses
  libnetfilter_queue, netfilter, libnfnetlink, nfnetlink, netlink_kernel,
- linux_nfnetlink_queue
+ linux_nfnetlink_queue, ctypes, Sockets, sysutils
   { you can add units after this };
 
 // Implementing http://www.netfilter.org/projects/libnetfilter_queue/doxygen/nfqnl__test_8c_source.html
 // In Pascal
 
+// returns packet id
+function print_pkt(tb : pnfq_data) : cuint32;
+var
+  id    : cint;
+  ph    : pnfqnl_msg_packet_hdr;
+  hwph  : pnfqnl_msg_packet_hw;
+  mark,
+  ifi   : cuint32;
+  ret   : cint;
+  data  : PChar;
+  i,
+  hlen  : cint;
+begin
+  id := 0;
+  ph := nfq_get_msg_packet_hdr(tb);
+  if Assigned(ph) then
+   begin
+     id := ntohl(ph^.packet_id);
+     write(format('hw_protocol=0x%04x hook=%u id=%u ',
+                  [ntohs(ph^.hw_protocol), ph^.hook, id]));
+   end;
+
+  hwph := nfq_get_packet_hw(tb);
+  if Assigned(hwph) then
+   begin
+     hlen := NToHs(hwph^.hw_addrlen);
+     write('gw_src_addr=');
+     i := 0;
+     while i < hlen -1 do
+      begin
+        write(format('%02x:', [hwph^.hw_addr[i]]));
+        inc(i);
+      end;
+     write(format('%02x:', [hwph^.hw_addr[i-1]]));
+   end;
+
+  mark := nfq_get_nfmark(tb);
+  if mark > 0 then write('mark=', mark, ' ');
+
+  ifi := nfq_get_indev(tb);
+  if ifi > 0 then write('indev=', ifi, ' ');
+
+  ifi := nfq_get_outdev(tb);
+  if ifi > 0 then write('outdev=', ifi > 0, ' ');
+
+  ifi := nfq_get_physindev(tb);
+  if ifi > 0 then write('physindev=', ifi > 0, ' ');
+
+  ifi := nfq_get_physoutdev(tb);
+  if ifi > 0 then write('physoutdev=', ifi > 0);
+
+  ret := nfq_get_payload(tb, @data);
+  if ret >= 0 then write('payload_len=', ret, ' ');
+  writeln;
+
+  Result := id;
+end;
+
 (*
-/* returns packet id */
-static u_int32_t print_pkt (struct nfq_data *tb)
-{
-        int id = 0;
-        struct nfqnl_msg_packet_hdr *ph;
-        struct nfqnl_msg_packet_hw *hwph;
-        u_int32_t mark,ifi;
-        int ret;
-        unsigned char *data;
-
-        ph = nfq_get_msg_packet_hdr(tb);
-        if (ph) {
-                id = ntohl(ph->packet_id);
-                printf("hw_protocol=0x%04x hook=%u id=%u ",
-                        ntohs(ph->hw_protocol), ph->hook, id);
-        }
-
-        hwph = nfq_get_packet_hw(tb);
-        if (hwph) {
-                int i, hlen = ntohs(hwph->hw_addrlen);
-
-                printf("hw_src_addr=");
-                for (i = 0; i < hlen-1; i++)
-                        printf("%02x:", hwph->hw_addr[i]);
-                printf("%02x ", hwph->hw_addr[hlen-1]);
-        }
-
-        mark = nfq_get_nfmark(tb);
-        if (mark)
-                printf("mark=%u ", mark);
-
-        ifi = nfq_get_indev(tb);
-        if (ifi)
-                printf("indev=%u ", ifi);
-
-        ifi = nfq_get_outdev(tb);
-        if (ifi)
-                printf("outdev=%u ", ifi);
-        ifi = nfq_get_physindev(tb);
-        if (ifi)
-                printf("physindev=%u ", ifi);
-
-        ifi = nfq_get_physoutdev(tb);
-        if (ifi)
-                printf("physoutdev=%u ", ifi);
-
-        ret = nfq_get_payload(tb, &data);
-        if (ret >= 0)
-                printf("payload_len=%d ", ret);
-
-        fputc('\n', stdout);
-
-        return id;
-}
-
 
 static int cb(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
               struct nfq_data *nfa, void *data)

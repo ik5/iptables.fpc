@@ -26,8 +26,8 @@ unit libnfnetlink;
 
 interface
 
-uses
-  ctypes, sockets, netlink_kernel;
+{uses
+  ctypes, sockets, netlink_kernel;}
 
 {$IF not defined(NETLINK_NETFILTER)}
 const

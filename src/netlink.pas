@@ -27,7 +27,7 @@ unit netlink;
 interface
 
 uses
-  ctypes, Sockets;
+  ctypes;
 
 const
  NETLINK_ROUTE          = 0;	// Routing/device hook

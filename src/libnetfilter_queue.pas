@@ -27,7 +27,7 @@ unit libnetfilter_queue;
 interface
 
 uses
-  ctypes, unixtype, sockets, libnfnetlink, nfnetlink, linux_nfnetlink_queue;
+  unixtype, libnfnetlink, nfnetlink, linux_nfnetlink_queue;
 
 const
   NETFILTER_QUEUE_LIB = 'libnetfilter_queue';
@@ -170,23 +170,19 @@ function nfq_get_payload(nfad : pnfq_data;
  cdecl; external NETFILTER_QUEUE_LIB;
 
 const
- NFQ_XML_HW   = 1 shl 0;
- NFQ_XML_MARK = 1 shl 1;
- NFQ_XML_DEV  =
+ NFQ_XML_HW      = 1 shl 0;
+ NFQ_XML_MARK    = 1 shl 1;
+ NFQ_XML_DEV     = 1 shl 2;
+ NFQ_XML_PHYSDEV = 1 shl 3;
+ NFQ_XML_PAYLOAD = 1 shl 4;
+ NFQ_XML_TIME    = 1 shl 5;
+ NFQ_XML_ALL     = cuint(not 0);
 
-(*
-enum {
-		= (1 << 0),
-		= (1 << 1),
-		= (1 << 2),
-	NFQ_XML_PHYSDEV	= (1 << 3),
-	NFQ_XML_PAYLOAD	= (1 << 4),
-	NFQ_XML_TIME	= (1 << 5),
-	NFQ_XML_ALL	= ~0U,
-};
-
-extern int nfq_snprintf_xml(char *buf, size_t len, struct nfq_data *tb, int flags);
-*)
+function nfq_snprintf_xml(buf   : PChar;
+                          len   : size_t;
+                          tb    : pnfq_data;
+                          flags : cint)      : cint;
+cdecl; external NETFILTER_QUEUE_LIB;
 
 implementation
 

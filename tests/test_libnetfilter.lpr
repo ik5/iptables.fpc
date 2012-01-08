@@ -81,7 +81,7 @@ end;
 var
   h   : pnfq_handle;
   qh  : pnfq_q_handle;
-  nh  : pnfnl_handle;
+  //nh  : pnfnl_handle;
   fd  : cint;
   rv  : cint;
   buf : array[0..4096] of char;

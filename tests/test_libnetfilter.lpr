@@ -68,81 +68,74 @@ begin
   Result := id;
 end;
 
-(*
+function cb(gh   : pnfq_q_handle; nfmsg : nfgenmsg;
+            nfad : pnfq_data;     data  : pointer) : cint; cdecl;
+var
+  id : cuint32;
+begin
+  id := print_pkt(nfad);
+  writeln('Entering callback');
+  Result := nfq_set_verdict(gh, id, NF_ACCEPT, 0, Nil);
+end;
 
-static int cb(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
-              struct nfq_data *nfa, void *data)
-{
-        u_int32_t id = print_pkt(nfa);
-        printf("entering callback\n");
-        return nfq_set_verdict(qh, id, NF_ACCEPT, 0, NULL);
-}
+var
+  h   : pnfq_handle;
+  qh  : pnfq_q_handle;
+  nh  : pnfnl_handle;
+  fd  : cint;
+  rv  : cint;
+  buf : array[0..4096] of char;
 
-int main(int argc, char **argv)
-{
-        struct nfq_handle *h;
-        struct nfq_q_handle *qh;
-        struct nfnl_handle *nh;
-        int fd;
-        int rv;
-        char buf[4096] __attribute__ ((aligned));
-
-        printf("opening library handle\n");
-        h = nfq_open();
-        if (!h) {
-                fprintf(stderr, "error during nfq_open()\n");
-                exit(1);
-        }
-
-        printf("unbinding existing nf_queue handler for AF_INET (if any)\n");
-        if (nfq_unbind_pf(h, AF_INET) < 0) {
-                fprintf(stderr, "error during nfq_unbind_pf()\n");
-                exit(1);
-        }
-
-        printf("binding nfnetlink_queue as nf_queue handler for AF_INET\n");
-        if (nfq_bind_pf(h, AF_INET) < 0) {
-                fprintf(stderr, "error during nfq_bind_pf()\n");
-                exit(1);
-        }
-
-        printf("binding this socket to queue '0'\n");
-        qh = nfq_create_queue(h,  0, &cb, NULL);
-        if (!qh) {
-                fprintf(stderr, "error during nfq_create_queue()\n");
-                exit(1);
-        }
-
-        printf("setting copy_packet mode\n");
-        if (nfq_set_mode(qh, NFQNL_COPY_PACKET, 0xffff) < 0) {
-                fprintf(stderr, "can't set packet_copy mode\n");
-                exit(1);
-        }
-
-        fd = nfq_fd(h);
-
-        while ((rv = recv(fd, buf, sizeof(buf), 0)) && rv >= 0) {
-                printf("pkt received\n");
-                nfq_handle_packet(h, buf, rv);
-        }
-
-        printf("unbinding from queue 0\n");
-        nfq_destroy_queue(qh);
-
-#ifdef INSANE
-        /* normally, applications SHOULD NOT issue this command, since
-         * it detaches other programs/sockets from AF_INET, too ! */
-        printf("unbinding from AF_INET\n");
-        nfq_unbind_pf(h, AF_INET);
-#endif
-
-        printf("closing library handle\n");
-        nfq_close(h);
-
-        exit(0);
-}
-*)
+procedure die(const s : string); inline;
+begin
+  writeln(stderr, s);
+  halt(1);
+end;
 
 begin
+  writeln('opening library handle');
+  h := nfq_open;
+  if not Assigned(h) then
+     die('Error during nfq_open()');
+
+  writeln('unbinding existing nf_queue handler for AF_INET (if any)');
+  if nfq_unbind_pf(h, AF_INET) < 0 then
+   die('error during nfq_unbind_pf()');
+
+  writeln('binding nfnetlink_queue as nf_queue handler for AF_INET');
+  if nfq_bind_pf(h, AF_INET) < 0 then
+   die('error during nfq_bind_pf()');
+
+  writeln('binding this socket to queue "0"');
+  qh := nfq_create_queue(h, 0, @cb, nil);
+  if not Assigned(qh) then
+   die('error during nfq_create_queue()');
+
+  writeln('setting copy_packet mode');
+  if nfq_set_mode(qh, NFQNL_COPY_PACKET, $ffff) < 0 then
+   die('can''t set packet_copy mode');
+
+  fd := nfq_fd(h);
+
+  rv := fprecv(fd, @buf, Length(buf), 0);
+  while (rv >= 0) do
+   begin
+     writeln('pkt received');
+     nfq_handle_packet(h, @buf, rv);
+     rv := fprecv(fd, @buf, Length(buf), 0);
+   end;
+
+  writeln('unbinding from queue 0');
+  nfq_destroy_queue(qh);
+
+  {$IFDEF INSANE}
+  (* normally, applications SHOULD NOT issue this command, since
+   * it detaches other programs/sockets from AF_INET, too ! *)
+   writeln('unbinding from AF_INET');
+  nfq_unbind_pf(h, AF_INET);
+  {$ENDIF}
+
+  writeln('closing library handle');
+  nfq_close(h);
 end.
 

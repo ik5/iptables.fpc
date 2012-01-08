@@ -84,7 +84,7 @@ function nfq_handle_packet(h   : pnfq_handle;
                            len : cint)        : cint;
  cdecl; external NETFILTER_QUEUE_LIB;
 
-function nfq_set_mode(qh   : nfq_q_handle;
+function nfq_set_mode(qh   : pnfq_q_handle;
                       mode : cuint8;
                       len  : cuint)       : cint;
  cdecl; external NETFILTER_QUEUE_LIB;

@@ -28,4 +28,10 @@ LGPL allow to us to work with GPL, because the binding code is open source and
 match the GPL criteria, but the dynamic lining with LGPL does not require you to
 release back your source code, unless you change the LGPL code itself.
 
+What are the requirements for this library ?
+------------------------------------------
+* Linux Kernel 2.6.30 or 3.0 and above
+* Free Pascal Compiler v2.6.0 
+* Technical English skills to read documentation
+* Understanding the Pascal dialect of the given units
 

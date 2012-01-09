@@ -1,5 +1,7 @@
 program test_libnetfilter;
 
+// iptables -A INPUT -p tcp --sport 80 -j NFQUEUE --queue-num 0
+
 {$mode objfpc}{$H+}
 
 uses
@@ -28,7 +30,7 @@ begin
   if Assigned(ph) then
    begin
      id := ntohl(ph^.packet_id);
-     write(format('hw_protocol=0x%04x hook=%u id=%u ',
+     write(format('hw_protocol=0x%.4x hook=%u id=%u ',
                   [ntohs(ph^.hw_protocol), ph^.hook, id]));
    end;
 
@@ -40,10 +42,10 @@ begin
      i := 0;
      while i < hlen -1 do
       begin
-        write(format('%02x:', [hwph^.hw_addr[i]]));
+        write(format('%.2x:', [hwph^.hw_addr[i]]));
         inc(i);
       end;
-     write(format('%02x:', [hwph^.hw_addr[i-1]]));
+     write(format('%.2x:', [hwph^.hw_addr[i-1]]));
    end;
 
   mark := nfq_get_nfmark(tb);

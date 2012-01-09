@@ -55,13 +55,13 @@ begin
   if ifi > 0 then write('indev=', ifi, ' ');
 
   ifi := nfq_get_outdev(tb);
-  if ifi > 0 then write('outdev=', ifi > 0, ' ');
+  if ifi > 0 then write('outdev=', ifi, ' ');
 
   ifi := nfq_get_physindev(tb);
-  if ifi > 0 then write('physindev=', ifi > 0, ' ');
+  if ifi > 0 then write('physindev=', ifi, ' ');
 
   ifi := nfq_get_physoutdev(tb);
-  if ifi > 0 then write('physoutdev=', ifi > 0);
+  if ifi > 0 then write('physoutdev=', ifi);
 
   ret := nfq_get_payload(tb, @data);
   if ret >= 0 then write('payload_len=', ret, ' ');

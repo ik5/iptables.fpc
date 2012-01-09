@@ -6,7 +6,7 @@ program test_libnetfilter;
 
 uses
  libnetfilter_queue, netfilter, libnfnetlink, nfnetlink, netlink_kernel,
- linux_nfnetlink_queue, ctypes, Sockets, sysutils
+ linux_nfnetlink_queue, ctypes, Sockets, sysutils, BaseUnix
   { you can add units after this };
 
 // Implementing http://www.netfilter.org/projects/libnetfilter_queue/doxygen/nfqnl__test_8c_source.html
@@ -95,6 +95,9 @@ begin
 end;
 
 begin
+  if FpGetuid <> 0 then
+   die('This program must be executed as root');
+
   writeln('opening library handle');
   h := nfq_open;
   if not Assigned(h) then

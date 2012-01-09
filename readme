@@ -1,0 +1,31 @@
+iptables.fpc
+============
+
+The following library is a Pascal binding and dynamic linking of netfilter's 
+User Space.
+
+Some FAQ:
+=========
+
+What is netfilter ?
+-------------------
+netfilter is an open source (GPL) implementation of an OSI layer 3 statful 
+firewall for the Linux Kernel.
+
+netfilter arrive with command lines tools known by the name iptables.
+
+What does this library does ?
+-----------------------------
+The library provide a low level "translation" of the C headers arrive with
+netfilter's User Space library to write extensions or code that can control
+netfilter. 
+
+Why do you provide LGPL code ?
+------------------------------
+I wish to allow others to use the translated code commercially, but GPL does not
+allow to do so without releasing the source code. 
+LGPL allow to us to work with GPL, because the binding code is open source and
+match the GPL criteria, but the dynamic lining with LGPL does not require you to
+release back your source code, unless you change the LGPL code itself.
+
+

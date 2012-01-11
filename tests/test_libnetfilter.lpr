@@ -45,7 +45,7 @@ begin
         write(format('%.2x:', [hwph^.hw_addr[i]]));
         inc(i);
       end;
-     write(format('%.2x:', [hwph^.hw_addr[i-1]]));
+     write(format('%.2x ', [hwph^.hw_addr[i-1]]));
    end;
 
   mark := nfq_get_nfmark(tb);

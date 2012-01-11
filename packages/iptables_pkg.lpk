@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <Name Value="iptables_pkg"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="./iptables_libs/src/"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <MsgFileName Value=""/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="16">
+      <Item1>
+        <Filename Value="../src/libnfnetlink.pas"/>
+        <UnitName Value="libnfnetlink"/>
+      </Item1>
+      <Item2>
+        <Filename Value="../src/x_tables.pas"/>
+        <UnitName Value="x_tables"/>
+      </Item2>
+      <Item3>
+        <Filename Value="../src/libxtables.pas"/>
+        <UnitName Value="libxtables"/>
+      </Item3>
+      <Item4>
+        <Filename Value="../src/nfnetlink.pas"/>
+        <UnitName Value="nfnetlink"/>
+      </Item4>
+      <Item5>
+        <Filename Value="../src/netlink_kernel.pas"/>
+        <UnitName Value="netlink_kernel"/>
+      </Item5>
+      <Item6>
+        <Filename Value="../src/netlink.pas"/>
+        <UnitName Value="netlink"/>
+      </Item6>
+      <Item7>
+        <Filename Value="../src/fpipv4tables.pas"/>
+        <UnitName Value="fpipv4tables"/>
+      </Item7>
+      <Item8>
+        <Filename Value="../src/linux_nfnetlink_compat.pas"/>
+        <UnitName Value="linux_nfnetlink_compat"/>
+      </Item8>
+      <Item9>
+        <Filename Value="../src/ip_queue.pas"/>
+        <UnitName Value="ip_queue"/>
+      </Item9>
+      <Item10>
+        <Filename Value="../src/linux_nfnetlink_queue.pas"/>
+        <UnitName Value="linux_nfnetlink_queue"/>
+      </Item10>
+      <Item11>
+        <Filename Value="../src/libipq.pas"/>
+        <UnitName Value="libipq"/>
+      </Item11>
+      <Item12>
+        <Filename Value="../src/libip4tc.pas"/>
+        <UnitName Value="libip4tc"/>
+      </Item12>
+      <Item13>
+        <Filename Value="../src/libnetfilter_queue.pas"/>
+        <UnitName Value="libnetfilter_queue"/>
+      </Item13>
+      <Item14>
+        <Filename Value="../src/netfilter.pas"/>
+        <UnitName Value="netfilter"/>
+      </Item14>
+      <Item15>
+        <Filename Value="../readme"/>
+        <Type Value="Text"/>
+      </Item15>
+      <Item16>
+        <Filename Value="../lgpl.txt"/>
+        <Type Value="Text"/>
+      </Item16>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="1">
+      <Item1>
+        <PackageName Value="FCL"/>
+      </Item1>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>
